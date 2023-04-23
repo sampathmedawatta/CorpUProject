@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,11 @@ builder.Services.AddSwaggerGen(c =>
         });
 
     });
+
+var _logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.AddSerilog(_logger);
 
 var app = builder.Build();
 
