@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "EnergyShifterPilotProject": {
+    "EnergyShifterAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
