@@ -69,7 +69,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 
 var _logger = new LoggerConfiguration()
-    .WriteTo.File("C:\\logs\\EnergyShifter\\Log.txt", rollingInterval:RollingInterval.Day)
+    .ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext()
     .CreateLogger();
 builder.Logging.AddSerilog(_logger);
 
