@@ -1,13 +1,23 @@
+using EnergyShifter.API.Auth;
+using EnergyShifter.API.Auth.Interfaces;
+using EnergyShifter.Common;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.Configure<JwtTokenSettings>(builder.Configuration.GetSection("JwtTokenSettings"));
+
+builder.Services.AddSingleton<ITokenGenerator, TokenGenerator>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( c =>
+builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo
         {
@@ -37,10 +47,10 @@ builder.Services.AddSwaggerGen( c =>
         });
 
         c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                  {
+        {
 
-                    {
-                          new OpenApiSecurityScheme
+            {
+                 new OpenApiSecurityScheme
                             {
                                 Reference = new OpenApiReference
                                 {
@@ -52,8 +62,8 @@ builder.Services.AddSwaggerGen( c =>
                                   In = ParameterLocation.Header,
                             },
                             new List<string>()
-                    }
-                    });
+            }
+        });
 
     });
 
@@ -67,6 +77,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
