@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,11 @@ builder.Services.AddSwaggerGen(c =>
         });
 
     });
+
+var _logger = new LoggerConfiguration()
+    .WriteTo.File("C:\\logs\\EnergyShifter\\Log.txt", rollingInterval:RollingInterval.Day)
+    .CreateLogger();
+builder.Logging.AddSerilog(_logger);
 
 var app = builder.Build();
 
