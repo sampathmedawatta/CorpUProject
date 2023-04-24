@@ -1,4 +1,5 @@
-﻿using CorpU.Common;
+﻿using AutoMapper;
+using CorpU.Common;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.Aplicant;
 using Microsoft.Extensions.Options;
@@ -23,11 +24,11 @@ namespace CorpU.Data.Repository
 
         public IAplicantRepository<AplicantDto> Aplicants { get; private set; }
 
-        public UnitOfWork(IOptions<AppSettings> appSetting)
+        public UnitOfWork(IOptions<AppSettings> appSetting, IMapper mapper)
         {
 
             ConnectionString = appSetting.Value.DBConnection;
-            Aplicants = new AplicantRepository(Context);
+            Aplicants = new AplicantRepository(Context, mapper);
         }
 
         public int Complete()

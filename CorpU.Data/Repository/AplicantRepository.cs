@@ -1,4 +1,5 @@
-﻿using CorpU.Data.Models;
+﻿using AutoMapper;
+using CorpU.Data.Models;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.Aplicant;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,13 @@ namespace CorpU.Data.Repository
     {
         private readonly DataContext context;
         private readonly DbSet<AplicantEntity> table;
-        public AplicantRepository(DataContext context)
+        private readonly IMapper _mapper;
+
+        public AplicantRepository(DataContext context, IMapper mapper)
         {
             this.context = context;
             table = context.Set<AplicantEntity>();
+            _mapper = mapper;
         }
 
         public void Delete(Guid id)
