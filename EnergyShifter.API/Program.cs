@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.Configure<JwtTokenSettings>(builder.Configuration.GetSection("JwtTokenSettings"));
-
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("ConnectionStrings"));
 builder.Services.AddSingleton<ITokenGenerator, TokenGenerator>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
