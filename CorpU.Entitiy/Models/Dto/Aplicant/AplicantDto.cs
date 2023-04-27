@@ -10,12 +10,11 @@ namespace CorpU.Entitiy.Models.Dto.Aplicant
     public class AplicantDto
     {
         [JsonPropertyName("aplicantId")]
-        public string applicant_id { get; set; }
+        public int aplicant_id { get; set; }
         [JsonPropertyName("name")]
         public string name { get; set; }
         [JsonPropertyName("name")]
         public string email { get; set; }
-        [JsonPropertyName("password")]
-        public string password { get; set; }
+
     }
 }
