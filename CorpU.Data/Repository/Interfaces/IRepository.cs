@@ -10,9 +10,9 @@ namespace CorpU.Data.Repository.Interfaces
     {
         Task<IEnumerable<T>> GetAllAsync();
 
-        Task<T> GetByIdAsync(string id);
+        Task<T> GetByIdAsync(int id);
         Task<int> Insert(T entity);
-        void Update(T entity);
+        Task<int> Update(T entity);
         void Delete(Guid id);
     }
 }

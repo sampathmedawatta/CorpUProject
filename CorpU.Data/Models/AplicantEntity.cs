@@ -10,10 +10,9 @@ namespace CorpU.Data.Models
     public class AplicantEntity
     {
         [Key]
-        [MaxLength(10)]
         public int aplicant_id { get; set; }
         [MaxLength(50)]
-        public string eame { get; set; }
+        public string name { get; set; }
         [MaxLength(250)]
         public string email { get; set; }
         [MaxLength(256)]
