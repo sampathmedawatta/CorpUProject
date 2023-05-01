@@ -12,8 +12,8 @@ namespace CorpU.Entitiy.Models.Dto.Aplicant
         [JsonPropertyName("class_preferance_id")]
         public int class_preferance_id { get; set; }
 
-        [JsonPropertyName("aplicantId")]
-        public int aplicant_id { get; set; }
+        [JsonPropertyName("applicant")]
+        public ApplicantDto applicant { get; set; }
 
         [JsonPropertyName("class_type_id")]
         public int class_type_id { get; set; }

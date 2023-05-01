@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CorpU.Data.Models;
-using CorpU.Entitiy.Models.Dto.Aplicant;
+using CorpU.Entitiy.Models.Dto.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Profiles
 {
-    public class ApplicantQualificationProfile : Profile
+    public class ApplicationProfile : Profile
     {
-        public ApplicantQualificationProfile()
+        public ApplicationProfile()
         {
             //Get
-            CreateMap<ApplicantQualificationEntiry, ApplicantQualificationDto>();
-            CreateMap<ApplicantQualificationEntiry, ApplicantQualificationDto>()
+            CreateMap<ApplicationEntity, ApplicationDto>();
+            CreateMap<ApplicationEntity, ApplicationDto>()
             .ForMember(dest =>
            dest.applicant.applicant_id,
            opt => opt.MapFrom(src => src.Applicant.applicant_id));
 
             //Set
-            CreateMap<ApplicantQualificationDto, ApplicantQualificationEntiry>();
-            CreateMap<ApplicantQualificationDto, ApplicantQualificationEntiry>()
+            CreateMap<ApplicationDto, ApplicationEntity>();
+            CreateMap<ApplicationDto, ApplicationEntity>()
             .ForMember(dest =>
            dest.Applicant.applicant_id,
            opt => opt.MapFrom(src => src.applicant.applicant_id));

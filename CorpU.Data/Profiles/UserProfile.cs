@@ -15,6 +15,7 @@ namespace CorpU.Data.Profiles
         {
             //Get
             CreateMap<UserEntity, UserDto>();
+            
             CreateMap<UserEntity, UserDto>()
                .ForMember(dest =>
               dest.user_role_id,
@@ -22,6 +23,7 @@ namespace CorpU.Data.Profiles
 
             //Set
             CreateMap<UserDto, UserEntity>();
+            
             CreateMap<UserDto, UserEntity > ()
                .ForMember(dest =>
               dest.UserRole.user_role_id,

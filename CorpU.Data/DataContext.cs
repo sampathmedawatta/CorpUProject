@@ -20,7 +20,7 @@ namespace CorpU.Data
         public virtual DbSet<QualificationTypeEntity> QualificationType { get; set; }
         public virtual DbSet<UnitEntity> Unit { get; set; }
         public virtual DbSet<UserEntity> User { get; set; }
-        public virtual DbSet<UserRoleEntiry> UserRole { get; set; }
+        public virtual DbSet<UserRoleEntity> UserRole { get; set; }
         public virtual DbSet<VacancyEntity> Vacancy { get; set; }
         public virtual DbSet<VacancyTypeEntity> VacancyType { get; set; }
 
@@ -47,7 +47,7 @@ namespace CorpU.Data
             // Create uppdate database : Update - Database
             // https://www.c-sharpcorner.com/UploadFile/26b237/code-first-migrations-in-entity-framework/
 
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-198T1MOJ;Initial Catalog=CorpU_DB_v2;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
+            optionsBuilder.UseSqlServer(_ConnectionString);
         }
     }
 }

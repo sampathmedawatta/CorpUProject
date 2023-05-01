@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CorpU.Data.Models;
-using CorpU.Entitiy.Models.Dto.Referance;
+using CorpU.Entitiy.Models.Dto.Unit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Profiles
 {
-    public class UserRoleProfile : Profile
+    public class UnitProfile : Profile
     {
-        public UserRoleProfile()
+        public UnitProfile()
         {
             //Get
-            CreateMap<UserRoleEntity, UserRoleDto>();
+            CreateMap<UnitEntity, UnitDto>();
 
             //Set
-            CreateMap<UserRoleDto, UserRoleEntity>();
+            CreateMap<UnitDto, UnitEntity>();
 
         }
     }

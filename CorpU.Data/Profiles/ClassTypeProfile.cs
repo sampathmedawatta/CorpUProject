@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Profiles
 {
-    public class UserRoleProfile : Profile
+    public class ClassTypeProfile : Profile
     {
-        public UserRoleProfile()
+        public ClassTypeProfile()
         {
             //Get
-            CreateMap<UserRoleEntity, UserRoleDto>();
-
+            CreateMap<ClassTypeEntity, ClassTypeDto>();
+            
             //Set
-            CreateMap<UserRoleDto, UserRoleEntity>();
-
+            CreateMap<ClassTypeDto, ClassTypeEntity>();
+           
         }
     }
 }
