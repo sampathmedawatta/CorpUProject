@@ -23,7 +23,7 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public IAplicantRepository<AplicantDto> Aplicants { get; private set; }
+        public IAplicantRepository<ApplicantDto> Aplicants { get; private set; }
         public IUserRepository<UserDto> Users { get; private set; }
         public UnitOfWork(IOptions<AppSettings> appSetting, IMapper mapper)
         {

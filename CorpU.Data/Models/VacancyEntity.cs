@@ -14,22 +14,18 @@ namespace CorpU.Data.Models
         public int vacancy_id { get; set; }
 
         [ForeignKey("vacancy_type_id")]
-        public int vacancy_type_id { get; set; }
         public VacancyTypeEntity VacancyType { get; set; }
 
         
         [ForeignKey("class_type_id")]
-        public int class_type_id { get; set; }
         public ClassTypeEntity ClassType { get; set; }
 
         
         [ForeignKey("emp_id")]
-        public int emp_id { get; set; }
         public EmployeeEntity Employee { get; set; }
 
         
         [ForeignKey("unit_id")]
-        public int unit_id { get; set; }
         public UnitEntity Unit { get; set; }
 
 

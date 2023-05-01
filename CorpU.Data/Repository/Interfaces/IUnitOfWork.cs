@@ -10,7 +10,7 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IAplicantRepository<AplicantDto> Aplicants { get; }
+        IAplicantRepository<ApplicantDto> Aplicants { get; }
         IUserRepository<UserDto> Users { get; }
         int Complete();
 

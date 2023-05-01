@@ -9,9 +9,9 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IAplicantRepository<T> : IRepository<T> where T : class
     {
-        Task<IEnumerable<AplicantDto>> GetAllByNameAsync(string Name);
-        Task<IEnumerable<AplicantDto>> GetAllByStatusAsync(bool Status);
-        Task<IEnumerable<AplicantDto>> GetAllByEmailAsync(string Email);
+        Task<IEnumerable<ApplicantDto>> GetAllByNameAsync(string Name);
+        Task<IEnumerable<ApplicantDto>> GetAllByStatusAsync(bool Status);
+        Task<IEnumerable<ApplicantDto>> GetAllByEmailAsync(string Email);
 
     }
 }

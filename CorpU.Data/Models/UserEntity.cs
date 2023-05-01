@@ -19,9 +19,6 @@ namespace CorpU.Data.Models
         [MaxLength(256)]
         public string password { get; set; }
 
-        [Required]
-        [Column("user_role_id")]
-        public int user_role_id { get; set; }
         [ForeignKey("user_role_id")]
         public UserRoleEntiry UserRole { get; set; }
     }

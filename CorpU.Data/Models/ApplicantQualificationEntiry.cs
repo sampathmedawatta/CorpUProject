@@ -14,11 +14,9 @@ namespace CorpU.Data.Models
         public int app_qualification_id { get; set; }
 
         [ForeignKey("applicant_id")]
-        public int applicant_id { get; set; }
-        public AplicantEntity Aplicant { get; set; }
+        public ApplicantEntity Applicant { get; set; }
 
         [ForeignKey("qualification_type_id")]
-        public int qualification_type_id { get; set; }
         public QualificationTypeEntity QualificationType { get; set; }
 
         [MaxLength(250)]
