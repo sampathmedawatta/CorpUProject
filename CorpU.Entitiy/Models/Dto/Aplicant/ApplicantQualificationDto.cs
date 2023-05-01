@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CorpU.Entitiy.Models.Dto.Referance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,15 @@ namespace CorpU.Entitiy.Models.Dto.Aplicant
         [JsonPropertyName("appQualificationId")]
         public int app_qualification_id { get; set; }
 
-        [JsonPropertyName("aplicantId")]
-        public int aplicant_id { get; set; }
-        [JsonPropertyName("qualificationTypeId")]
-        public int qualification_type_id { get; set; }
+        [JsonPropertyName("applicant")]
+        public ApplicantDto applicant { get; set; }
+
+        [JsonPropertyName("qualificationTypeDto")]
+        public QualificationTypeDto qualificationType { get; set; }
+
         [JsonPropertyName("description")]
         public string description { get; set; }
+
         [JsonPropertyName("institute")]
         public string institute { get; set; }
     }

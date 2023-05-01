@@ -12,8 +12,9 @@ namespace CorpU.Entitiy.Models.Dto.Aplicant
         [JsonPropertyName("appContactId")]
         public int app_contact_id { get; set; }
 
-        [JsonPropertyName("aplicantId")]
-        public int aplicant_id { get; set; }
+        [JsonPropertyName("applicant")]
+        public ApplicantDto applicant { get; set; }
+
         [JsonPropertyName("phone")]
         public int phone { get; set; }
         [JsonPropertyName("addressLine1")]

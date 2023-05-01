@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CorpU.Entitiy.Models.Dto.Aplicant;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,8 @@ namespace CorpU.Entitiy.Models.Dto.Application
         [JsonPropertyName("Application_id")]
         public int Application_id { get; set; }
 
-        [JsonPropertyName("aplicantId")]
-        public int aplicant_id { get; set; }
+        [JsonPropertyName("applicant")]
+        public ApplicantDto applicant { get; set; }
 
         [JsonPropertyName("resume_url")]
         public string resume_url { get; set; }

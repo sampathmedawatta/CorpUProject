@@ -10,20 +10,17 @@ using System.Threading.Tasks;
 
 namespace CorpU.Entitiy.Models.Dto.Aplicant
 {
-    public class AplicantDto
+    public class ApplicantDto
     {
-        [JsonPropertyName("aplicantId")]
-        public int aplicant_id { get; set; }
+        [JsonPropertyName("applicantId")]
+        public int applicant_id { get; set; }
         [JsonPropertyName("name")]
         public string name { get; set; }
         [JsonPropertyName("name")]
         public string email { get; set; }
 
-        [JsonPropertyName("userId")]
-        public int user_id { get; set; }
-
         [JsonPropertyName("user")]
-        public UserDto User { get; set; }
+        public UserDto user { get; set; }
 
     }
 }

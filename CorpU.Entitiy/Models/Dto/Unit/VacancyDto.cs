@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CorpU.Entitiy.Models.Dto.Employee;
+using CorpU.Entitiy.Models.Dto.Referance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +14,17 @@ namespace CorpU.Entitiy.Models.Dto.Unit
         [JsonPropertyName("vacancy_id")]
         public int vacancy_id { get; set; }
 
-        [JsonPropertyName("vacancy_type_id")]
-        public int vacancy_type_id { get; set; }
+        [JsonPropertyName("vacancyType")]
+        public VacancyTypeDto vacancyType { get; set; }
 
-        [JsonPropertyName("class_type_id")]
-        public int class_type_id { get; set; }
+        [JsonPropertyName("classType")]
+        public ClassTypeDto classType { get; set; }
 
-        [JsonPropertyName("emp_id")]
-        public int emp_id { get; set; }
+        [JsonPropertyName("employee")]
+        public EmployeeDto employee { get; set; }
 
-        [JsonPropertyName("unit_id")]
-        public int unit_id { get; set; }
+        [JsonPropertyName("unit")]
+        public UnitDto unit { get; set; }
 
         [JsonPropertyName("title")]
         public string title { get; set; }

@@ -12,8 +12,8 @@ namespace CorpU.Entitiy.Models.Dto.Aplicant
         [JsonPropertyName("app_availability_id")]
         public int app_availability_id { get; set; }
 
-        [JsonPropertyName("aplicantId")]
-        public int aplicant_id { get; set; }
+        [JsonPropertyName("applicant")]
+        public ApplicantDto applicant { get; set; }
 
         [JsonPropertyName("start_date")]
         public DateTime start_date { get; set; }
