@@ -15,9 +15,17 @@ namespace CorpU.Data.Profiles
         {
             //Get
             CreateMap<AplicantEntity, AplicantDto>();
+            CreateMap<AplicantEntity, AplicantDto>()
+              .ForMember(dest =>
+             dest.user_id,
+             opt => opt.MapFrom(src => src.user_id));
 
             //Set
             CreateMap<AplicantDto, AplicantEntity>();
+            CreateMap<AplicantDto, AplicantEntity>()
+              .ForMember(dest =>
+             dest.user_id,
+             opt => opt.MapFrom(src => src.user_id));
         }
     }
 }

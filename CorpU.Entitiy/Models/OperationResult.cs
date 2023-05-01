@@ -9,8 +9,8 @@ namespace CorpU.Entitiy.Models
     public class OperationResult
     {
         public int StatusCode { get; set; }
-        public string Message { get; set; }
-        public string Error { get; set; }
-        public dynamic Data { get; set; }
+        public string? Message { get; set; }
+        public string? Error { get; set; }
+        public dynamic? Data { get; set; }
     }
 }

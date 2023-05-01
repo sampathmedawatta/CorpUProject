@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CorpU.Business\CorpU.Business.csproj" />
     <ProjectReference Include="..\CorpU.Common\CorpU.Common.csproj" />
+    <ProjectReference Include="..\CorpU.Data\CorpU.Data.csproj" />
     <ProjectReference Include="..\CorpU.Entitiy\CorpU.Entitiy.csproj" />
   </ItemGroup>
 
