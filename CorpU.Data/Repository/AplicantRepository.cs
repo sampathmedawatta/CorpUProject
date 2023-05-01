@@ -11,73 +11,73 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Repository
 {
-    internal class AplicantRepository : IAplicantRepository<AplicantDto>
+    internal class AplicantRepository : IAplicantRepository<ApplicantDto>
     {
         private readonly DataContext context;
-        private readonly DbSet<AplicantEntity> table;
+        private readonly DbSet<ApplicantEntity> table;
         private readonly IMapper _mapper;
 
         public AplicantRepository(DataContext context, IMapper mapper)
         {
             this.context = context;
-            table = context.Set<AplicantEntity>();
+            table = context.Set<ApplicantEntity>();
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AplicantDto>> GetAllAsync()
+        public async Task<IEnumerable<ApplicantDto>> GetAllAsync()
         {
             var AplicantList = await table
                 .ToListAsync();
-            return _mapper.Map<IEnumerable<AplicantDto>>(AplicantList);
+            return _mapper.Map<IEnumerable<ApplicantDto>>(AplicantList);
         }
 
-        public async Task<IEnumerable<AplicantDto>> GetAllByEmailAsync(string Email)
+        public async Task<IEnumerable<ApplicantDto>> GetAllByEmailAsync(string Email)
         {
             var AplicantList = await table.Where(e => e.email == Email)
                .ToListAsync();
 
-            return _mapper.Map<IEnumerable<AplicantDto>>(AplicantList);
+            return _mapper.Map<IEnumerable<ApplicantDto>>(AplicantList);
         }
 
-        public async Task<IEnumerable<AplicantDto>> GetAllByNameAsync(string Name)
+        public async Task<IEnumerable<ApplicantDto>> GetAllByNameAsync(string Name)
         {
             var AplicantList = await table.Where(e => e.name == Name)
                .ToListAsync();
 
-            return _mapper.Map<IEnumerable<AplicantDto>>(AplicantList);
+            return _mapper.Map<IEnumerable<ApplicantDto>>(AplicantList);
         }
 
-        public async Task<IEnumerable<AplicantDto>> GetAllByStatusAsync(bool Status)
+        public async Task<IEnumerable<ApplicantDto>> GetAllByStatusAsync(bool Status)
         {
             var AplicantList = await table.Where(e => e.status == Status)
                .ToListAsync();
 
-            return _mapper.Map<IEnumerable<AplicantDto>>(AplicantList);
+            return _mapper.Map<IEnumerable<ApplicantDto>>(AplicantList);
         }
 
-        public async Task<AplicantDto> GetByIdAsync(int id)
+        public async Task<ApplicantDto> GetByIdAsync(int id)
         {
-            var Aplicant = await table.Where(e => e.aplicant_id == id)
+            var Aplicant = await table.Where(e => e.applicant_id == id)
               .ToListAsync();
 
-            return _mapper.Map<AplicantDto>(Aplicant);
+            return _mapper.Map<ApplicantDto>(Aplicant);
         }
 
-        public async Task<int> Insert(AplicantDto entity)
+        public async Task<int> Insert(ApplicantDto entity)
         {
-            AplicantEntity aplicantEntity;
-            aplicantEntity = _mapper.Map<AplicantDto, AplicantEntity>(entity);
+            ApplicantEntity aplicantEntity;
+            aplicantEntity = _mapper.Map<ApplicantDto, ApplicantEntity>(entity);
 
-            this.context.Set<AplicantEntity>().Add(aplicantEntity);
+            this.context.Set<ApplicantEntity>().Add(aplicantEntity);
             int excecutedRows = await this.context.SaveChangesAsync();
 
-            entity.aplicant_id = aplicantEntity.aplicant_id;
+            entity.aplicant_id = aplicantEntity.applicant_id;
             return excecutedRows;
         }
 
-        public async Task<int> Update(AplicantDto entity)
+        public async Task<int> Update(ApplicantDto entity)
         {
-            AplicantEntity aplicant = await table.Where(c => c.aplicant_id == entity.aplicant_id).FirstOrDefaultAsync();
+            ApplicantEntity aplicant = await table.Where(c => c.applicant_id == entity.aplicant_id).FirstOrDefaultAsync();
 
             if (aplicant != null)
             {

@@ -8,7 +8,7 @@ namespace CorpU.Data.Profiles
 {
     public class MappingProfile
     {
-        private readonly AplicantProfile _AplicantProfile;
+        private readonly ApplicantProfile _ApplicantProfile;
         private readonly ApplicantQualificationProfile _ApplicantQualificationProfile;
         private readonly ApplicantContactDetailProfile _ApplicantContactDetailProfile;
         private readonly UserProfile _UserProfile;
@@ -16,7 +16,7 @@ namespace CorpU.Data.Profiles
 
         public MappingProfile()
         {
-            _AplicantProfile = new AplicantProfile();
+            _ApplicantProfile = new ApplicantProfile();
             _ApplicantContactDetailProfile = new ApplicantContactDetailProfile();
             _ApplicantQualificationProfile = new ApplicantQualificationProfile();
             _UserProfile = new UserProfile();

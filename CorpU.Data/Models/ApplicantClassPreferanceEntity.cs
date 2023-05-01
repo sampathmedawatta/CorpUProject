@@ -13,12 +13,10 @@ namespace CorpU.Data.Models
         [Key]
         public int class_preferance_id { get; set; }
 
-        [ForeignKey("aplicant_id")]
-        public int aplicant_id { get; set; }
-        public AplicantEntity Aplicant { get; set; }
+        [ForeignKey("applicant_id")]
+        public ApplicantEntity Applicant { get; set; }
 
         [ForeignKey("class_type_id")]
-        public int class_type_id { get; set; }
         public ClassTypeEntity ClassType { get; set; }
 
     }

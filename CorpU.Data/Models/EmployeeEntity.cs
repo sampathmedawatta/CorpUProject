@@ -10,15 +10,13 @@ namespace CorpU.Data.Models
 {
     public class EmployeeEntity
     {
-        
+        [Key]
         public int emp_id { get; set; }
        
         [ForeignKey("emp_role_id")]
-        public int emp_role_id { get; set; }
         public EmployeeRoleEntity EmployeeRole { get; set; }
        
         [ForeignKey("user_id")]
-        public int user_id { get; set; }
         public UserEntity User { get; set; }
 
         [MaxLength(100)]
@@ -28,7 +26,6 @@ namespace CorpU.Data.Models
         public string phone { get; set; }
 
         [ForeignKey("faculty_id")]
-        public int faculty_id { get; set; }
         public FacultyEntity Faculty { get; set; }
 
         public bool status { get; set; }

@@ -13,9 +13,8 @@ namespace CorpU.Data.Models
         [Key]
         public int app_contact_id { get; set; }
 
-        [ForeignKey("aplicant_id")]
-        public int aplicant_id { get; set; }
-        public AplicantEntity Aplicant { get; set; }
+        [ForeignKey("applicant_id")]
+        public ApplicantEntity Applicant { get; set; }
         public int phone { get; set; }
         [MaxLength(250)]
         public string address_line1 { get; set; }

@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Models
 {
-    public class AplicantEntity
+    public class ApplicantEntity
     {
         [Key]
-        public int aplicant_id { get; set; }
+        public int applicant_id { get; set; }
         [MaxLength(50)]
         public string name { get; set; }
         [MaxLength(250)]
         public string email { get; set; }
 
-        [ForeignKey("user_id")]
         public int user_id { get; set; }
+
+        [ForeignKey("user_id")]
         public UserEntity User { get; set; }
 
         [MaxLength(50)]

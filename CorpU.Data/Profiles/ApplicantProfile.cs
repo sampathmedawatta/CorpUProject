@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Profiles
 {
-    public class AplicantProfile : Profile
+    public class ApplicantProfile : Profile
     {
-        public AplicantProfile()
+        public ApplicantProfile()
         {
             //Get
-            CreateMap<AplicantEntity, AplicantDto>();
-            CreateMap<AplicantEntity, AplicantDto>()
+            CreateMap<ApplicantEntity, ApplicantDto>();
+            CreateMap<ApplicantEntity, ApplicantDto>()
               .ForMember(dest =>
-             dest.user_id,
+             dest.user.user_id,
              opt => opt.MapFrom(src => src.user_id));
 
             //Set
-            CreateMap<AplicantDto, AplicantEntity>();
-            CreateMap<AplicantDto, AplicantEntity>()
+            CreateMap<ApplicantDto, ApplicantEntity>();
+            CreateMap<ApplicantDto, ApplicantEntity>()
               .ForMember(dest =>
              dest.user_id,
-             opt => opt.MapFrom(src => src.user_id));
+             opt => opt.MapFrom(src => src.user.user_id));
         }
     }
 }
