@@ -1,4 +1,5 @@
 ﻿using CorpU.Entitiy.Models.Dto.Aplicant;
+using CorpU.Entitiy.Models.Dto.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace CorpU.Data.Repository.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IAplicantRepository<AplicantDto> Aplicants { get; }
+        IUserRepository<UserDto> Users { get; }
         int Complete();
 
     }

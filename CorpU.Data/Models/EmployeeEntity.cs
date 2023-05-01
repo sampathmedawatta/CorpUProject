@@ -16,6 +16,10 @@ namespace CorpU.Data.Models
         [ForeignKey("emp_role_id")]
         public int emp_role_id { get; set; }
         public EmployeeRoleEntity EmployeeRole { get; set; }
+       
+        [ForeignKey("user_id")]
+        public int user_id { get; set; }
+        public UserEntity User { get; set; }
 
         [MaxLength(100)]
         public string emp_name { get; set; }

@@ -1,10 +1,9 @@
 ﻿using CorpU.API.Auth;
 using CorpU.API.Auth.Interfaces;
+using CorpU.Business.Interfaces;
 using CorpU.Common;
 using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Auth;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -15,35 +14,32 @@ namespace CorpU.API.Controllers
     [ApiKeyAuthentication]
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly ITokenGenerator _tokenGenerator;
         private readonly JwtTokenSettings _jwtTokenSettings;
-        private readonly ILogger<AuthController> _logger;
+        private readonly ILogger<UserController> _logger;
+        private readonly IUserManager _userManager;
         OperationResult _or;
-        public AuthController( ITokenGenerator tokenGenerator, IOptions<JwtTokenSettings> jwtTokenSettings, ILogger<AuthController> logger)
+
+        public UserController(IUserManager userManager, ITokenGenerator tokenGenerator, IOptions<JwtTokenSettings> jwtTokenSettings, ILogger<UserController> logger)
         {
+            this._userManager = userManager;
             this._tokenGenerator = tokenGenerator;
             this._jwtTokenSettings = jwtTokenSettings.Value;
             this._logger = logger;
-        }
-
-        [AllowAnonymous]
-        [HttpGet("HealthCheck")]
-        public ActionResult HealthCheck()
-        {
-            _logger.LogInformation("Health Check executed!");
-            return Ok();
+            this._or = new OperationResult();
         }
 
         [HttpGet()]
-        public ActionResult GetToken()
+        public ActionResult UserLogin(string email, string password)
         {
             try
             {
-                _logger.LogInformation("GetToken executed!");
+                var result =  _userManager.GetByEmailAndPasswordAsync(email, password);
 
-                AuthanticationResponse authanticationResponse = _tokenGenerator.GenerateToken(_jwtTokenSettings.JWT_Secret, "UserName", double.Parse(_jwtTokenSettings.TokenLifeTime));
+                _logger.LogInformation("GetToken executed!");
+                AuthanticationResponse authanticationResponse =  getToken();
 
                 if (authanticationResponse == null)
                 {
@@ -77,6 +73,13 @@ namespace CorpU.API.Controllers
                 _logger.LogError("Error: token generation failed.", _or);
             }
             return Ok(_or);
+        }
+
+        private AuthanticationResponse getToken()
+        {
+            _logger.LogInformation("GetToken executed!");
+
+            return  _tokenGenerator.GenerateToken(_jwtTokenSettings.JWT_Secret, "UserName", double.Parse(_jwtTokenSettings.TokenLifeTime));
         }
     }
 }

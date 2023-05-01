@@ -1,5 +1,7 @@
 ﻿using CorpU.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace CorpU.Data
 {
@@ -16,6 +18,11 @@ namespace CorpU.Data
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_ConnectionString);
         }
     }
 }

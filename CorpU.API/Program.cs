@@ -6,6 +6,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Serilog;
+using CorpU.Data.Repository.Interfaces;
+using CorpU.Data.Repository;
+using CorpU.Data.Profiles;
+using CorpU.Business.Interfaces;
+using CorpU.Business;
+using Microsoft.EntityFrameworkCore;
+using CorpU.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +21,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.Configure<JwtTokenSettings>(builder.Configuration.GetSection("JwtTokenSettings"));
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("ConnectionStrings"));
+
+builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer
+                 (builder.Configuration.GetConnectionString("ConnectionStrings")));
+
+builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<ITokenGenerator, TokenGenerator>();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
