@@ -71,13 +71,13 @@ namespace CorpU.Data.Repository
             this.context.Set<ApplicantEntity>().Add(aplicantEntity);
             int excecutedRows = await this.context.SaveChangesAsync();
 
-            entity.aplicant_id = aplicantEntity.applicant_id;
+            entity.applicant_id = aplicantEntity.applicant_id;
             return excecutedRows;
         }
 
         public async Task<int> Update(ApplicantDto entity)
         {
-            ApplicantEntity aplicant = await table.Where(c => c.applicant_id == entity.aplicant_id).FirstOrDefaultAsync();
+            ApplicantEntity aplicant = await table.Where(c => c.applicant_id == entity.applicant_id).FirstOrDefaultAsync();
 
             if (aplicant != null)
             {

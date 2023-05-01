@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Profiles
 {
-    public class ApplicantQualificationProfile : Profile
+    public class ApplicantClassPreferanceProfile : Profile
     {
-        public ApplicantQualificationProfile()
+        public ApplicantClassPreferanceProfile()
         {
             //Get
-            CreateMap<ApplicantQualificationEntiry, ApplicantQualificationDto>();
-            CreateMap<ApplicantQualificationEntiry, ApplicantQualificationDto>()
+            CreateMap<ApplicantClassPreferanceEntity, ApplicantClassPreferanceDto>();
+            CreateMap<ApplicantClassPreferanceEntity, ApplicantClassPreferanceDto>()
             .ForMember(dest =>
            dest.applicant.applicant_id,
            opt => opt.MapFrom(src => src.Applicant.applicant_id));
 
             //Set
-            CreateMap<ApplicantQualificationDto, ApplicantQualificationEntiry>();
-            CreateMap<ApplicantQualificationDto, ApplicantQualificationEntiry>()
+            CreateMap<ApplicantClassPreferanceDto, ApplicantClassPreferanceEntity>();
+            CreateMap<ApplicantClassPreferanceDto, ApplicantClassPreferanceEntity>()
             .ForMember(dest =>
            dest.Applicant.applicant_id,
            opt => opt.MapFrom(src => src.applicant.applicant_id));

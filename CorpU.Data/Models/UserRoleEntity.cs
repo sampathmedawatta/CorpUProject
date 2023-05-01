@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Models
 {
-    public class UserRoleEntiry
+    public class UserRoleEntity
     {
         [Key]
         public int user_role_id { get; set; }

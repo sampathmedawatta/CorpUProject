@@ -20,6 +20,6 @@ namespace CorpU.Data.Models
         public string password { get; set; }
 
         [ForeignKey("user_role_id")]
-        public UserRoleEntiry UserRole { get; set; }
+        public UserRoleEntity UserRole { get; set; }
     }
 }
