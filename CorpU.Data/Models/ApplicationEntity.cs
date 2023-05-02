@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class ApplicationEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Application_id { get; set; }
 
         [ForeignKey("applicant_id")]

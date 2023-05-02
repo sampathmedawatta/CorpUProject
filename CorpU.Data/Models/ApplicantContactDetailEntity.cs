@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class ApplicantContactDetailEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int app_contact_id { get; set; }
 
         [ForeignKey("applicant_id")]

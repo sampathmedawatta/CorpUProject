@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class ApplicantQualificationEntiry
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int app_qualification_id { get; set; }
 
         [ForeignKey("applicant_id")]

@@ -43,11 +43,148 @@ namespace CorpU.Data
             // select CorpU.Data project as a default project under "package manager console"
             // Startup project should be Corup.API
 
-            // Add migraton : add-migration InitialMigration
-            // Create uppdate database : Update - Database
+            // Add migraton : EntityFrameworkCore\Add-Migration InitialMigration
+            // Create uppdate database : EntityFrameworkCore\Update-Database
             // https://www.c-sharpcorner.com/UploadFile/26b237/code-first-migrations-in-entity-framework/
 
-            optionsBuilder.UseSqlServer(_ConnectionString);
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-198T1MOJ;Initial Catalog=CorpU_DB_v2;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+           modelBuilder.Entity<ClassTypeEntity>()
+            .HasData(
+               new ClassTypeEntity
+               {
+                   class_type_id = 1,
+                   class_description = "Online",
+                   status = true
+               },
+               new ClassTypeEntity
+               {
+                   class_type_id = 2,
+                   class_description = "Lab",
+                   status = true
+               },
+               new ClassTypeEntity
+               {
+                   class_type_id = 3,
+                   class_description = "Theory",
+                   status = true
+               },
+               new ClassTypeEntity
+               {
+                   class_type_id = 4,
+                   class_description = "Workshop",
+                   status = true
+               },
+               new ClassTypeEntity
+               {
+                   class_type_id = 5,
+                   class_description = "Tute",
+                   status = true
+               }
+           );
+
+            modelBuilder.Entity<EmployeeRoleEntity>()
+            .HasData(
+               new EmployeeRoleEntity
+               {
+                   emp_role_id = 1,
+                   role_name = "Admin",
+                   status = true
+               },
+               new EmployeeRoleEntity
+               {
+                   emp_role_id = 2,
+                   role_name = "Manager",
+                   status = true
+               },
+               new EmployeeRoleEntity
+               {
+                   emp_role_id = 3,
+                   role_name = "Staff",
+                   status = true
+               }
+           );
+
+            modelBuilder.Entity<FacultyEntity>()
+            .HasData(
+               new FacultyEntity
+               {
+                   faculty_id = 1,
+                   faculty_name = "Human Resource",
+                   status = true
+               },
+               new FacultyEntity
+               {
+                   faculty_id = 2,
+                   faculty_name = "Information Technology",
+                   status = true
+               },
+               new FacultyEntity
+               {
+                   faculty_id = 3,
+                   faculty_name = "Civil Engineering",
+                   status = true
+               }
+           );
+
+            modelBuilder.Entity<QualificationTypeEntity>()
+            .HasData(
+               new QualificationTypeEntity
+               {
+                   qualification_type_id = 1,
+                   description = "BSc",
+                   status = true
+               },
+               new QualificationTypeEntity
+               {
+                   qualification_type_id = 2,
+                   description = "MSc",
+                   status = true
+               },
+               new QualificationTypeEntity
+               {
+                   qualification_type_id = 3,
+                   description = "Phd",
+                   status = true
+               }
+           );
+
+            modelBuilder.Entity<UserRoleEntity>()
+            .HasData(
+               new UserRoleEntity
+               {
+                   user_role_id = 1,
+                   role_name = "Applicant",
+                   status = true
+               },
+               new UserRoleEntity
+               {
+                   user_role_id = 2,
+                   role_name = "Employee",
+                   status = true
+               }
+           );
+
+            modelBuilder.Entity<VacancyTypeEntity>()
+             .HasData(
+                new VacancyTypeEntity
+                {
+                    vacancy_type_id = 1,
+                    vacancy_name = "Fultime",
+                    status = true
+                },
+                new VacancyTypeEntity
+                {
+                    vacancy_type_id = 2,
+                    vacancy_name = "Parttime",
+                    status = true
+                }
+            );
+
         }
     }
 }

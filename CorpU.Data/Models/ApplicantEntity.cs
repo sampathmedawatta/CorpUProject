@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class ApplicantEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int applicant_id { get; set; }
         [MaxLength(50)]
         public string name { get; set; }

@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class ApplicantClassPreferanceEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int class_preferance_id { get; set; }
 
         [ForeignKey("applicant_id")]

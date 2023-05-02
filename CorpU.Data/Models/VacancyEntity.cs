@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class VacancyEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int vacancy_id { get; set; }
 
         [ForeignKey("vacancy_type_id")]
