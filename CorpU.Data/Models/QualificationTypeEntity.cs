@@ -13,10 +13,10 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int qualification_type_id { get; set; }
-
+        [Required]
         [MaxLength(50)]
         public string description { get; set; }
-
+        [Required]
         public bool status { get; set; }
     }
 }

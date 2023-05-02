@@ -13,12 +13,13 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int unit_id { get; set; }
-
+        [Required]
         [MaxLength(25)]
         public string unit_name { get; set; }
-
+        [Required]
         [MaxLength(10)]
         public string unit_code { get; set; }
+        [Required]
         public bool status { get; set; }
         
     }

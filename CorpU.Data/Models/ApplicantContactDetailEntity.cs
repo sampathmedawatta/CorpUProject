@@ -13,16 +13,21 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int app_contact_id { get; set; }
-
+        [Required]
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
+        [Required]
         public int phone { get; set; }
+        [Required]
         [MaxLength(250)]
         public string address_line1 { get; set; }
+        [Required]
         [MaxLength(250)]
         public string address_line2 { get; set; }
+        [Required]
         [MaxLength(10)]
         public string state { get; set; }
+        [Required]
         public int postcode { get; set; }
     }
 }

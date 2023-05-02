@@ -13,10 +13,10 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int class_type_id { get; set; }
-
+        [Required]
         [MaxLength(250)]
         public string class_description { get; set; }
-
+        [Required]
         public bool status { get; set; }
     }
 }

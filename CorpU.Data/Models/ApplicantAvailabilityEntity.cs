@@ -13,12 +13,12 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int app_availability_id { get; set; }
-
+        [Required]
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
-
+        [Required]
         public DateTime start_date { get; set; }
-
+        [Required]
         public DateTime end_date { get; set; }
     }
 }

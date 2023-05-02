@@ -13,10 +13,10 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int emp_role_id { get; set; }
-
+        [Required]
         [MaxLength(250)]
         public string role_name { get; set; }
-
+        [Required]
         public bool status { get; set; }
     }
 }

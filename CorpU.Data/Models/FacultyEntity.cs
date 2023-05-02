@@ -13,10 +13,10 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int faculty_id { get; set; }
-
+        [Required]
         [MaxLength(250)]
         public string faculty_name { get; set; }
-
+        [Required]
         public bool status { get; set; }
     }
 }
