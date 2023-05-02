@@ -13,10 +13,10 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int vacancy_type_id { get; set; }
-
+        [Required]
         [MaxLength(250)]
         public string vacancy_name { get; set; }
-
+        [Required]
         public bool status { get; set; }
     }
 }

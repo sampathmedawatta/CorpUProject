@@ -13,13 +13,13 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Application_id { get; set; }
-
+        [Required]
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
-
+        [Required]
         [MaxLength(250)]
         public string resume_url { get; set; }
-        
+        [Required]
         [MaxLength(250)]
         public string status { get; set; }
         

@@ -13,10 +13,10 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int class_preferance_id { get; set; }
-
+        [Required]
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
-
+        [Required]
         [ForeignKey("class_type_id")]
         public ClassTypeEntity ClassType { get; set; }
 
