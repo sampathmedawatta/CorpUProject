@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class ApplicantAvailabilityEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int app_availability_id { get; set; }
 
         [ForeignKey("applicant_id")]

@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class EmployeeEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int emp_id { get; set; }
        
         [ForeignKey("emp_role_id")]

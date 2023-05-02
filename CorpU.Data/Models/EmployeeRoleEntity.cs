@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class EmployeeRoleEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int emp_role_id { get; set; }
 
         [MaxLength(250)]

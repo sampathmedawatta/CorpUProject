@@ -11,6 +11,7 @@ namespace CorpU.Data.Models
     public class ClassTypeEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int class_type_id { get; set; }
 
         [MaxLength(250)]

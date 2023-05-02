@@ -12,6 +12,7 @@ namespace CorpU.Data.Models
     {
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int user_id { get; set; }
 
         [MaxLength(250)]
