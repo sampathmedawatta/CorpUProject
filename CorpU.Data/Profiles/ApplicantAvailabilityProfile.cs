@@ -15,17 +15,18 @@ namespace CorpU.Data.Profiles
         {
             //Get
             CreateMap<ApplicantAvailabilityEntity, ApplicantAvailabilityDto>();
+            
             CreateMap<ApplicantAvailabilityEntity, ApplicantAvailabilityDto>()
-            .ForMember(dest =>
-           dest.applicant.applicant_id,
-           opt => opt.MapFrom(src => src.Applicant.applicant_id));
+            .ForPath(dest =>
+            dest.applicant.applicant_id,
+            opt => opt.MapFrom(src => src.Applicant.applicant_id));
 
             //Set
             CreateMap<ApplicantAvailabilityDto, ApplicantAvailabilityEntity>();
             CreateMap<ApplicantAvailabilityDto, ApplicantAvailabilityEntity>()
-            .ForMember(dest =>
-           dest.Applicant.applicant_id,
-           opt => opt.MapFrom(src => src.applicant.applicant_id));
+            .ForPath(dest =>
+            dest.Applicant.applicant_id,
+            opt => opt.MapFrom(src => src.applicant.applicant_id));
         }
     }
 }

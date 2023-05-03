@@ -38,29 +38,42 @@ namespace CorpU.API.Controllers
             {
                 var result =  _userManager.GetByEmailAndPasswordAsync(email, password);
 
-                _logger.LogInformation("GetToken executed!");
-                AuthanticationResponse authanticationResponse =  getToken();
+                if (result != null)
+                {
+                    _logger.LogInformation("GetToken executed!");
+                    AuthanticationResponse authanticationResponse = getToken();
 
-                if (authanticationResponse == null)
+                    if (authanticationResponse == null)
+                    {
+                        _or = new OperationResult
+                        {
+                            Error = "Can not generate the token.",
+                            StatusCode = (int)HttpStatusCode.NotFound,
+                            Data = null
+                        };
+
+                        _logger.LogError("Can not generate the token.", _or);
+                        return Unauthorized(_or);
+                    }
+
+                    _or = new OperationResult
+                    {
+                        Message = "token generated.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = authanticationResponse
+                    };
+                    _logger.LogInformation("token generated.", _or);
+                }
+                else
                 {
                     _or = new OperationResult
                     {
-                        Error = "Can not generate the token.",
-                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Message = "Error: token generation failed.",
+                        StatusCode = (int)HttpStatusCode.InternalServerError,
                         Data = null
                     };
-
-                    _logger.LogError("Can not generate the token.", _or);
-                    return Unauthorized(_or);
+                    _logger.LogError("Error: token generation failed.", _or);
                 }
-
-                _or = new OperationResult
-                {
-                    Message = "token generated.",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Data = authanticationResponse
-                };
-                _logger.LogInformation("token generated.", _or);
             }
             catch (Exception ex)
             {

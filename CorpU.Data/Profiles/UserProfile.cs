@@ -17,7 +17,7 @@ namespace CorpU.Data.Profiles
             CreateMap<UserEntity, UserDto>();
             
             CreateMap<UserEntity, UserDto>()
-               .ForMember(dest =>
+               .ForPath(dest =>
               dest.user_role_id,
               opt => opt.MapFrom(src => src.UserRole.user_role_id));
 
@@ -25,7 +25,7 @@ namespace CorpU.Data.Profiles
             CreateMap<UserDto, UserEntity>();
             
             CreateMap<UserDto, UserEntity > ()
-               .ForMember(dest =>
+               .ForPath(dest =>
               dest.UserRole.user_role_id,
               opt => opt.MapFrom(src => src.user_role_id));
         }

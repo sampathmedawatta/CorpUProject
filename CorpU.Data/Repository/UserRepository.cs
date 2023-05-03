@@ -26,12 +26,19 @@ namespace CorpU.Data.Repository
 
         public async Task<UserDto> GetAllByEmailAndPasswordAsync(string Email, string Password)
         {
-            var User = await table
-                .Where(e => e.email == Email)
-                .Where(e => e.password == Password)
-              .FirstOrDefaultAsync();
+            try
+            {
+                var User = await table
+                    .Where(e => e.email == Email)
+                    .Where(e => e.password == Password)
+                  .FirstOrDefaultAsync();
 
-            return _mapper.Map<UserDto>(User);
+                return _mapper.Map<UserDto>(User);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public void Delete(Guid id)

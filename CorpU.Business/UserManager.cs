@@ -17,8 +17,8 @@ namespace CorpU.Business
         public async Task<UserDto> GetByEmailAndPasswordAsync(string email, string password)
         {
             //TODO : decript the password
-            return await _unitOfWork.Users.GetAllByEmailAndPasswordAsync(email, password);
-
+            var res = await _unitOfWork.Users.GetAllByEmailAndPasswordAsync(email, password);
+            return res;
         }
     }
 }

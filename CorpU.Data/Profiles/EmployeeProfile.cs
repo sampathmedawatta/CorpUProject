@@ -17,17 +17,17 @@ namespace CorpU.Data.Profiles
             CreateMap<EmployeeEntity, EmployeeDto>();
 
             CreateMap<EmployeeEntity, EmployeeDto>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.employeeRole.emp_role_id,
             opt => opt.MapFrom(src => src.EmployeeRole.emp_role_id));
 
             CreateMap<EmployeeEntity, EmployeeDto>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.user.user_id,
             opt => opt.MapFrom(src => src.User.user_id));
 
             CreateMap<EmployeeEntity, EmployeeDto>()
-           .ForMember(dest =>
+           .ForPath(dest =>
             dest.faculty.faculty_id,
             opt => opt.MapFrom(src => src.Faculty.faculty_id));
 
@@ -36,17 +36,17 @@ namespace CorpU.Data.Profiles
             CreateMap<EmployeeDto, EmployeeEntity>();
 
             CreateMap<EmployeeDto, EmployeeEntity>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.EmployeeRole.emp_role_id,
             opt => opt.MapFrom(src => src.employeeRole.emp_role_id));
 
             CreateMap<EmployeeDto, EmployeeEntity>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.User.user_id,
             opt => opt.MapFrom(src => src.user.user_id));
 
             CreateMap<EmployeeDto, EmployeeEntity>()
-           .ForMember(dest =>
+           .ForPath(dest =>
             dest.Faculty.faculty_id,
             opt => opt.MapFrom(src => src.faculty.faculty_id));
         }
