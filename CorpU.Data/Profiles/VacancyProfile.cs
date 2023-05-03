@@ -17,22 +17,22 @@ namespace CorpU.Data.Profiles
             CreateMap<VacancyEntity, VacancyDto>();
 
             CreateMap<VacancyEntity, VacancyDto>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.vacancyType.vacancy_type_id,
             opt => opt.MapFrom(src => src.VacancyType.vacancy_type_id));
 
             CreateMap<VacancyEntity, VacancyDto>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.classType.class_type_id,
             opt => opt.MapFrom(src => src.ClassType.class_type_id));
 
             CreateMap<VacancyEntity, VacancyDto>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.employee.emp_id,
             opt => opt.MapFrom(src => src.Employee.emp_id));
 
             CreateMap<VacancyEntity, VacancyDto>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.unit.unit_id,
             opt => opt.MapFrom(src => src.Unit.unit_id));
 
@@ -40,22 +40,22 @@ namespace CorpU.Data.Profiles
             CreateMap<VacancyDto, VacancyEntity>();
 
             CreateMap<VacancyDto, VacancyEntity>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.VacancyType.vacancy_type_id,
             opt => opt.MapFrom(src => src.vacancyType.vacancy_type_id));
 
             CreateMap<VacancyDto, VacancyEntity>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.ClassType.class_type_id,
             opt => opt.MapFrom(src => src.classType.class_type_id));
 
             CreateMap<VacancyDto, VacancyEntity>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.Employee.emp_id,
             opt => opt.MapFrom(src => src.employee.emp_id));
 
             CreateMap<VacancyDto, VacancyEntity>()
-            .ForMember(dest =>
+            .ForPath(dest =>
             dest.Unit.unit_id,
             opt => opt.MapFrom(src => src.unit.unit_id));
 
