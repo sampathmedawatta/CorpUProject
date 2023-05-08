@@ -11,5 +11,7 @@ namespace CorpU.Business.Interfaces
     public interface IUserManager : IBaseManager
     {
         Task<UserDto> GetByEmailAndPasswordAsync(string email, string password);
+
+        Task<UserDto> CreateUserAsync(UserRegisterDto entity);
     }
 }

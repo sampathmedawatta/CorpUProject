@@ -24,7 +24,7 @@ namespace CorpU.Data.Repository
             _mapper = mapper;
         }
 
-        public async Task<UserDto> GetAllByEmailAndPasswordAsync(string Email, string Password)
+        public async Task<UserDto> GetByEmailAndPasswordAsync(string Email, string Password)
         {
             try
             {
@@ -40,40 +40,99 @@ namespace CorpU.Data.Repository
                 return null;
             }
         }
-
-        public void Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<UserDto>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-              
-
-        public async Task<UserDto> GetByIdAsync(int id)
+        public async Task<UserDto> GetByEmailAsync(string Email)
         {
             try
             {
-                var user = await table.Where(c => c.user_id == id)
-                    .Include(r => r.UserRole)
-                    .FirstOrDefaultAsync();
+                var User = await table
+                    .Where(e => e.email == Email)
+                  .FirstOrDefaultAsync();
 
-                return _mapper.Map<UserEntity, UserDto>(user);
+                return _mapper.Map<UserDto>(User);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        
+
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        {
+            try
+            {
+                var UserList = await table
+                   .Include(r => r.UserRole)
+                    .ToListAsync();
+
+                return _mapper.Map<IEnumerable<UserDto>>(UserList);
+            }
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
-        public Task<int> Insert(UserDto entity)
+
+        public async Task<UserDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await table
+                    .Where(e => e.user_id == id)
+                    .Include(r => r.UserRole)
+                    .FirstOrDefaultAsync();
+
+                return _mapper.Map<UserEntity, UserDto>(user);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public Task<int> Update(UserDto entity)
+        public async Task<int> Insert(UserDto entity)
+        {
+            try
+            {
+                UserEntity userEntity;
+                userEntity = _mapper.Map<UserDto, UserEntity>(entity);
+
+                this.context.Set<UserEntity>().Add(userEntity);
+                int excecutedRows = await this.context.SaveChangesAsync();
+
+                entity.user_id = userEntity.user_id;
+                return excecutedRows;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<int> Update(UserDto entity)
+        {
+            try
+            {
+                UserEntity? User = await table.Where(c => c.user_id == entity.user_id).FirstOrDefaultAsync();
+
+                if (User != null)
+                {
+                    User.email = entity.email;
+
+                    int excecutedRows = await this.context.SaveChangesAsync();
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return 0;
+
+        }
+
+        public void Delete(Guid id)
         {
             throw new NotImplementedException();
         }

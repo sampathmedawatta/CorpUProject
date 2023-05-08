@@ -9,6 +9,7 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUserRepository<T> : IRepository<T> where T : class
     {
-        Task<UserDto> GetAllByEmailAndPasswordAsync(string Email, string Password);
+        Task<UserDto> GetByEmailAndPasswordAsync(string Email, string Password);
+        Task<UserDto> GetByEmailAsync(string Email);
     }
 }

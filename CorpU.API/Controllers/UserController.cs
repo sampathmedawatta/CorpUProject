@@ -32,7 +32,7 @@ namespace CorpU.API.Controllers
             this._or = new OperationResult();
         }
 
-        [HttpGet()]
+        [HttpGet("Login")]
         public async Task<ActionResult> UserLogin([FromQuery] UserLoginDto userLogin)
         {
             try
@@ -83,6 +83,44 @@ namespace CorpU.API.Controllers
                 _or = new OperationResult
                 {
                     Message = "Error: token generation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
+            return Ok(_or);
+        }
+
+        [HttpGet()]
+        public async Task<ActionResult> UserGet([FromQuery] UserLoginDto userLogin)
+        {
+            //TODO
+            UserDto userDto = new UserDto();
+            userDto.email = "sss@sss.com";
+            userDto.password = "11212121221212121";
+            userDto.user_role_id = 1;
+
+            _or = new OperationResult
+            {
+                Message = "user details",
+                StatusCode = (int)HttpStatusCode.InternalServerError,
+                Data = userDto
+            };
+
+            return Ok(_or);
+        }
+            
+        [HttpPost]
+        public async Task<ActionResult> UserAdd([FromQuery] UserRegisterDto userRegisterDto)
+        {
+            try
+            {
+                var user = await _userManager.CreateUserAsync(userRegisterDto);
+            }
+            catch (Exception ex) { 
+                _or = new OperationResult
+                {
+                    Message = "Error: user registration failed.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
