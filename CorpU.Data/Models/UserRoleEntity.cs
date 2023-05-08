@@ -18,5 +18,6 @@ namespace CorpU.Data.Models
         public string role_name { get; set; }
         [Required]
         public bool status { get; set; }
+        public UserEntity User { get; set; }
     }
 }
