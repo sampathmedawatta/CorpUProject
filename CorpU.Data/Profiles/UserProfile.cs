@@ -19,15 +19,12 @@ namespace CorpU.Data.Profiles
             CreateMap<UserEntity, UserDto>()
                .ForPath(dest =>
               dest.user_role_id,
-              opt => opt.MapFrom(src => src.UserRole.user_role_id));
+              opt => opt.MapFrom(src => src.user_role_id));
 
             //Set
             CreateMap<UserDto, UserEntity>();
             
-            CreateMap<UserDto, UserEntity > ()
-               .ForPath(dest =>
-              dest.UserRole.user_role_id,
-              opt => opt.MapFrom(src => src.user_role_id));
+           
         }
     }
 }

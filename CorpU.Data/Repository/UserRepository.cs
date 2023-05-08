@@ -55,8 +55,6 @@ namespace CorpU.Data.Repository
                 return null;
             }
         }
-        
-
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
             try
@@ -72,8 +70,6 @@ namespace CorpU.Data.Repository
                 return null;
             }
         }
-
-
         public async Task<UserDto> GetByIdAsync(int id)
         {
             try
@@ -90,7 +86,6 @@ namespace CorpU.Data.Repository
                 return null;
             }
         }
-
         public async Task<int> Insert(UserDto entity)
         {
             try
@@ -109,7 +104,6 @@ namespace CorpU.Data.Repository
                 return 0;
             }
         }
-
         public async Task<int> Update(UserDto entity)
         {
             try
@@ -131,7 +125,6 @@ namespace CorpU.Data.Repository
             return 0;
 
         }
-
         public void Delete(Guid id)
         {
             throw new NotImplementedException();

@@ -40,7 +40,20 @@ namespace CorpU.Business
             return null;
         }
 
-        public async Task<UserDto?> GetByEmailAndPasswordAsync(string email, string password)
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        {
+            try
+            {
+                return await _unitOfWork.Users.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
+        }
+
+        public async Task<UserDto> GetByEmailAndPasswordAsync(string email, string password)
         {
             //TODO : decript the password
             try
@@ -57,6 +70,20 @@ namespace CorpU.Business
             catch (Exception ex)
             {
                //TODO log error and haddle the error
+            }
+            return null;
+        }
+
+        public async Task<UserDto> GetByEmailAsync(string email)
+        {
+            try
+            {
+                return await _unitOfWork.Users.GetByEmailAsync(email);
+              
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
             }
             return null;
         }

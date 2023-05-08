@@ -92,26 +92,82 @@ namespace CorpU.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult> UserGet([FromQuery] UserLoginDto userLogin)
+        public async Task<ActionResult> GetUserByEmail(string email)
         {
             //TODO
-            UserDto userDto = new UserDto();
-            userDto.email = "sss@sss.com";
-            userDto.password = "11212121221212121";
-            userDto.user_role_id = 1;
-
-            _or = new OperationResult
+            try
             {
-                Message = "user details",
-                StatusCode = (int)HttpStatusCode.InternalServerError,
-                Data = userDto
-            };
+                var user = await _userManager.GetByEmailAsync(email);
+                if(user == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "user details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = user
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: user registration failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
 
             return Ok(_or);
         }
-            
+
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            //TODO
+            try
+            {
+                IEnumerable<UserDto>  user = await _userManager.GetAllAsync();
+
+                if (user == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "user details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = user
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: user registration failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
+
+            return Ok(_or);
+        }
+
         [HttpPost]
-        public async Task<ActionResult> UserAdd([FromQuery] UserRegisterDto userRegisterDto)
+        public async Task<ActionResult> AddUser([FromQuery] UserRegisterDto userRegisterDto)
         {
             try
             {
@@ -128,6 +184,7 @@ namespace CorpU.API.Controllers
             }
             return Ok(_or);
         }
+
 
         private AuthanticationResponse getToken()
         {
