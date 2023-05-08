@@ -4,6 +4,7 @@ using CorpU.Business.Interfaces;
 using CorpU.Common;
 using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Auth;
+using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -32,13 +33,23 @@ namespace CorpU.API.Controllers
         }
 
         [HttpGet()]
-        public ActionResult UserLogin(string email, string password)
+        public async Task<ActionResult> UserLogin([FromQuery] UserLoginDto userLogin)
         {
             try
             {
-                var result =  _userManager.GetByEmailAndPasswordAsync(email, password);
+                var user =  await _userManager.GetByEmailAndPasswordAsync(userLogin.email, userLogin.password);
 
-                if (result != null)
+                if (user == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Error: token generation failed.",
+                        StatusCode = (int)HttpStatusCode.InternalServerError,
+                        Data = null
+                    };
+                    _logger.LogError("Error: token generation failed.", _or);
+                }
+                else
                 {
                     _logger.LogInformation("GetToken executed!");
                     AuthanticationResponse authanticationResponse = getToken();
@@ -56,6 +67,7 @@ namespace CorpU.API.Controllers
                         return Unauthorized(_or);
                     }
 
+                    authanticationResponse.User = user;
                     _or = new OperationResult
                     {
                         Message = "token generated.",
@@ -63,16 +75,7 @@ namespace CorpU.API.Controllers
                         Data = authanticationResponse
                     };
                     _logger.LogInformation("token generated.", _or);
-                }
-                else
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "Error: token generation failed.",
-                        StatusCode = (int)HttpStatusCode.InternalServerError,
-                        Data = null
-                    };
-                    _logger.LogError("Error: token generation failed.", _or);
+
                 }
             }
             catch (Exception ex)

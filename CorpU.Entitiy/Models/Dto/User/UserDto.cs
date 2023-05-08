@@ -16,9 +16,6 @@ namespace CorpU.Entitiy.Models.Dto.User
         [JsonPropertyName("email")]
         public string email { get; set; }
 
-        [JsonPropertyName("password")]
-        public string password { get; set; }
-
         [JsonPropertyName("userRoleId")]
         public int user_role_id { get; set; }
 

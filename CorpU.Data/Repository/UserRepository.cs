@@ -52,9 +52,20 @@ namespace CorpU.Data.Repository
         }
               
 
-        public Task<UserDto> GetByIdAsync(int id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await table.Where(c => c.user_id == id)
+                    .Include(r => r.UserRole)
+                    .FirstOrDefaultAsync();
+
+                return _mapper.Map<UserEntity, UserDto>(user);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         public Task<int> Insert(UserDto entity)

@@ -14,11 +14,25 @@ namespace CorpU.Business
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UserDto> GetByEmailAndPasswordAsync(string email, string password)
+        public async Task<UserDto?> GetByEmailAndPasswordAsync(string email, string password)
         {
             //TODO : decript the password
-            var res = await _unitOfWork.Users.GetAllByEmailAndPasswordAsync(email, password);
-            return res;
+            try
+            {
+                var result = await _unitOfWork.Users.GetAllByEmailAndPasswordAsync(email, password);
+                
+                if(result == null)
+                {
+                    return null;
+                }
+
+                return await _unitOfWork.Users.GetByIdAsync(result.user_id);
+            }
+            catch (Exception ex)
+            {
+               //TODO log error and haddle the error
+            }
+            return null;
         }
     }
 }
