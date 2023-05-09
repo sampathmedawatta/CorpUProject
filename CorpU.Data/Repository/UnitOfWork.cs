@@ -2,6 +2,7 @@
 using CorpU.Common;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.Aplicant;
+using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
 using System;
@@ -25,12 +26,15 @@ namespace CorpU.Data.Repository
 
         public IAplicantRepository<ApplicantDto> Aplicants { get; private set; }
         public IUserRepository<UserDto> Users { get; private set; }
+        public IEmployeeRepository<EmployeeDto> Employees { get; private set; }
+
         public UnitOfWork(IOptions<AppSettings> appSetting, IMapper mapper)
         {
 
             ConnectionString = appSetting.Value.DBConnection;
             Aplicants = new AplicantRepository(Context, mapper);
             Users = new UserRepository(Context, mapper);
+            Employees = new EmployeeRepository(Context, mapper);
         }
 
         public int Complete()

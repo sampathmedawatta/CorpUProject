@@ -1,4 +1,5 @@
 ﻿using CorpU.Entitiy.Models.Dto.Aplicant;
+using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace CorpU.Data.Repository.Interfaces
     {
         IAplicantRepository<ApplicantDto> Aplicants { get; }
         IUserRepository<UserDto> Users { get; }
+
+        IEmployeeRepository<EmployeeDto> Employees { get; }
         int Complete();
 
     }

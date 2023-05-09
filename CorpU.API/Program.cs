@@ -26,6 +26,8 @@ builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer
                  (builder.Configuration.GetConnectionString("ConnectionStrings")));
 
 builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<ITokenGenerator, TokenGenerator>();
 

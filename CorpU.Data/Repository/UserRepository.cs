@@ -23,7 +23,6 @@ namespace CorpU.Data.Repository
             table = context.Set<UserEntity>();
             _mapper = mapper;
         }
-
         public async Task<UserDto> GetByEmailAndPasswordAsync(string Email, string Password)
         {
             try
@@ -125,9 +124,23 @@ namespace CorpU.Data.Repository
             return 0;
 
         }
-        public void Delete(Guid id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                UserEntity? User = await table.Where(c => c.user_id == id).FirstOrDefaultAsync();
+
+                if (User != null)
+                {
+                    this.context.Remove(User);
+                    int excecutedRows = await context.SaveChangesAsync();
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex) { 
+            
+            }
+            return 0;
         }
     }
 }

@@ -13,12 +13,7 @@ namespace CorpU.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int emp_id { get; set; }
-        [Required]
-        [ForeignKey("emp_role_id")]
-        public EmployeeRoleEntity EmployeeRole { get; set; }
-        [Required]
-        [ForeignKey("user_id")]
-        public UserEntity User { get; set; }
+        
         [Required]
         [MaxLength(100)]
         public string emp_name { get; set; }
@@ -27,7 +22,21 @@ namespace CorpU.Data.Models
         public string email { get; set; }
         [Required]
         public string phone { get; set; }
+
         [Required]
+        public int emp_role_id { get; set; }
+
+        [ForeignKey("emp_role_id")]
+        public EmployeeRoleEntity EmployeeRole { get; set; }
+
+        [Required]
+        public int user_id { get; set; }
+        [ForeignKey("user_id")]
+        public UserEntity User { get; set; }
+
+        [Required]
+        public int faculty_id { get; set; }
+
         [ForeignKey("faculty_id")]
         public FacultyEntity Faculty { get; set; }
         [Required]
