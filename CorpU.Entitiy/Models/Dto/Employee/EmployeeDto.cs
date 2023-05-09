@@ -12,16 +12,10 @@ namespace CorpU.Entitiy.Models.Dto.Employee
 {
     public class EmployeeDto
     {
-        [JsonPropertyName("emp_id")]
+        [JsonPropertyName("empId")]
         public int emp_id { get; set; }
 
-        [JsonPropertyName("employeeRole")]
-        public EmployeeRoleDto employeeRole { get; set; }
-
-        [JsonPropertyName("user")]
-        public UserDto user { get; set; }
-
-        [JsonPropertyName("emp_name")]
+        [JsonPropertyName("empName")]
         public string emp_name { get; set; }
 
         [JsonPropertyName("email")]
@@ -29,6 +23,21 @@ namespace CorpU.Entitiy.Models.Dto.Employee
 
         [JsonPropertyName("phone")]
         public string phone { get; set; }
+
+        [JsonPropertyName("empRoleId")]
+        public int emp_role_id { get; set; }
+
+        [JsonPropertyName("employeeRole")]
+        public EmployeeRoleDto employeeRole { get; set; }
+
+        [JsonPropertyName("userId")]
+        public int user_id { get; set; }
+
+        [JsonPropertyName("user")]
+        public UserDto user { get; set; }
+
+        [JsonPropertyName("facultyId")]
+        public int faculty_id { get; set; }
 
         [JsonPropertyName("faculty")]
         public FacultyDto faculty { get; set; }

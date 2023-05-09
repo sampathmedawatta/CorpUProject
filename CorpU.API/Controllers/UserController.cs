@@ -110,7 +110,7 @@ namespace CorpU.API.Controllers
                 _or = new OperationResult
                 {
                     Message = "user details",
-                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    StatusCode = (int)HttpStatusCode.OK,
                     Data = user
                 };
             }

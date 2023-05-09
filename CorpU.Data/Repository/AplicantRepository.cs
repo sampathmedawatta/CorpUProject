@@ -90,7 +90,7 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public void Delete(Guid id)
+        public Task<int> Delete(int id)
         {
             throw new NotImplementedException();
         }
