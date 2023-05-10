@@ -14,10 +14,12 @@ namespace CorpU.Business
     public class EmployeeManager : IEmployeeManager
     {
         private IUnitOfWork _unitOfWork;
+        private readonly IEmailManager _emailManager;
         readonly AuthenticationOptions _AuthenticationOptions;
-        public EmployeeManager(IUnitOfWork unitOfWork)
+        public EmployeeManager(IUnitOfWork unitOfWork, IEmailManager emailManager)
         {
             _unitOfWork = unitOfWork;
+            this._emailManager = emailManager;
             _AuthenticationOptions = new AuthenticationOptions();
         }
 
@@ -56,6 +58,7 @@ namespace CorpU.Business
                         return null;
                     }
 
+                    await _emailManager.SendPaymentSuccessfulEmail();
                     // TODO save the employee sent an email with username and password to employee . they have to verify it. 
 
                     return employeeDtoDto;

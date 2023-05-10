@@ -13,6 +13,7 @@ using CorpU.Business.Interfaces;
 using CorpU.Business;
 using Microsoft.EntityFrameworkCore;
 using CorpU.Data;
+using CorpU.Common.Communication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,14 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("Connec
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer
                  (builder.Configuration.GetConnectionString("ConnectionStrings")));
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+var emailSettings = builder.Configuration
+   .GetSection("EmailSettings")
+   .Get<EmailSettings>();
+builder.Services.AddSingleton(emailSettings);
+
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailManager, EmailManager>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
 
