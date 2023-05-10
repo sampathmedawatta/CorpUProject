@@ -16,9 +16,6 @@ namespace CorpU.Common.Communication
 
         public Message(string subject, string templateName, dynamic data)
         {
-            //To = new List<MailboxAddress>();
-
-            //To.AddRange(to.Select(x => new MailboxAddress("",x)));
             Subject = subject;
             TemplateName = templateName;
             Data = data;
