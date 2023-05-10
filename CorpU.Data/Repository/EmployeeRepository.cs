@@ -102,15 +102,14 @@ namespace CorpU.Data.Repository
 
                 if (Employee != null)
                 {
-                    Employee.email = entity.email;
-                    Employee.email = entity.email;
+                    Employee.emp_name = entity.emp_name;
                     Employee.phone = entity.phone;
                     Employee.faculty_id = entity.faculty_id;
-                    Employee.user_id = entity.user_id;
                     Employee.emp_role_id = entity.emp_role_id;
                     Employee.status = entity.status;
 
                     int excecutedRows = await this.context.SaveChangesAsync();
+
                     return excecutedRows;
                 }
             }

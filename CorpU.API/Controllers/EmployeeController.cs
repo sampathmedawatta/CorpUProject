@@ -24,7 +24,7 @@ namespace CorpU.API.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<ActionResult> AddUser([FromQuery] EmployeeRegisterDto employeeDto)
+        public async Task<ActionResult> AddEmployee([FromQuery] EmployeeRegisterDto employeeDto)
         {
             try
             {
@@ -54,6 +54,45 @@ namespace CorpU.API.Controllers
                 _or = new OperationResult
                 {
                     Message = "Error: employee creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            return Ok(_or);
+        }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateEmployee([FromQuery] EmployeeUpdateDto employeeDto)
+        {
+            try
+            {
+                var employee = await _employeeManager.UpdateEmployeeAsync(employeeDto);
+                if (employee == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Error: employee update failed.",
+                        StatusCode = (int)HttpStatusCode.InternalServerError,
+                        Data = null
+                    };
+                    _logger.LogError("Error: ", _or);
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Employee update successfully",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = employee
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: employee update failed.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };

@@ -39,7 +39,7 @@ namespace CorpU.Business
                 if (userResult >= 0)
                 {
                     EmployeeDto employeeDtoDto = new EmployeeDto();
-                   // employeeDtoDto.emp_name = entity.emp_name;
+                    employeeDtoDto.emp_name = entity.emp_name;
                     employeeDtoDto.email = entity.email;
                     employeeDtoDto.phone = entity.phone;
                     employeeDtoDto.faculty_id = entity.faculty_id;
@@ -60,6 +60,32 @@ namespace CorpU.Business
 
                     return employeeDtoDto;
                 }
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
+        }
+        public async Task<EmployeeDto?> UpdateEmployeeAsync(EmployeeUpdateDto entity)
+        {
+            try
+            {
+                // Can not change the email due to security reasons. Can implement this feature later. 
+                EmployeeDto employeeDtoDto = new EmployeeDto();
+
+                employeeDtoDto.emp_id = entity.emp_id;
+                employeeDtoDto.emp_name = entity.emp_name;
+                employeeDtoDto.phone = entity.phone;
+                employeeDtoDto.faculty_id = entity.faculty_id;
+                employeeDtoDto.emp_role_id = entity.emp_role_id;
+                employeeDtoDto.status = entity.status; 
+
+                var employeeReuslt = await _unitOfWork.Employees.Update(employeeDtoDto);
+
+                var employee = await GetByIdAsync(employeeDtoDto.emp_id);
+
+                return employee;
             }
             catch (Exception ex)
             {
