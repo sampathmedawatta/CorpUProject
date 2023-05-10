@@ -12,6 +12,7 @@ namespace CorpU.Business.Interfaces
     {
         Task<UserDto> GetByEmailAndPasswordAsync(string email, string password);
         Task<UserDto> GetByEmailAsync(string email);
+        Task<UserDto> GetByIdAsync(int id);
         Task<IEnumerable<UserDto>> GetAllAsync();
         Task<UserDto> CreateUserAsync(UserRegisterDto entity);
 

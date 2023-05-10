@@ -68,19 +68,43 @@ namespace CorpU.Business
             return null;
         }
 
-        public Task<IEnumerable<EmployeeDto>> GetAllAsync()
+        public async Task<IEnumerable<EmployeeDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _unitOfWork.Employees.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
         }
 
-        public Task<EmployeeDto> GetByEmailAsync(string email)
+        public async Task<EmployeeDto> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _unitOfWork.Employees.GetByEmailAsync(email);
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
         }
 
-        public Task<EmployeeDto> GetByEmailIdAsync(int id)
+        public async Task<EmployeeDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _unitOfWork.Employees.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
         }
 
 
