@@ -20,7 +20,9 @@ namespace CorpU.Data.Models
         [Required]
         [MaxLength(256)]
         public string password { get; set; }
-
+        [Required]
+        [MaxLength(256)]
+        public string salt { get; set; }
         public int user_role_id { get; set; }
 
         [Required]

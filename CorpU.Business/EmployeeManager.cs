@@ -29,11 +29,12 @@ namespace CorpU.Business
             try
             {
                 //Create user account
-
+                var _password = _AuthenticationOptions.GeneratePassword(true, true, true, true, 20);
                 UserDto userDto = new()
                 {
                     email = entity.email,
-                    password = _AuthenticationOptions.GeneratePassword(true, true, true, true, 20),
+                    password = _password.Hash,
+                    salt = _password.Salt,
                     user_role_id = 2 // Staff
                 };
 

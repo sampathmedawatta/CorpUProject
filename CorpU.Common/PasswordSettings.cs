@@ -12,7 +12,18 @@ namespace CorpU.Common
         public string UpperCase { get; set; }
         public string Numbers { get; set; }
         public string Specials { get; set; }
+        public Hash Hash { get; set; }
+    }
+
+    public class Hash
+    {
         public int keySize { get; set; }
         public int iterations { get; set; }
+    }
+
+    public class Password
+    {
+        public string Hash { get; set; }
+        public string Salt { get; set; }
     }
 }

@@ -11,22 +11,31 @@ namespace CorpU.Common
     {
         private readonly PasswordSettings _passwordConfig;
 
-        // TODO get this from app settings
-        //const string LOWER_CASE = "abcdefghijklmnopqursuvwxyz";
-        //const string UPPER_CAES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        //const string NUMBERS = "123456789";
-        //const string SPECIALS = @"!@£$%^&*()#€";
-
-        //const int keySize = 64;
-        //const int iterations = 350000;
-
         HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
-
+        Password Password;
         public AuthenticationOptions(PasswordSettings passwordConfig)
         {
             this._passwordConfig = passwordConfig;
         }
-        public string GeneratePassword(bool useLowercase, bool useUppercase, bool useNumbers, bool useSpecial,
+        public Password GeneratePassword(bool useLowercase, bool useUppercase, bool useNumbers, bool useSpecial,
+            int passwordSize)
+        {
+            string pass = SetPassword(useLowercase, useUppercase, useNumbers, useSpecial, passwordSize);
+
+            string hashedPassword = HashPasword(pass, out byte[] salt);
+            string slt = Convert.ToHexString(salt);
+
+            Password = new Password()
+            {
+                Hash = hashedPassword,
+                Salt = slt,
+            };
+           
+
+            return Password;
+        }
+
+        private string SetPassword(bool useLowercase, bool useUppercase, bool useNumbers, bool useSpecial,
             int passwordSize)
         {
             char[] _password = new char[passwordSize];
@@ -50,22 +59,22 @@ namespace CorpU.Common
 
             return String.Join(null, _password);
         }
-        
-        public string HashPasword(string password, out byte[] salt)
+
+        private string HashPasword(string password, out byte[] salt)
         {
-            salt = RandomNumberGenerator.GetBytes(_passwordConfig.keySize);
+            salt = RandomNumberGenerator.GetBytes(_passwordConfig.Hash.keySize);
             var hash = Rfc2898DeriveBytes.Pbkdf2(
                 Encoding.UTF8.GetBytes(password),
                 salt,
-                _passwordConfig.iterations,
+                _passwordConfig.Hash.iterations,
                 hashAlgorithm,
-                _passwordConfig.keySize);
+                _passwordConfig.Hash.keySize);
             return Convert.ToHexString(hash);
         }
 
-        public bool VerifyPassword(string password, string hash, byte[] salt)
+        private bool VerifyPassword(string password, string hash, byte[] salt)
         {
-            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, _passwordConfig.iterations, hashAlgorithm, _passwordConfig.keySize);
+            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, _passwordConfig.Hash.iterations, hashAlgorithm, _passwordConfig.Hash.keySize);
             return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
         }
     }
