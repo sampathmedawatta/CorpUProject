@@ -40,16 +40,16 @@ namespace CorpU.Business
 
                 if (userResult >= 0)
                 {
-                    EmployeeDto employeeDtoDto = new EmployeeDto();
-                    employeeDtoDto.emp_name = entity.emp_name;
-                    employeeDtoDto.email = entity.email;
-                    employeeDtoDto.phone = entity.phone;
-                    employeeDtoDto.faculty_id = entity.faculty_id;
-                    employeeDtoDto.user_id = userDto.user_id;
-                    employeeDtoDto.emp_role_id = entity.emp_role_id;
-                    employeeDtoDto.status = false;
+                    EmployeeDto employeeDto = new EmployeeDto();
+                    employeeDto.emp_name = entity.emp_name;
+                    employeeDto.email = entity.email;
+                    employeeDto.phone = entity.phone;
+                    employeeDto.faculty_id = entity.faculty_id;
+                    employeeDto.user_id = userDto.user_id;
+                    employeeDto.emp_role_id = entity.emp_role_id;
+                    employeeDto.status = false;
 
-                    var employeeReuslt = await _unitOfWork.Employees.Insert(employeeDtoDto);
+                    var employeeReuslt = await _unitOfWork.Employees.Insert(employeeDto);
 
                     if (employeeReuslt <= 0)
                     {
@@ -57,11 +57,15 @@ namespace CorpU.Business
                         var userDeleteResult = await _unitOfWork.Users.Delete(userDto.user_id);
                         return null;
                     }
+                    else
+                    {
+                        var employee = await _unitOfWork.Employees.GetByIdAsync(employeeDto.emp_id);
 
-                    await _emailManager.SendPaymentSuccessfulEmail();
-                    // TODO save the employee sent an email with username and password to employee . they have to verify it. 
+                        // sent an email with username and password to employee.
+                        await _emailManager.SendAccountSuccessfulEmail(employee, userDto);
 
-                    return employeeDtoDto;
+                        return employee;
+                    }
                 }
             }
             catch (Exception ex)

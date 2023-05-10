@@ -165,7 +165,6 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-
         [HttpGet("All")]
         public async Task<ActionResult> GetAllUsers()
         {
@@ -222,7 +221,6 @@ namespace CorpU.API.Controllers
             }
             return Ok(_or);
         }
-
 
         private AuthanticationResponse getToken()
         {
