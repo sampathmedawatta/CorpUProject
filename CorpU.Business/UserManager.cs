@@ -1,28 +1,34 @@
 ﻿using CorpU.Business.Interfaces;
+using CorpU.Common;
 using CorpU.Data.Models;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.User;
+using Microsoft.Extensions.Options;
 
 namespace CorpU.Business
 {
     public class UserManager : IUserManager
     {
         private IUnitOfWork _unitOfWork;
-
-        public UserManager(IUnitOfWork unitOfWork)
+        readonly AuthenticationOptions _AuthenticationOptions;
+        public UserManager(IUnitOfWork unitOfWork, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
+            _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
         }
 
         public async Task<UserDto> CreateUserAsync(UserRegisterDto entity)
         {
             try
             {
-
-                UserDto userDto = new UserDto();
-                userDto.email = entity.email;
-                userDto.password = entity.password;
-                userDto.user_role_id = entity.user_role_id;
+                var _password = _AuthenticationOptions.ConvertPasswordToHash(entity.password);
+                UserDto userDto = new()
+                {
+                    email = entity.email,
+                    password = _password.Hash,
+                    salt = _password.Salt,
+                    user_role_id = entity.user_role_id//  applicant
+            };
 
                 var result = await _unitOfWork.Users.Insert(userDto);
 
@@ -55,17 +61,17 @@ namespace CorpU.Business
 
         public async Task<UserDto> GetByEmailAndPasswordAsync(string email, string password)
         {
-            //TODO : decript the password
             try
             {
-                var result = await _unitOfWork.Users.GetByEmailAndPasswordAsync(email, password);
-                
-                if(result == null)
+                var user = await _unitOfWork.Users.GetByEmailAsync(email);
+                if (user != null)
                 {
-                    return null;
+                    bool isPasswordCorrect = _AuthenticationOptions.ValidatePassword(password, user.password, user.salt);
+                    if (isPasswordCorrect)
+                    {
+                        return await _unitOfWork.Users.GetByIdAsync(user.user_id);
+                    }
                 }
-
-                return await _unitOfWork.Users.GetByIdAsync(result.user_id);
             }
             catch (Exception ex)
             {

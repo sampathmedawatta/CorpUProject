@@ -18,14 +18,12 @@ namespace CorpU.Business
 {
     public class EmailManager : IEmailManager
     {
-        private IOptions<EmailSettings> _emailSettings;
         private IEmailSender _emailSender;
         private IUnitOfWork _unitOfWork;
         OperationResult _or;
 
-        public EmailManager(IOptions<EmailSettings> emailSettings, IEmailSender emailSender, IUnitOfWork unitOfWork)
+        public EmailManager(IEmailSender emailSender, IUnitOfWork unitOfWork)
         {
-            _emailSettings = emailSettings;
             _emailSender = emailSender;
             _unitOfWork = unitOfWork;
         }

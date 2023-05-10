@@ -20,6 +20,10 @@ namespace CorpU.Entitiy.Models.Dto.User
         [JsonPropertyName("password")]
         public string password { get; set; }
 
+        [JsonIgnore]
+        [JsonPropertyName("salt")]
+        public string salt { get; set; }
+
         [JsonPropertyName("userRoleId")]
         public int user_role_id { get; set; }
 

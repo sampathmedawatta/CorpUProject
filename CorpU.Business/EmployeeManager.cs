@@ -3,6 +3,7 @@ using CorpU.Common;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,11 @@ namespace CorpU.Business
         private IUnitOfWork _unitOfWork;
         private readonly IEmailManager _emailManager;
         readonly AuthenticationOptions _AuthenticationOptions;
-        public EmployeeManager(IUnitOfWork unitOfWork, IEmailManager emailManager)
+        public EmployeeManager(IUnitOfWork unitOfWork, IEmailManager emailManager, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
             this._emailManager = emailManager;
-            _AuthenticationOptions = new AuthenticationOptions();
+            _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
         }
 
         public async Task<EmployeeDto?> CreateEmployeeAsync(EmployeeRegisterDto entity)
@@ -28,11 +29,12 @@ namespace CorpU.Business
             try
             {
                 //Create user account
-
+                var _password = _AuthenticationOptions.GeneratePassword(true, true, true, true, 20);
                 UserDto userDto = new()
                 {
                     email = entity.email,
-                    password = _AuthenticationOptions.GeneratePassword(true, true, true, true, 20),
+                    password = _password.Hash,
+                    salt = _password.Salt,
                     user_role_id = 2 // Staff
                 };
 

@@ -209,6 +209,14 @@ namespace CorpU.API.Controllers
             try
             {
                 var user = await _userManager.CreateUserAsync(userRegisterDto);
+
+                _or = new OperationResult
+                {
+                    Message = "User registration success.",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = user
+                };
+                _logger.LogError("User registration success.", _or);
             }
             catch (Exception ex) { 
                 _or = new OperationResult
