@@ -66,8 +66,8 @@ namespace CorpU.Business
                 var user = await _unitOfWork.Users.GetByEmailAsync(email);
                 if (user != null)
                 {
-                    bool isPassowrdCorrect = _AuthenticationOptions.ValidatePassword(password, user.password, user.salt);
-                    if (isPassowrdCorrect)
+                    bool isPasswordCorrect = _AuthenticationOptions.ValidatePassword(password, user.password, user.salt);
+                    if (isPasswordCorrect)
                     {
                         return await _unitOfWork.Users.GetByIdAsync(user.user_id);
                     }
