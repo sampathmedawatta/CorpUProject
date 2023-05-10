@@ -23,8 +23,8 @@ namespace CorpU.API.Controllers
             this._or = new OperationResult();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddUser([FromQuery] EmployeeRegisterDto employeeDto)
+        [HttpPost("Add")]
+        public async Task<ActionResult> AddEmployee([FromQuery] EmployeeRegisterDto employeeDto)
         {
             try
             {
@@ -59,6 +59,157 @@ namespace CorpU.API.Controllers
                 };
                 _logger.LogError("Error: ", _or);
             }
+            return Ok(_or);
+        }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateEmployee([FromQuery] EmployeeUpdateDto employeeDto)
+        {
+            try
+            {
+                var employee = await _employeeManager.UpdateEmployeeAsync(employeeDto);
+                if (employee == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Error: employee update failed.",
+                        StatusCode = (int)HttpStatusCode.InternalServerError,
+                        Data = null
+                    };
+                    _logger.LogError("Error: ", _or);
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Employee update successfully",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = employee
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: employee update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            return Ok(_or);
+        }
+
+        [HttpGet("GetByEmail")]
+        public async Task<ActionResult> GetEmployeeByEmail(string email)
+        {
+            //TODO
+            try
+            {
+                var employee = await _employeeManager.GetByEmailAsync(email);
+                if (employee == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "Employee details",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = employee
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: user registration failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
+
+            return Ok(_or);
+        }
+
+        [HttpGet("GetById")]
+        public async Task<ActionResult> GetEmployeeById(int id)
+        {
+            //TODO
+            try
+            {
+                var employee = await _employeeManager.GetByIdAsync(id);
+                if (employee == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "employee details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "employee details",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = employee
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
+
+            return Ok(_or);
+        }
+
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllEmployees()
+        {
+            //TODO
+            try
+            {
+                IEnumerable<EmployeeDto> employeeList = await _employeeManager.GetAllAsync();
+
+                if (employeeList == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Employee details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "Employee details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = employeeList
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: failed.", _or);
+            }
+
             return Ok(_or);
         }
 

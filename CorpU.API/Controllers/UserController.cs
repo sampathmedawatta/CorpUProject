@@ -91,7 +91,7 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        [HttpGet()]
+        [HttpGet("GetByEmail")]
         public async Task<ActionResult> GetUserByEmail(string email)
         {
             //TODO
@@ -128,14 +128,13 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        [HttpGet("All")]
-        public async Task<ActionResult> GetAllUsers()
+        [HttpGet("GetById")]
+        public async Task<ActionResult> GetUserById(int id)
         {
             //TODO
             try
             {
-                IEnumerable<UserDto>  user = await _userManager.GetAllAsync();
-
+                var user = await _userManager.GetByIdAsync(id);
                 if (user == null)
                 {
                     _or = new OperationResult
@@ -148,7 +147,7 @@ namespace CorpU.API.Controllers
                 _or = new OperationResult
                 {
                     Message = "user details",
-                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    StatusCode = (int)HttpStatusCode.OK,
                     Data = user
                 };
             }
@@ -166,7 +165,46 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        [HttpPost]
+
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            //TODO
+            try
+            {
+                IEnumerable<UserDto>  userList = await _userManager.GetAllAsync();
+
+                if (userList == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "user details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = userList
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: user registration failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
+
+            return Ok(_or);
+        }
+
+        [HttpPost("Register")]
         public async Task<ActionResult> AddUser([FromQuery] UserRegisterDto userRegisterDto)
         {
             try

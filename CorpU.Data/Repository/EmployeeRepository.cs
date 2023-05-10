@@ -23,21 +23,59 @@ namespace CorpU.Data.Repository
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<EmployeeDto>> GetAllAsync()
+        public async Task<IEnumerable<EmployeeDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var EmployeeList = await table
+                   .Include(r => r.EmployeeRole)
+                   .Include(u => u.User)
+                   .Include(f => f.Faculty)
+                    .ToListAsync();
 
-        public Task<EmployeeDto> GetByEmailAsync(string Email)
+                return _mapper.Map<IEnumerable<EmployeeDto>>(EmployeeList);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<EmployeeDto> GetByEmailAsync(string Email)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var Employee = await table
+                    .Where(e => e.email == Email)
+                    .Include(r => r.EmployeeRole)
+                    .Include(u => u.User)
+                    .Include(f => f.Faculty)
+                  .FirstOrDefaultAsync();
 
-        public Task<EmployeeDto> GetByIdAsync(int id)
+                return _mapper.Map<EmployeeDto>(Employee);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<EmployeeDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var Employee = await table
+                    .Where(e => e.emp_id == id)
+                    .Include(r => r.EmployeeRole)
+                    .Include(u => u.User)
+                    .Include(f => f.Faculty)
+                    .FirstOrDefaultAsync();
 
+                return _mapper.Map<EmployeeEntity, EmployeeDto>(Employee);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public async Task<int> Insert(EmployeeDto entity)
         {
             try
@@ -56,14 +94,49 @@ namespace CorpU.Data.Repository
                 return 0;
             }
         }
+        public async Task<int> Update(EmployeeDto entity)
+        {
+            try
+            {
+                EmployeeEntity? Employee = await table.Where(c => c.emp_id == entity.emp_id).FirstOrDefaultAsync();
 
-        public Task<int> Update(EmployeeDto entity)
-        {
-            throw new NotImplementedException();
+                if (Employee != null)
+                {
+                    Employee.emp_name = entity.emp_name;
+                    Employee.phone = entity.phone;
+                    Employee.faculty_id = entity.faculty_id;
+                    Employee.emp_role_id = entity.emp_role_id;
+                    Employee.status = entity.status;
+
+                    int excecutedRows = await this.context.SaveChangesAsync();
+
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
         }
-        public  Task<int> Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                EmployeeEntity? User = await table.Where(c => c.emp_id == id).FirstOrDefaultAsync();
+
+                if (User != null)
+                {
+                    this.context.Remove(User);
+                    int excecutedRows = await context.SaveChangesAsync();
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
         }
     }
 }

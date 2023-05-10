@@ -9,11 +9,11 @@ namespace CorpU.Business.Interfaces
 {
     public interface IEmployeeManager : IBaseManager
     {
-        Task<EmployeeDto> GetByEmailIdAsync(int id);
+        Task<EmployeeDto> GetByIdAsync(int id);
         Task<EmployeeDto> GetByEmailAsync(string email);
         Task<IEnumerable<EmployeeDto>> GetAllAsync();
         Task<EmployeeDto> CreateEmployeeAsync(EmployeeRegisterDto entity);
-
+        Task<EmployeeDto> UpdateEmployeeAsync(EmployeeUpdateDto entity);
 
     }
 }

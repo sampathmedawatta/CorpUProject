@@ -87,5 +87,19 @@ namespace CorpU.Business
             }
             return null;
         }
+
+        public async Task<UserDto> GetByIdAsync(int Id)
+        {
+            try
+            {
+                return await _unitOfWork.Users.GetByIdAsync(Id);
+
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
+        }
     }
 }
