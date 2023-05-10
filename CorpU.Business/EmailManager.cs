@@ -4,6 +4,8 @@ using CorpU.Common.Communication;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Communication;
+using CorpU.Entitiy.Models.Dto.Employee;
+using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -27,12 +29,15 @@ namespace CorpU.Business
             _emailSender = emailSender;
             _unitOfWork = unitOfWork;
         }
-        public async Task<OperationResult> SendPaymentSuccessfulEmail()
+        public async Task<OperationResult> SendAccountSuccessfulEmail(EmployeeDto employeeDto, UserDto userDto)
         {
-            var emailDto = new EmailDto();
-            emailDto.ToEmail = "test@gmail.com";
-            emailDto.SenderName = "Test corpU";
-
+            var emailDto = new EmailDto
+            {
+                ToEmail = employeeDto.email,
+                Name = employeeDto.emp_name,
+                UserDto = userDto,
+                EmployeeDto = employeeDto
+            };
 
             await SendEmail(emailDto);
 

@@ -1,4 +1,5 @@
-﻿using CorpU.API.Auth.Interfaces;
+﻿using CorpU.API.Auth;
+using CorpU.API.Auth.Interfaces;
 using CorpU.Business.Interfaces;
 using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.Employee;
@@ -8,6 +9,7 @@ using System.Net;
 
 namespace CorpU.API.Controllers
 {
+    [ApiKeyAuthentication]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
