@@ -13,6 +13,7 @@ using CorpU.Business.Interfaces;
 using CorpU.Business;
 using Microsoft.EntityFrameworkCore;
 using CorpU.Data;
+using CorpU.Common.Communication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,8 @@ var emailSettings = builder.Configuration
    .Get<EmailSettings>();
 builder.Services.AddSingleton(emailSettings);
 
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailManager, EmailManager>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
 
