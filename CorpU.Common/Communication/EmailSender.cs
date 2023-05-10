@@ -56,7 +56,7 @@ namespace CorpU.Common.Communication
             if (message.Data.GetType() == typeof(EmailDto))
             {
                 var dataObject = (EmailDto)message.Data;
-                returnVal.Add(new MailboxAddress(dataObject.SenderName, dataObject.ToEmail));
+                returnVal.Add(new MailboxAddress(dataObject.Name, dataObject.ToEmail));
             }
             else
             {
@@ -78,11 +78,21 @@ namespace CorpU.Common.Communication
             var pathToFile = _env.WebRootPath + Path.DirectorySeparatorChar.ToString() + "EmailTemplates" + Path.DirectorySeparatorChar.ToString() + message.TemplateName;
             var builder = new BodyBuilder();
 
+            if (message.Data.GetType() == typeof(EmailDto))
+            {
+                var dataObject = (EmailDto)message.Data;
                 using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
                 {
                     builder.HtmlBody = SourceReader.ReadToEnd();
                 }
-                messageBody = string.Format(builder.HtmlBody," this is the message body");
+                
+                messageBody = string.Format(builder.HtmlBody,
+                    dataObject.EmployeeDto.emp_name,
+                    dataObject.UserDto.email,
+                    dataObject.UserDto.password,
+                    dataObject.EmployeeDto.employeeRole.role_name
+                    );
+            }
 
             return messageBody;
         }
