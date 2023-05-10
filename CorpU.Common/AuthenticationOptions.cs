@@ -25,18 +25,21 @@ namespace CorpU.Common
             return ConvertPasswordToHash( pass);
         }
 
-        public Password ConvertPasswordToHash(string _password)
+        public Password ConvertPasswordToHash(string password)
         {
-            string hashedPassword = HashPasword(_password, out byte[] salt);
-            string slt = Convert.ToHexString(salt);
-
+            string hashedPassword = HashPasword(password, out byte[] salt);
             Password = new Password()
             {
                 Hash = hashedPassword,
-                Salt = slt,
+                Salt = Convert.ToHexString(salt),
             };
 
             return Password;
+        }
+
+        public bool ValidatePassword(string password, string hash, string salt)
+        {
+            return VerifyPassword(password, hash, StringToByteArray(salt));
         }
 
         private string SetPassword(bool useLowercase, bool useUppercase, bool useNumbers, bool useSpecial,
@@ -80,6 +83,14 @@ namespace CorpU.Common
         {
             var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, _passwordConfig.Hash.iterations, hashAlgorithm, _passwordConfig.Hash.keySize);
             return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
+        }
+
+        private static byte[] StringToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
         }
     }
 }
