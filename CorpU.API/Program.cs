@@ -26,6 +26,12 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("Connec
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer
                  (builder.Configuration.GetConnectionString("ConnectionStrings")));
 
+builder.Services.Configure<PasswordSettings>(builder.Configuration.GetSection("PasswordSettings"));
+//var PasswordSettings = builder.Configuration
+//   .GetSection("PasswordSettings")
+//   .Get<EmailSettings>();
+//builder.Services.AddSingleton(PasswordSettings);
+
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 var emailSettings = builder.Configuration
    .GetSection("EmailSettings")
