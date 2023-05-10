@@ -22,7 +22,12 @@ namespace CorpU.Common
         {
             string pass = SetPassword(useLowercase, useUppercase, useNumbers, useSpecial, passwordSize);
 
-            string hashedPassword = HashPasword(pass, out byte[] salt);
+            return ConvertPasswordToHash( pass);
+        }
+
+        public Password ConvertPasswordToHash(string _password)
+        {
+            string hashedPassword = HashPasword(_password, out byte[] salt);
             string slt = Convert.ToHexString(salt);
 
             Password = new Password()
@@ -30,7 +35,6 @@ namespace CorpU.Common
                 Hash = hashedPassword,
                 Salt = slt,
             };
-           
 
             return Password;
         }
