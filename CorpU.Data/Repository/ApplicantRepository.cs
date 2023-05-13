@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using CorpU.Data.Models;
 using CorpU.Data.Repository.Interfaces;
-using CorpU.Entitiy.Models.Dto.Aplicant;
+using CorpU.Entitiy.Models.Dto.Applicant;
+using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,34 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Repository
 {
-    internal class AplicantRepository : IAplicantRepository<ApplicantDto>
+    internal class ApplicantRepository : IApplicantRepository<ApplicantDto>
     {
         private readonly DataContext context;
         private readonly DbSet<ApplicantEntity> table;
         private readonly IMapper _mapper;
 
-        public AplicantRepository(DataContext context, IMapper mapper)
+        public ApplicantRepository(DataContext context, IMapper mapper)
         {
             this.context = context;
             table = context.Set<ApplicantEntity>();
             _mapper = mapper;
+        }
+
+        public async Task<ApplicantDto> GetByIdAsync(int id)
+        {
+            try
+            {
+                var applicant = await table
+                    .Where(e => e.applicant_id == id)
+                    .Include(u => u.User)
+                    .FirstOrDefaultAsync();
+
+                return _mapper.Map<ApplicantEntity, ApplicantDto>(applicant);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task<IEnumerable<ApplicantDto>> GetAllAsync()
@@ -53,14 +71,6 @@ namespace CorpU.Data.Repository
                .ToListAsync();
 
             return _mapper.Map<IEnumerable<ApplicantDto>>(AplicantList);
-        }
-
-        public async Task<ApplicantDto> GetByIdAsync(int id)
-        {
-            var Aplicant = await table.Where(e => e.applicant_id == id)
-              .ToListAsync();
-
-            return _mapper.Map<ApplicantDto>(Aplicant);
         }
 
         public async Task<int> Insert(ApplicantDto entity)

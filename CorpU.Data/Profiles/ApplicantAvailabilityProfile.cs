@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CorpU.Data.Models;
-using CorpU.Entitiy.Models.Dto.Aplicant;
+using CorpU.Entitiy.Models.Dto.Applicant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
