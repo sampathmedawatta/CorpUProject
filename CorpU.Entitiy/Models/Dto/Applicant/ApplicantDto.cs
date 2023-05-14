@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace CorpU.Entitiy.Models.Dto.Aplicant
+namespace CorpU.Entitiy.Models.Dto.Applicant
 {
     public class ApplicantDto
     {

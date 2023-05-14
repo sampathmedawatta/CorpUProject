@@ -1,4 +1,4 @@
-﻿using CorpU.Entitiy.Models.Dto.Aplicant;
+﻿using CorpU.Entitiy.Models.Dto.Applicant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CorpU.Data.Repository.Interfaces
 {
-    public interface IAplicantRepository<T> : IRepository<T> where T : class
+    public interface IApplicantRepository<T> : IRepository<T> where T : class
     {
         Task<IEnumerable<ApplicantDto>> GetAllByNameAsync(string Name);
         Task<IEnumerable<ApplicantDto>> GetAllByStatusAsync(bool Status);

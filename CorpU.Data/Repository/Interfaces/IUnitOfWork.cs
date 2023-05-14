@@ -1,4 +1,4 @@
-﻿using CorpU.Entitiy.Models.Dto.Aplicant;
+﻿using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
 using System;
@@ -11,10 +11,9 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IAplicantRepository<ApplicantDto> Aplicants { get; }
-        IUserRepository<UserDto> Users { get; }
-
+        IApplicantRepository<ApplicantDto> Applicants { get; }
         IEmployeeRepository<EmployeeDto> Employees { get; }
+        IUserRepository<UserDto> Users { get; }
         int Complete();
 
     }
