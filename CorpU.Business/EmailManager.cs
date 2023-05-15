@@ -4,6 +4,7 @@ using CorpU.Common.Communication;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Communication;
+using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
@@ -27,7 +28,7 @@ namespace CorpU.Business
             _emailSender = emailSender;
             _unitOfWork = unitOfWork;
         }
-        public async Task<OperationResult> SendAccountSuccessfulEmail(EmployeeDto employeeDto, UserDto userDto)
+        public async Task<OperationResult> SendAccountSuccessfulEmail_Employee(EmployeeDto employeeDto, UserDto userDto)
         {
             var emailDto = new EmailDto
             {
@@ -35,6 +36,27 @@ namespace CorpU.Business
                 Name = employeeDto.emp_name,
                 UserDto = userDto,
                 EmployeeDto = employeeDto
+            };
+
+            await SendEmail(emailDto);
+
+            _or = new OperationResult
+            {
+                Message = "Email sent successfully",
+                StatusCode = (int)HttpStatusCode.OK,
+                Data = null
+            };
+
+            return _or;
+        }
+        public async Task<OperationResult> SendAccountSuccessfulEmail_Applicant(ApplicantDto applicantDto, UserDto userDto)
+        {
+            var emailDto = new EmailDto
+            {
+                ToEmail = applicantDto.email,
+                Name = applicantDto.name,
+                UserDto = userDto,
+                ApplicantDto = applicantDto
             };
 
             await SendEmail(emailDto);

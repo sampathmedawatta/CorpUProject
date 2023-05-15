@@ -13,6 +13,8 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         [JsonPropertyName("appQualificationId")]
         public int app_qualification_id { get; set; }
 
+        [JsonPropertyName("applicant_id")]
+        public int applicant_id { get; set; }
         [JsonPropertyName("applicant")]
         public ApplicantDto applicant { get; set; }
 

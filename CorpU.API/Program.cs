@@ -42,6 +42,8 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IEmailManager, EmailManager>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IApplicantManager, ApplicantManager>();
+builder.Services.AddScoped<IApplicantContactManager, ApplicantContactManager>();
+builder.Services.AddScoped<IApplicantQualificationManager, ApplicantQualificationManager>();
 builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

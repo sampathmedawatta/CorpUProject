@@ -18,7 +18,12 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         public string name { get; set; }
         [JsonPropertyName("name")]
         public string email { get; set; }
-
+        [JsonPropertyName("userId")]
+        public int user_id { get; set; }
+        [JsonPropertyName("status")]
+        public bool status { get; set; }
+        [JsonPropertyName("resumeUrl")]
+        public string resumeUrl { get; set; }
         [JsonPropertyName("user")]
         public UserDto user { get; set; }
 
