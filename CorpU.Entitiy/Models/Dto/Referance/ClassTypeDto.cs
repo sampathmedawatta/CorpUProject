@@ -10,10 +10,10 @@ namespace CorpU.Entitiy.Models.Dto.Referance
     public class ClassTypeDto
     {
 
-        [JsonPropertyName("class_type_id")]
+        [JsonPropertyName("classTypeId")]
         public int class_type_id { get; set; }
 
-        [JsonPropertyName("class_description")]
+        [JsonPropertyName("classDescription")]
         public string class_description { get; set; }
 
         [JsonPropertyName("status")]

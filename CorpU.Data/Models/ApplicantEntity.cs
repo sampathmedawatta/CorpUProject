@@ -21,7 +21,7 @@ namespace CorpU.Data.Models
         public string email { get; set; }
         [Required]
         public int user_id { get; set; }
-        [Required]
+
         [ForeignKey("user_id")]
         public UserEntity User { get; set; }
         [Required]

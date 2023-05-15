@@ -9,7 +9,7 @@ namespace CorpU.Entitiy.Models.Dto.Referance
 {
     public class QualificationTypeDto
     {
-        [JsonPropertyName("qualification_type_id")]
+        [JsonPropertyName("qualificationTypeId")]
         public int qualification_type_id { get; set; }
 
         [JsonPropertyName("description")]
