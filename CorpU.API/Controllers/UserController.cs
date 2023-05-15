@@ -204,7 +204,7 @@ namespace CorpU.API.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult> AddUser([FromQuery] UserRegisterDto userRegisterDto)
+        public async Task<ActionResult> AddUser( UserRegisterDto userRegisterDto)
         {
             try
             {
