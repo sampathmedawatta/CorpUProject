@@ -4,6 +4,7 @@ using CorpU.Business;
 using CorpU.Business.Interfaces;
 using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.Applicant;
+using CorpU.Entitiy.Models.Dto.Employee;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -25,14 +26,45 @@ namespace CorpU.API.Controllers
             this._logger = logger;
             this._or = new OperationResult();
         }
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllApplicant()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                IEnumerable<ApplicantDto> applicantList = await _applicantManager.GetAllAsync();
+
+                if (applicantList == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Applicant details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "Applicant details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = applicantList
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: failed.", _or);
+            }
+
+            return Ok(_or);
         }
 
         [HttpGet("GetById")]
-        public async Task<ActionResult> GetEmployeeById(int id)
+        public async Task<ActionResult> GetApplicantById(int id)
         {
             try
             {

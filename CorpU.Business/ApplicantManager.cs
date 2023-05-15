@@ -3,6 +3,7 @@ using CorpU.Common;
 using CorpU.Data.Models;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.Applicant;
+using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
 
@@ -23,6 +24,18 @@ namespace CorpU.Business
             {
                 return await _unitOfWork.Applicants.GetByIdAsync(Id);
 
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
+        }
+        public async Task<IEnumerable<ApplicantDto>> GetAllAsync()
+        {
+            try
+            {
+                return await _unitOfWork.Applicants.GetAllAsync();
             }
             catch (Exception ex)
             {
