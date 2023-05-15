@@ -16,7 +16,7 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         public int applicant_id { get; set; }
         [JsonPropertyName("name")]
         public string name { get; set; }
-        [JsonPropertyName("name")]
+        [JsonPropertyName("email")]
         public string email { get; set; }
 
         [JsonPropertyName("user")]

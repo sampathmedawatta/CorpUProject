@@ -143,7 +143,6 @@ namespace CorpU.API.Controllers
         [HttpGet("GetById")]
         public async Task<ActionResult> GetEmployeeById(int id)
         {
-            //TODO
             try
             {
                 var employee = await _employeeManager.GetByIdAsync(id);
