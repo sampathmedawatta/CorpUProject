@@ -98,7 +98,17 @@ builder.Services.AddSwaggerGen(c =>
             }
         });
 
+       
     });
+
+builder.Services.AddCors(options => options.AddPolicy(name :"corpU",
+    policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    }
+    ));
 
 var _logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext()
@@ -113,6 +123,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("corpU");
 
 app.UseHttpsRedirection();
 
