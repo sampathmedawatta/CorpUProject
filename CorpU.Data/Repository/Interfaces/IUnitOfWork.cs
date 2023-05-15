@@ -13,6 +13,9 @@ namespace CorpU.Data.Repository.Interfaces
     {
         IApplicantRepository<ApplicantDto> Applicants { get; }
         IEmployeeRepository<EmployeeDto> Employees { get; }
+
+        IApplicantContactRepository<ApplicantContactDetailDto> ApplicantContact { get; }
+        IApplicantQualificationRepository<ApplicantQualificationDto> ApplicantQualification { get; }
         IUserRepository<UserDto> Users { get; }
         int Complete();
 

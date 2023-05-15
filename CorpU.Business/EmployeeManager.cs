@@ -64,7 +64,7 @@ namespace CorpU.Business
                         var employee = await _unitOfWork.Employees.GetByIdAsync(employeeDto.emp_id);
 
                         // sent an email with username and password to employee.
-                        await _emailManager.SendAccountSuccessfulEmail(employee, userDto);
+                        await _emailManager.SendAccountSuccessfulEmail_Employee(employee, userDto);
 
                         return employee;
                     }

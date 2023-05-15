@@ -23,7 +23,8 @@ namespace CorpU.Data.Repository
                 return new DataContext(ConnectionString);
             }
         }
-
+        public IApplicantQualificationRepository<ApplicantQualificationDto> ApplicantQualification { get; private set; }
+        public IApplicantContactRepository<ApplicantContactDetailDto> ApplicantContact {  get; private set; }
         public IApplicantRepository<ApplicantDto> Applicants { get; private set; }
         public IEmployeeRepository<EmployeeDto> Employees { get; private set; }
         public IUserRepository<UserDto> Users { get; private set; }
@@ -32,6 +33,8 @@ namespace CorpU.Data.Repository
 
             ConnectionString = appSetting.Value.DBConnection;
             Applicants = new ApplicantRepository(Context, mapper);
+            ApplicantContact= new ApplicantContactRepository(Context, mapper);
+            ApplicantQualification = new ApplicantQualificationRepository(Context, mapper);
             Employees = new EmployeeRepository(Context, mapper);
             Users = new UserRepository(Context, mapper);
         }
