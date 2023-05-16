@@ -25,6 +25,7 @@ namespace CorpU.Data.Repository
                 return new DataContext(ConnectionString);
             }
         }
+        public IVacancyTypeRepository<VacancyTypeDto> VacancyType { get; private set; }
         public IVacancyRepository<VacancyDto> Vacancy { get; private set; }
         public IQualificationRepository<QualificationTypeDto> Qualifications { get;private set; }
         public IApplicantQualificationRepository<ApplicantQualificationDto> ApplicantQualification { get; private set; }
@@ -38,6 +39,7 @@ namespace CorpU.Data.Repository
             Qualifications = new QualificationRepository(Context, mapper);
             Applicants = new ApplicantRepository(Context, mapper);
             Vacancy=new VacancyRepository(Context, mapper);
+            VacancyType=new VacancyTypeRepository(Context, mapper);
             ApplicantContact= new ApplicantContactRepository(Context, mapper);
             ApplicantQualification = new ApplicantQualificationRepository(Context, mapper);
             Employees = new EmployeeRepository(Context, mapper);
