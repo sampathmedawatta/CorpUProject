@@ -49,7 +49,7 @@ namespace CorpU.API.Controllers
                         _or = new OperationResult
                         {
                             Error = "Can not generate the token.",
-                            StatusCode = (int)HttpStatusCode.NotFound,
+                            StatusCode = (int)HttpStatusCode.InternalServerError,
                             Data = null
                         };
 
@@ -58,14 +58,9 @@ namespace CorpU.API.Controllers
                     }
 
                     authanticationResponse.User = _or.Data;
-                    _or = new OperationResult
-                    {
-                        Message = "token generated.",
-                        StatusCode = (int)HttpStatusCode.OK,
-                        Data = authanticationResponse
-                    };
-                    _logger.LogInformation("token generated.", _or);
+                    _or.Data = authanticationResponse;
 
+                    _logger.LogInformation("token generated.", _or);
                 }
                 else
                 {
@@ -76,7 +71,7 @@ namespace CorpU.API.Controllers
             {
                 _or = new OperationResult
                 {
-                    Message = "Error: token generation failed.",
+                    Message = "Error: user creation failed.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
@@ -96,11 +91,11 @@ namespace CorpU.API.Controllers
             {
                 _or = new OperationResult
                 {
-                    Message = "Error: user registration failed.",
+                    Message = "Error: Exception occurred.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: token generation failed.", _or);
+                _logger.LogError("Error: Exception occurred.", _or);
             }
 
             return Ok(_or);
@@ -117,11 +112,11 @@ namespace CorpU.API.Controllers
             {
                 _or = new OperationResult
                 {
-                    Message = "Error: user registration failed.",
+                    Message = "Error: Exception occurred.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: token generation failed.", _or);
+                _logger.LogError("Error: Exception occurred.", _or);
             }
 
             return Ok(_or);
@@ -138,11 +133,11 @@ namespace CorpU.API.Controllers
             {
                 _or = new OperationResult
                 {
-                    Message = "Error: user registration failed.",
+                    Message = "Error: Exception occurred.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: token generation failed.", _or);
+                _logger.LogError("Error: Exception occurred.", _or);
             }
 
             return Ok(_or);
@@ -159,11 +154,11 @@ namespace CorpU.API.Controllers
             catch (Exception ex) { 
                 _or = new OperationResult
                 {
-                    Message = "Error: user registration failed.",
+                    Message = "Error: Exception occurred.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: token generation failed.", _or);
+                _logger.LogError("Error: Exception occurred.", _or);
             }
             return Ok(_or);
         }

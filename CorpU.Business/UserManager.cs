@@ -112,7 +112,7 @@ namespace CorpU.Business
                 _or = new OperationResult
                 {
                     Error = "Error: Unable to get user list.",
-                    Message = "Error: Unable to create user list.",
+                    Message = "Error: Unable to get user list.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = await _unitOfWork.Users.GetAllAsync()
                 };
@@ -152,7 +152,7 @@ namespace CorpU.Business
                     _or = new OperationResult
                     {
                         Message = "Error: username or password incorrect.",
-                        StatusCode = (int)HttpStatusCode.OK,
+                        StatusCode = (int)HttpStatusCode.NotFound,
                         Data = null
                     };
                 }
@@ -189,7 +189,7 @@ namespace CorpU.Business
                     _or = new OperationResult
                     {
                         Message = "User data is not available.",
-                        StatusCode = (int)HttpStatusCode.OK,
+                        StatusCode = (int)HttpStatusCode.NotFound,
                         Data = null
                     };
                 }
