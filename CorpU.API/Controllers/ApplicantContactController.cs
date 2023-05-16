@@ -64,23 +64,50 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        // GET api/<ApplicantContact>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost("Add")]
+        public async Task<ActionResult> CreateApplicantContact(ApplicantContactRegisterDto value)
         {
-            return "value";
-        }
+            var applicantContact = await _applicantContactManager.CreateApplicantContactAsync(value);
+            if (applicantContact == null)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            else
+            {
+                _or = new OperationResult
+                {
+                    Message = "applicant created successfully",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = applicantContact
+                };
+            }
 
-        // POST api/<ApplicantContact>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            return Ok(_or);
         }
-
-        // PUT api/<ApplicantContact>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateApplicantContact([FromQuery] ApplicantContactUpdateDto value)
         {
+            try
+            {
+                _or = await _applicantContactManager.UpdateApplicantContactAsync(value);
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant contact update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: applicant contact update failed", _or);
+            }
+            return Ok(_or);
         }
 
         // DELETE api/<ApplicantContact>/5
