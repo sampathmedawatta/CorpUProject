@@ -63,16 +63,50 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        // POST api/<ApplicantQualification>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("Add")]
+        public async Task<ActionResult> CreateApplicantQualification(ApplicantQualificationRegisterDto value)
         {
-        }
+            var applicantContact = await _applicantQualificationManager.CreateApplicantQualificationAsync(value);
+            if (applicantContact == null)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant qualification creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            else
+            {
+                _or = new OperationResult
+                {
+                    Message = "applicant qualification created successfully",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = applicantContact
+                };
+            }
 
-        // PUT api/<ApplicantQualification>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+            return Ok(_or);
+        }
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateApplicantQualification([FromQuery] ApplicantQualificationUpdateDto value)
         {
+            try
+            {
+                _or = await _applicantQualificationManager.UpdateApplicantQualificationAsync(value);
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant qualification update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: applicant qualification update failed", _or);
+            }
+            return Ok(_or);
         }
 
         // DELETE api/<ApplicantQualification>/5

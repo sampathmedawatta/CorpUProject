@@ -43,6 +43,7 @@ namespace CorpU.Data.Repository
                 var applicantQualification = await table
                     .Where(e => e.Applicant.applicant_id == id)
                     .Include(u => u.Applicant)
+                    .Include (c => c.QualificationType)
                     .FirstOrDefaultAsync();
 
                 return _mapper.Map<ApplicantQualificationEntiry, ApplicantQualificationDto>(applicantQualification);
@@ -53,14 +54,52 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public Task<int> Insert(ApplicantQualificationDto entity)
+        public async Task<int> Insert(ApplicantQualificationDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ApplicantQualificationEntiry applicantQualificationEntity;
+                applicantQualificationEntity = _mapper.Map<ApplicantQualificationDto, ApplicantQualificationEntiry>(entity);
+
+                this.context.Set<ApplicantQualificationEntiry>().Add(applicantQualificationEntity);
+                int excecutedRows = await this.context.SaveChangesAsync();
+
+                entity.app_qualification_id = applicantQualificationEntity.app_qualification_id;
+                return excecutedRows;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
-        public Task<int> Update(ApplicantQualificationDto entity)
+        public async Task<int> Update(ApplicantQualificationDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ApplicantQualificationEntiry? ApplicantQualification = await table
+                    .Where(c => c.app_qualification_id == entity.app_qualification_id)
+                    .Where(d => d.applicant_id == entity.applicant_id)
+                    .FirstOrDefaultAsync();
+
+                if (ApplicantQualification != null)
+                {
+                    //ApplicantContact.app_contact_id=entity.app_contact_id;
+                    //ApplicantContact.applicant_id=entity.applicant_id;
+                    ApplicantQualification.qualification_type_id = entity.qualification_type_id;
+                    ApplicantQualification.description = entity.description;
+                    ApplicantQualification.awarded_date = entity.awarded_date;
+                    ApplicantQualification.institute=entity.institute;
+                    int excecutedRows = await this.context.SaveChangesAsync();
+
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
         }
     }
 }

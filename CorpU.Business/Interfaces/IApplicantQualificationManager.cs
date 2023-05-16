@@ -1,4 +1,5 @@
 ﻿using CorpU.Data.Models;
+using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.Applicant;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace CorpU.Business.Interfaces
     public interface IApplicantQualificationManager : IBaseManager
     {
         Task<ApplicantQualificationDto> GetByIdAsync(int id);
+        Task<ApplicantQualificationDto> CreateApplicantQualificationAsync(ApplicantQualificationRegisterDto entity);
+        Task<OperationResult> UpdateApplicantQualificationAsync(ApplicantQualificationUpdateDto entity);
     }
 }

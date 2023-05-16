@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 
 namespace CorpU.Entitiy.Models.Dto.Applicant
 {
-    public class ApplicantQualificationDto
+    public class ApplicantQualificationRegisterDto
     {
-        [JsonPropertyName("appQualificationId")]
-        public int app_qualification_id { get; set; }
-
         [JsonPropertyName("applicant_id")]
         public int applicant_id { get; set; }
 
-        [JsonPropertyName("qualificationTypeId")]
+        [JsonPropertyName("qualificationType")]
         public int qualification_type_id { get; set; }
 
         [JsonPropertyName("description")]
@@ -27,12 +24,5 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
 
         [JsonPropertyName("awarded_date")]
         public DateTime awarded_date { get; set; }
-
-        [JsonPropertyName("applicant")]
-        public ApplicantDto applicant { get; set; }
-
-        [JsonPropertyName("Qualification")]
-
-        public QualificationTypeDto qualificationType { get; set; }
     }
 }

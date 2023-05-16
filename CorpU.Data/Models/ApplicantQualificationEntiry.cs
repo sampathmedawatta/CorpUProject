@@ -14,14 +14,16 @@ namespace CorpU.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int app_qualification_id { get; set; }
         [Required]
+        public int applicant_id { get; set; }
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
         [Required]
-        [ForeignKey("qualification_type_id")]
-        public QualificationTypeEntity QualificationType { get; set; }
+        public int qualification_type_id { get; set; }
         [Required]
         [MaxLength(250)]
         public string description { get; set; }
+        [ForeignKey("qualification_type_id")]
+        public QualificationTypeEntity QualificationType { get; set; }
         [Required]
         public DateTime awarded_date { get; set; }
         [Required]
