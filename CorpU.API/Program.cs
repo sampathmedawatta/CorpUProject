@@ -46,6 +46,7 @@ builder.Services.AddScoped<IApplicantContactManager, ApplicantContactManager>();
 builder.Services.AddScoped<IApplicantQualificationManager, ApplicantQualificationManager>();
 builder.Services.AddScoped<IQualificationManager, QualificationManager>();
 builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
+builder.Services.AddScoped<IVacancyManager, VacancyManager>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<ITokenGenerator, TokenGenerator>();

@@ -14,15 +14,19 @@ namespace CorpU.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int vacancy_id { get; set; }
         [Required]
+        public int vacancy_type_id { get; set; }
         [ForeignKey("vacancy_type_id")]
         public VacancyTypeEntity VacancyType { get; set; }
         [Required]
+        public int class_type_id { get; set; }
         [ForeignKey("class_type_id")]
         public ClassTypeEntity ClassType { get; set; }
         [Required]
+        public int emp_id { get; set; }
         [ForeignKey("emp_id")]
         public EmployeeEntity Employee { get; set; }
         [Required]
+        public int unit_id { get; set; }
         [ForeignKey("unit_id")]
         public UnitEntity Unit { get; set; }
         [Required]
