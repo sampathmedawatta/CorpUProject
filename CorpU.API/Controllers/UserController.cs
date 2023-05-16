@@ -37,20 +37,10 @@ namespace CorpU.API.Controllers
         {
             try
             {
-                var user =  await _userManager.GetByEmailAndPasswordAsync(userLogin.email, userLogin.password);
+                _or =  await _userManager.GetByEmailAndPasswordAsync(userLogin.email, userLogin.password);
 
-                if (user == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "Error: token generation failed.",
-                        StatusCode = (int)HttpStatusCode.InternalServerError,
-                        Data = null
-                    };
-                    _logger.LogError("Error: token generation failed.", _or);
-                }
-                else
-                {
+                if (_or.Data != null)
+                { 
                     _logger.LogInformation("GetToken executed!");
                     AuthanticationResponse authanticationResponse = getToken();
 
@@ -67,7 +57,7 @@ namespace CorpU.API.Controllers
                         return Unauthorized(_or);
                     }
 
-                    authanticationResponse.User = user;
+                    authanticationResponse.User = _or.Data;
                     _or = new OperationResult
                     {
                         Message = "token generated.",
@@ -76,6 +66,10 @@ namespace CorpU.API.Controllers
                     };
                     _logger.LogInformation("token generated.", _or);
 
+                }
+                else
+                {
+                    _logger.LogError("User login faild.", _or);
                 }
             }
             catch (Exception ex)
@@ -94,25 +88,9 @@ namespace CorpU.API.Controllers
         [HttpGet("GetByEmail")]
         public async Task<ActionResult> GetUserByEmail(string email)
         {
-            //TODO
             try
             {
-                var user = await _userManager.GetByEmailAsync(email);
-                if(user == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "User details not found!",
-                        StatusCode = (int)HttpStatusCode.NotFound,
-                        Data = null
-                    };
-                }
-                _or = new OperationResult
-                {
-                    Message = "user details",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Data = user
-                };
+                _or = await _userManager.GetByEmailAsync(email);
             }
             catch (Exception ex)
             {
@@ -131,25 +109,9 @@ namespace CorpU.API.Controllers
         [HttpGet("GetById")]
         public async Task<ActionResult> GetUserById(int id)
         {
-            //TODO
             try
             {
-                var user = await _userManager.GetByIdAsync(id);
-                if (user == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "User details not found!",
-                        StatusCode = (int)HttpStatusCode.NotFound,
-                        Data = null
-                    };
-                }
-                _or = new OperationResult
-                {
-                    Message = "user details",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Data = user
-                };
+                _or = await _userManager.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
@@ -168,26 +130,9 @@ namespace CorpU.API.Controllers
         [HttpGet("All")]
         public async Task<ActionResult> GetAllUsers()
         {
-            //TODO
             try
             {
-                IEnumerable<UserDto>  userList = await _userManager.GetAllAsync();
-
-                if (userList == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "User details not found!",
-                        StatusCode = (int)HttpStatusCode.NotFound,
-                        Data = null
-                    };
-                }
-                _or = new OperationResult
-                {
-                    Message = "user details",
-                    StatusCode = (int)HttpStatusCode.InternalServerError,
-                    Data = userList
-                };
+                _or = await _userManager.GetAllAsync();
             }
             catch (Exception ex)
             {
@@ -208,14 +153,7 @@ namespace CorpU.API.Controllers
         {
             try
             {
-                var user = await _userManager.CreateUserAsync(userRegisterDto);
-
-                _or = new OperationResult
-                {
-                    Message = "User registration success.",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Data = user
-                };
+                _or = await _userManager.CreateUserAsync(userRegisterDto);
                 _logger.LogError("User registration success.", _or);
             }
             catch (Exception ex) { 
