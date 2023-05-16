@@ -13,7 +13,7 @@ namespace CorpU.Business.Interfaces
         Task<ApplicantDto> GetByIdAsync(int id);
         //Task<ApplicantDto> GetByEmailAsync(string email);
         Task<IEnumerable<ApplicantDto>> GetAllAsync();
-        //Task<ApplicantDto> CreateEmployeeAsync(ApplicantDto entity);
+        Task<ApplicantDto> CreateApplicantAsync(ApplicantRegisterDto entity);
         //Task<ApplicantDto> UpdateEmployeeAsync(ApplicantDto entity);
     }
 }

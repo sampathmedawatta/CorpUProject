@@ -43,5 +43,20 @@ namespace CorpU.Business
             }
             return null;
         }
+        public async Task<ApplicantDto> CreateApplicantAsync(ApplicantRegisterDto entity)
+        {
+            ApplicantDto applicantDto = new ApplicantDto();
+            applicantDto.user_id = entity.user_id;
+            applicantDto.name = entity.name;
+            applicantDto.email = entity.email;
+            applicantDto.resume_url = entity.resume_url;
+            applicantDto.status = false;
+
+            var applicantReuslt = await _unitOfWork.Applicants.Insert(applicantDto);
+
+            var applicant = await GetByIdAsync(applicantDto.applicant_id);
+            return applicant;
+
+        }
     }
 }

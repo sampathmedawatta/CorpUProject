@@ -100,9 +100,31 @@ namespace CorpU.API.Controllers
         }
 
         // POST api/<ApplicantController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("Add")]
+        public async Task<ActionResult> CreateApplicant(ApplicantRegisterDto value)
         {
+            var applicant = await _applicantManager.CreateApplicantAsync(value);
+            if (applicant == null)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            else
+            {
+                _or = new OperationResult
+                {
+                    Message = "applicant created successfully",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = applicant
+                };
+            }
+
+            return Ok(_or);
         }
 
         // PUT api/<ApplicantController>/5
