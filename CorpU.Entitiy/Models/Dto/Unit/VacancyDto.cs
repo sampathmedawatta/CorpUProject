@@ -11,7 +11,7 @@ namespace CorpU.Entitiy.Models.Dto.Unit
 {
     public class VacancyDto
     {
-        [JsonPropertyName("vacancy_id")]
+        [JsonPropertyName("vacancyId")]
         public int vacancy_id { get; set; }
 
         [JsonPropertyName("vacancyType")]
@@ -32,9 +32,9 @@ namespace CorpU.Entitiy.Models.Dto.Unit
         [JsonPropertyName("description")]
         public string description { get; set; }
 
-        [JsonPropertyName("publish_date")]
+        [JsonPropertyName("publishDate")]
         public DateTime publish_date { get; set; }
-        [JsonPropertyName("closing_date")]
+        [JsonPropertyName("closingDate")]
         public DateTime closing_date { get; set; }
         [JsonPropertyName("status")]
         public bool status { get; set; }

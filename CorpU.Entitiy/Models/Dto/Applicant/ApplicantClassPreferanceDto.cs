@@ -9,13 +9,13 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
 {
     public class ApplicantClassPreferanceDto
     {
-        [JsonPropertyName("class_preferance_id")]
+        [JsonPropertyName("classPreferanceId")]
         public int class_preferance_id { get; set; }
 
         [JsonPropertyName("applicant")]
         public ApplicantDto applicant { get; set; }
 
-        [JsonPropertyName("class_type_id")]
+        [JsonPropertyName("classTypeId")]
         public int class_type_id { get; set; }
 
     }

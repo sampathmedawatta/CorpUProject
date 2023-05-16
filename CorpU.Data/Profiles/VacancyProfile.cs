@@ -39,26 +39,6 @@ namespace CorpU.Data.Profiles
             //Set
             CreateMap<VacancyDto, VacancyEntity>();
 
-            CreateMap<VacancyDto, VacancyEntity>()
-            .ForPath(dest =>
-            dest.VacancyType.vacancy_type_id,
-            opt => opt.MapFrom(src => src.vacancyType.vacancy_type_id));
-
-            CreateMap<VacancyDto, VacancyEntity>()
-            .ForPath(dest =>
-            dest.ClassType.class_type_id,
-            opt => opt.MapFrom(src => src.classType.class_type_id));
-
-            CreateMap<VacancyDto, VacancyEntity>()
-            .ForPath(dest =>
-            dest.Employee.emp_id,
-            opt => opt.MapFrom(src => src.employee.emp_id));
-
-            CreateMap<VacancyDto, VacancyEntity>()
-            .ForPath(dest =>
-            dest.Unit.unit_id,
-            opt => opt.MapFrom(src => src.unit.unit_id));
-
         }
     }
 }

@@ -9,10 +9,10 @@ namespace CorpU.Entitiy.Models.Dto.Referance
 {
     public class EmployeeRoleDto
     {
-        [JsonPropertyName("emp_role_id")]
+        [JsonPropertyName("empRoleId")]
         public int emp_role_id { get; set; }
 
-        [JsonPropertyName("role_name")]
+        [JsonPropertyName("roleName")]
         public string role_name { get; set; }
 
         [JsonPropertyName("status")]

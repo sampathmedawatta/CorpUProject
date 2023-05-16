@@ -9,13 +9,13 @@ namespace CorpU.Entitiy.Models.Dto.Unit
 {
     public class UnitDto
     {
-        [JsonPropertyName("unit_id")]
+        [JsonPropertyName("unitId")]
         public int unit_id { get; set; }
 
-        [JsonPropertyName("unit_name")]
+        [JsonPropertyName("unitName")]
         public string unit_name { get; set; }
 
-        [JsonPropertyName("unit_code")]
+        [JsonPropertyName("unitCode")]
         public string unit_code { get; set; }
 
         [JsonPropertyName("status")]

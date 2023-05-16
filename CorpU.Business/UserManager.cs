@@ -2,8 +2,10 @@
 using CorpU.Common;
 using CorpU.Data.Models;
 using CorpU.Data.Repository.Interfaces;
+using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
+using System.Net;
 
 namespace CorpU.Business
 {
@@ -11,55 +13,114 @@ namespace CorpU.Business
     {
         private IUnitOfWork _unitOfWork;
         readonly AuthenticationOptions _AuthenticationOptions;
+        OperationResult _or;
         public UserManager(IUnitOfWork unitOfWork, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
+            this._or = new OperationResult();
         }
 
-        public async Task<UserDto> CreateUserAsync(UserRegisterDto entity)
+        public async Task<OperationResult> CreateUserAsync(UserRegisterDto entity)
         {
             try
             {
+               var user =  _unitOfWork.Users.GetByEmailAsync(entity.email);
+                if(user != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Error = "Error: User account already exsist.",
+                        Message = "Error: User account already exsist.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = null
+                    };
+                }
+
                 var _password = _AuthenticationOptions.ConvertPasswordToHash(entity.password);
                 UserDto userDto = new()
                 {
                     email = entity.email,
                     password = _password.Hash,
                     salt = _password.Salt,
-                    user_role_id = entity.user_role_id//  applicant
-            };
+                    user_role_id = entity.user_role_id
+                };
 
                 var result = await _unitOfWork.Users.Insert(userDto);
 
                 if (result <= 0)
                 {
-                    return null;
+                    _or = new OperationResult
+                    {
+                        Error = "Error: Unable to create user account.",
+                        Message = "Error: Unable to create user account.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = null
+                    };
                 }
 
-                return await _unitOfWork.Users.GetByIdAsync(userDto.user_id);
+                var _user = await _unitOfWork.Users.GetByIdAsync(userDto.user_id);
+
+                _or = new OperationResult
+                {
+                    Message = "User account created successfully.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = _user
+                };
             }
+
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to create user account.",
+                    Message = "Error: Unable to create user account.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
             }
-            return null;
+            return _or;
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        public async Task<OperationResult> GetAllAsync()
         {
             try
             {
-                return await _unitOfWork.Users.GetAllAsync();
+                var userList = await _unitOfWork.Users.GetAllAsync();
+                if (userList != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User list is available.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = userList
+                    };
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "There are no users in the system.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data =null
+                    };
+                }
+                
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to get user list.",
+                    Message = "Error: Unable to create user list.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
             }
-            return null;
+            return _or;
         }
 
-        public async Task<UserDto> GetByEmailAndPasswordAsync(string email, string password)
+        public async Task<OperationResult> GetByEmailAndPasswordAsync(string email, string password)
         {
             try
             {
@@ -69,43 +130,118 @@ namespace CorpU.Business
                     bool isPasswordCorrect = _AuthenticationOptions.ValidatePassword(password, user.password, user.salt);
                     if (isPasswordCorrect)
                     {
-                        return await _unitOfWork.Users.GetByIdAsync(user.user_id);
+                        _or = new OperationResult
+                        {
+                            Message = "User list is available.",
+                            StatusCode = (int)HttpStatusCode.OK,
+                            Data = await _unitOfWork.Users.GetByIdAsync(user.user_id)
+                        };
                     }
+                    else
+                    {
+                        _or = new OperationResult
+                        {
+                            Message = "Error: username or password incorrect.",
+                            StatusCode = (int)HttpStatusCode.OK,
+                            Data = null
+                        };
+                    }
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Error: username or password incorrect.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = null
+                    };
                 }
             }
             catch (Exception ex)
             {
-               //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to get user datails.",
+                    Message = "Error: Unable to create datails.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
             }
-            return null;
+            return _or;
         }
 
-        public async Task<UserDto> GetByEmailAsync(string email)
+        public async Task<OperationResult> GetByEmailAsync(string email)
         {
             try
             {
-                return await _unitOfWork.Users.GetByEmailAsync(email);
-              
+                var user = await _unitOfWork.Users.GetAllAsync();
+                if (user != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User data is available.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = user
+                    };
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User data is not available.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = null
+                    };
+                }
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to get user datails.",
+                    Message = "Error: Unable to create user datails.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
             }
-            return null;
+            return _or;
         }
 
-        public async Task<UserDto> GetByIdAsync(int Id)
+        public async Task<OperationResult> GetByIdAsync(int Id)
         {
             try
             {
-                return await _unitOfWork.Users.GetByIdAsync(Id);
-
+                var user = await _unitOfWork.Users.GetByIdAsync(Id);
+                if (user != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User data is available.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = user
+                    };
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "User data is not available.",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = null
+                    };
+                }
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to get user datails.",
+                    Message = "Error: Unable to create user datails.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
             }
-            return null;
+            return _or;
         }
     }
 }
