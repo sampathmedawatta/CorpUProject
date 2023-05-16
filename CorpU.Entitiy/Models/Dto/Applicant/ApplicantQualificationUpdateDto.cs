@@ -1,5 +1,4 @@
-﻿using CorpU.Entitiy.Models.Dto.Referance;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CorpU.Entitiy.Models.Dto.Applicant
 {
-    public class ApplicantQualificationDto
+    public class ApplicantQualificationUpdateDto
     {
         [JsonPropertyName("appQualificationId")]
         public int app_qualification_id { get; set; }
@@ -27,12 +26,5 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
 
         [JsonPropertyName("awarded_date")]
         public DateTime awarded_date { get; set; }
-
-        [JsonPropertyName("applicant")]
-        public ApplicantDto applicant { get; set; }
-
-        [JsonPropertyName("Qualification")]
-
-        public QualificationTypeDto qualificationType { get; set; }
     }
 }
