@@ -3,6 +3,7 @@ using CorpU.Common;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.Employee;
+using CorpU.Entitiy.Models.Dto.Referance;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
 using System;
@@ -23,6 +24,7 @@ namespace CorpU.Data.Repository
                 return new DataContext(ConnectionString);
             }
         }
+        public IQualificationRepository<QualificationTypeDto> Qualifications { get;private set; }
         public IApplicantQualificationRepository<ApplicantQualificationDto> ApplicantQualification { get; private set; }
         public IApplicantContactRepository<ApplicantContactDetailDto> ApplicantContact {  get; private set; }
         public IApplicantRepository<ApplicantDto> Applicants { get; private set; }
@@ -32,6 +34,7 @@ namespace CorpU.Data.Repository
         {
 
             ConnectionString = appSetting.Value.DBConnection;
+            Qualifications = new QualificationRepository(Context, mapper);
             Applicants = new ApplicantRepository(Context, mapper);
             ApplicantContact= new ApplicantContactRepository(Context, mapper);
             ApplicantQualification = new ApplicantQualificationRepository(Context, mapper);
