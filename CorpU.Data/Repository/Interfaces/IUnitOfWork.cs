@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CorpU.Entitiy.Models.Dto.Unit;
 
 namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        IVacancyRepository<VacancyDto> Vacancy { get; }
         IApplicantRepository<ApplicantDto> Applicants { get; }
         IEmployeeRepository<EmployeeDto> Employees { get; }
 
