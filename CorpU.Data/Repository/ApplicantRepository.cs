@@ -49,7 +49,7 @@ namespace CorpU.Data.Repository
             {
                 var applicantList = await table
                    .Include(u => u.User)
-                   .FirstOrDefaultAsync();
+                   .ToListAsync();
 
                 return _mapper.Map<IEnumerable<ApplicantDto>>(applicantList);
             }
@@ -59,9 +59,23 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public Task<int> Insert(ApplicantDto entity)
+        public async Task<int> Insert(ApplicantDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ApplicantEntity aplicantEntity;
+                aplicantEntity = _mapper.Map<ApplicantDto, ApplicantEntity>(entity);
+
+                this.context.Set<ApplicantEntity>().Add(aplicantEntity);
+                int excecutedRows = await this.context.SaveChangesAsync();
+
+                entity.applicant_id = aplicantEntity.applicant_id;
+                return excecutedRows;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public Task<int> Update(ApplicantDto entity)
