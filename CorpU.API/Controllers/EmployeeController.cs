@@ -30,26 +30,7 @@ namespace CorpU.API.Controllers
         {
             try
             {
-                var employee = await _employeeManager.CreateEmployeeAsync(employeeDto);
-                if (employee == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "Error: employee creation failed.",
-                        StatusCode = (int)HttpStatusCode.InternalServerError,
-                        Data = null
-                    };
-                    _logger.LogError("Error: ", _or);
-                }
-                else
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "Employee created successfully",
-                        StatusCode = (int)HttpStatusCode.OK,
-                        Data = employee
-                    };
-                }
+                _or = await _employeeManager.CreateEmployeeAsync(employeeDto);
             }
             catch (Exception ex)
             {
@@ -59,7 +40,7 @@ namespace CorpU.API.Controllers
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: ", _or);
+                _logger.LogError("Error: employee update failed", _or);
             }
             return Ok(_or);
         }
@@ -69,26 +50,7 @@ namespace CorpU.API.Controllers
         {
             try
             {
-                var employee = await _employeeManager.UpdateEmployeeAsync(employeeDto);
-                if (employee == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "Error: employee update failed.",
-                        StatusCode = (int)HttpStatusCode.InternalServerError,
-                        Data = null
-                    };
-                    _logger.LogError("Error: ", _or);
-                }
-                else
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "Employee update successfully",
-                        StatusCode = (int)HttpStatusCode.OK,
-                        Data = employee
-                    };
-                }
+                _or = await _employeeManager.UpdateEmployeeAsync(employeeDto);
             }
             catch (Exception ex)
             {
@@ -98,7 +60,7 @@ namespace CorpU.API.Controllers
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: ", _or);
+                _logger.LogError("Error: employee update failed", _or);
             }
             return Ok(_or);
         }
@@ -109,32 +71,17 @@ namespace CorpU.API.Controllers
             //TODO
             try
             {
-                var employee = await _employeeManager.GetByEmailAsync(email);
-                if (employee == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "User details not found!",
-                        StatusCode = (int)HttpStatusCode.NotFound,
-                        Data = null
-                    };
-                }
-                _or = new OperationResult
-                {
-                    Message = "Employee details",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Data = employee
-                };
+                _or = await _employeeManager.GetByEmailAsync(email);
             }
             catch (Exception ex)
             {
                 _or = new OperationResult
                 {
-                    Message = "Error: user registration failed.",
+                    Message = "Error: Exception occurred",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: token generation failed.", _or);
+                _logger.LogError("Error: Exception occurred", _or);
             }
 
             return Ok(_or);
@@ -145,32 +92,17 @@ namespace CorpU.API.Controllers
         {
             try
             {
-                var employee = await _employeeManager.GetByIdAsync(id);
-                if (employee == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "employee details not found!",
-                        StatusCode = (int)HttpStatusCode.NotFound,
-                        Data = null
-                    };
-                }
-                _or = new OperationResult
-                {
-                    Message = "employee details",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Data = employee
-                };
+                _or = await _employeeManager.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
                 _or = new OperationResult
                 {
-                    Message = "Error: failed.",
+                    Message = "Error: Exception occurred.",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: token generation failed.", _or);
+                _logger.LogError("Error: Exception occurred", _or);
             }
 
             return Ok(_or);
@@ -182,33 +114,17 @@ namespace CorpU.API.Controllers
             //TODO
             try
             {
-                IEnumerable<EmployeeDto> employeeList = await _employeeManager.GetAllAsync();
-
-                if (employeeList == null)
-                {
-                    _or = new OperationResult
-                    {
-                        Message = "Employee details not found!",
-                        StatusCode = (int)HttpStatusCode.NotFound,
-                        Data = null
-                    };
-                }
-                _or = new OperationResult
-                {
-                    Message = "Employee details",
-                    StatusCode = (int)HttpStatusCode.InternalServerError,
-                    Data = employeeList
-                };
+                _or = await _employeeManager.GetAllAsync();
             }
             catch (Exception ex)
             {
                 _or = new OperationResult
                 {
-                    Message = "Error: failed.",
+                    Message = "Error: Exception occurred",
                     StatusCode = (int)HttpStatusCode.InternalServerError,
                     Data = null
                 };
-                _logger.LogError("Error: failed.", _or);
+                _logger.LogError("Error: Exception occurred", _or);
             }
 
             return Ok(_or);

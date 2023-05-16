@@ -1,12 +1,14 @@
 ﻿using CorpU.Business.Interfaces;
 using CorpU.Common;
 using CorpU.Data.Repository.Interfaces;
+using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,17 +19,33 @@ namespace CorpU.Business
         private IUnitOfWork _unitOfWork;
         private readonly IEmailManager _emailManager;
         readonly AuthenticationOptions _AuthenticationOptions;
+        OperationResult _or;
         public EmployeeManager(IUnitOfWork unitOfWork, IEmailManager emailManager, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
             this._emailManager = emailManager;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
+            this._or = new OperationResult();
         }
 
-        public async Task<EmployeeDto?> CreateEmployeeAsync(EmployeeRegisterDto entity)
+        public async Task<OperationResult> CreateEmployeeAsync(EmployeeRegisterDto entity)
         {
             try
             {
+                var _employee = await GetByEmailAsync(entity.email);
+
+                if (_employee != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Error: Employee already exist!",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = null
+                    };
+
+                    return _or;
+                }
+             
                 //Create user account
                 var _password = _AuthenticationOptions.GeneratePassword(true, true, true, true, 20);
                 UserDto userDto = new()
@@ -57,7 +75,12 @@ namespace CorpU.Business
                     {
                         // TODO role back user creation
                         var userDeleteResult = await _unitOfWork.Users.Delete(userDto.user_id);
-                        return null;
+                        _or = new OperationResult
+                        {
+                            Message = "Error: Employee creation faild!",
+                            StatusCode = (int)HttpStatusCode.InternalServerError,
+                            Data = null
+                        };
                     }
                     else
                     {
@@ -66,21 +89,44 @@ namespace CorpU.Business
                         // sent an email with username and password to employee.
                         await _emailManager.SendAccountSuccessfulEmail_Employee(employee, userDto);
 
-                        return employee;
+                        _or = new OperationResult
+                        {
+                            Message = "Employee created successfully",
+                            StatusCode = (int)HttpStatusCode.OK,
+                            Data = employee
+                        };
+
                     }
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Error: Employee created faild!",
+                        StatusCode = (int)HttpStatusCode.InternalServerError,
+                        Data = null
+                    };
                 }
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Message = "Error: employee creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
             }
-            return null;
+            return _or;
         }
-        public async Task<EmployeeDto?> UpdateEmployeeAsync(EmployeeUpdateDto entity)
+        public async Task<OperationResult> UpdateEmployeeAsync(EmployeeUpdateDto entity)
         {
             try
             {
-                // Can not change the email due to security reasons. Can implement this feature later. 
+
+
+
+
                 EmployeeDto employeeDtoDto = new EmployeeDto();
 
                 employeeDtoDto.emp_id = entity.emp_id;
@@ -94,52 +140,134 @@ namespace CorpU.Business
 
                 var employee = await GetByIdAsync(employeeDtoDto.emp_id);
 
-                return employee;
+                _or = new OperationResult
+                {
+                    Message = "Employee successfully updated.",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = employee
+                };
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Message = "Error: Employee update faild!",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
             }
-            return null;
+            return _or;
         }
 
-        public async Task<IEnumerable<EmployeeDto>> GetAllAsync()
+        public async Task<OperationResult> GetAllAsync()
         {
             try
             {
-                return await _unitOfWork.Employees.GetAllAsync();
+                var employeeList = await _unitOfWork.Employees.GetAllAsync();
+                if (employeeList!= null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Employee list is available",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = employeeList
+                    };
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "There are no employees in the system.",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to get employee list.",
+                    Message = "Error: Unable to employee list.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
             }
-            return null;
+            return _or;
         }
 
-        public async Task<EmployeeDto> GetByEmailAsync(string email)
+        public async Task<OperationResult> GetByEmailAsync(string email)
         {
             try
             {
-                return await _unitOfWork.Employees.GetByEmailAsync(email);
+                var employee = await _unitOfWork.Employees.GetByEmailAsync(email);
+                if (employee != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Employee data is available",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = employee
+                    };
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "There is no employee in the system.",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to get employee datails.",
+                    Message = "Error: Unable to employee list.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
             }
-            return null;
+            return _or;
         }
 
-        public async Task<EmployeeDto> GetByIdAsync(int id)
+        public async Task<OperationResult> GetByIdAsync(int id)
         {
             try
             {
-                return await _unitOfWork.Employees.GetByIdAsync(id);
+                var employee = await _unitOfWork.Employees.GetByIdAsync(id);
+                if (employee != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Employee data is available",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = employee
+                    };
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "There is no employee in the system.",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
             }
             catch (Exception ex)
             {
-                //TODO log error and haddle the error
+                 _or = new OperationResult
+                {
+                    Error = "Error: Unable to get employee datails.",
+                    Message = "Error: Unable to employee list.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
             }
-            return null;
+            return _or;
         }
 
 
