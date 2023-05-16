@@ -33,7 +33,7 @@ namespace CorpU.API.Controllers
         }
 
         [HttpGet("Login")]
-        public async Task<ActionResult> UserLogin([FromQuery] UserLoginDto userLogin)
+        public async Task<ActionResult> UserLogin(UserLoginDto userLogin)
         {
             try
             {

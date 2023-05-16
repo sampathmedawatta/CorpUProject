@@ -44,6 +44,7 @@ builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IApplicantManager, ApplicantManager>();
 builder.Services.AddScoped<IApplicantContactManager, ApplicantContactManager>();
 builder.Services.AddScoped<IApplicantQualificationManager, ApplicantQualificationManager>();
+builder.Services.AddScoped<IQualificationManager, QualificationManager>();
 builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
