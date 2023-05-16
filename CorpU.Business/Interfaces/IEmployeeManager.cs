@@ -1,4 +1,5 @@
-﻿using CorpU.Entitiy.Models.Dto.Employee;
+﻿using CorpU.Entitiy.Models;
+using CorpU.Entitiy.Models.Dto.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace CorpU.Business.Interfaces
 {
     public interface IEmployeeManager : IBaseManager
     {
-        Task<EmployeeDto> GetByIdAsync(int id);
-        Task<EmployeeDto> GetByEmailAsync(string email);
-        Task<IEnumerable<EmployeeDto>> GetAllAsync();
-        Task<EmployeeDto> CreateEmployeeAsync(EmployeeRegisterDto entity);
-        Task<EmployeeDto> UpdateEmployeeAsync(EmployeeUpdateDto entity);
+        Task<OperationResult> GetByIdAsync(int id);
+        Task<OperationResult> GetByEmailAsync(string email);
+        Task<OperationResult> GetAllAsync();
+        Task<OperationResult> CreateEmployeeAsync(EmployeeRegisterDto entity);
+        Task<OperationResult> UpdateEmployeeAsync(EmployeeUpdateDto entity);
 
     }
 }
