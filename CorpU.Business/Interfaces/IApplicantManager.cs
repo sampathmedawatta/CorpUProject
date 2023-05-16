@@ -1,4 +1,5 @@
 ﻿using CorpU.Data.Models;
+using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.Applicant;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace CorpU.Business.Interfaces
         //Task<ApplicantDto> GetByEmailAsync(string email);
         Task<IEnumerable<ApplicantDto>> GetAllAsync();
         Task<ApplicantDto> CreateApplicantAsync(ApplicantRegisterDto entity);
-        //Task<ApplicantDto> UpdateEmployeeAsync(ApplicantDto entity);
+        Task<OperationResult> UpdateEmployeeAsync(ApplicantUpdateDto entity);
     }
 }

@@ -78,9 +78,30 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public Task<int> Update(ApplicantDto entity)
+        public async Task<int> Update(ApplicantDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ApplicantEntity? Applicant = await table.Where(c => c.applicant_id == entity.applicant_id).FirstOrDefaultAsync();
+
+                if (Applicant != null)
+                {
+                    Applicant.name = entity.name;
+                    Applicant.email = entity.email;
+                    //Applicant.user_id = entity.user_id;
+                    Applicant.status = entity.status;
+                    Applicant.resume_url = entity.resume_url;           
+
+                    int excecutedRows = await this.context.SaveChangesAsync();
+
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
         }
 
         public Task<int> Delete(int id)

@@ -126,11 +126,24 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
-
-        // PUT api/<ApplicantController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateApplicant([FromQuery] ApplicantUpdateDto value)
         {
+            try
+            {
+                _or = await _applicantManager.UpdateEmployeeAsync(value);
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: applicant update failed", _or);
+            }
+            return Ok(_or);
         }
 
         // DELETE api/<ApplicantController>/5

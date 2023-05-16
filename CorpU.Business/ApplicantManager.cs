@@ -2,10 +2,12 @@
 using CorpU.Common;
 using CorpU.Data.Models;
 using CorpU.Data.Repository.Interfaces;
+using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
+using System.Net;
 
 namespace CorpU.Business
 {
@@ -13,10 +15,12 @@ namespace CorpU.Business
     {
         private IUnitOfWork _unitOfWork;
         readonly AuthenticationOptions _AuthenticationOptions;
+        OperationResult _or;
         public ApplicantManager(IUnitOfWork unitOfWork, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
+            this._or = new OperationResult();
         }
         public async Task<ApplicantDto> GetByIdAsync(int Id)
         {
@@ -56,7 +60,40 @@ namespace CorpU.Business
 
             var applicant = await GetByIdAsync(applicantDto.applicant_id);
             return applicant;
+        }
+        public async Task<OperationResult> UpdateEmployeeAsync(ApplicantUpdateDto entity)
+        {
+            try
+            {
+                ApplicantDto applicantDto = new ApplicantDto();
 
+                applicantDto.applicant_id=entity.applicant_id;
+                applicantDto.name = entity.name;
+                applicantDto.email = entity.email;
+                applicantDto.status = entity.status;
+                applicantDto.resume_url = entity.resume_url;
+
+                var applicantReuslt = await _unitOfWork.Applicants.Update(applicantDto);
+
+                var applicant = await GetByIdAsync(applicantDto.applicant_id);
+
+                _or = new OperationResult
+                {
+                    Message = "Employee successfully updated.",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = applicant
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: Employee update faild!",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+            }
+            return _or;
         }
     }
 }
