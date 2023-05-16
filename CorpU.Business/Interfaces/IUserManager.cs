@@ -1,4 +1,5 @@
 ﻿using CorpU.Data.Models;
+using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.User;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace CorpU.Business.Interfaces
 {
     public interface IUserManager : IBaseManager
     {
-        Task<UserDto> GetByEmailAndPasswordAsync(string email, string password);
-        Task<UserDto> GetByEmailAsync(string email);
-        Task<UserDto> GetByIdAsync(int id);
-        Task<IEnumerable<UserDto>> GetAllAsync();
-        Task<UserDto> CreateUserAsync(UserRegisterDto entity);
+        Task<OperationResult> GetByEmailAndPasswordAsync(string email, string password);
+        Task<OperationResult> GetByEmailAsync(string email);
+        Task<OperationResult> GetByIdAsync(int id);
+        Task<OperationResult> GetAllAsync();
+        Task<OperationResult> CreateUserAsync(UserRegisterDto entity);
 
 
     }
