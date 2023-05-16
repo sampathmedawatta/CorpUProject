@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace CorpU.Entitiy.Models.Dto.Applicant
 {
-    public class ApplicantContactDetailDto
+    public class ApplicantContactRegisterDto
     {
-        [JsonPropertyName("appContactId")]
-        public int app_contact_id { get; set; }
         [JsonPropertyName("applicant_id")]
-        public int applicant_id { get; set;}
-
+        public int applicant_id { get; set; }
         [JsonPropertyName("phone")]
         public int phone { get; set; }
         [JsonPropertyName("addressLine1")]
@@ -24,7 +21,5 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         public string state { get; set; }
         [JsonPropertyName("postcode")]
         public int postcode { get; set; }
-        [JsonPropertyName("applicant")]
-        public ApplicantDto applicant { get; set; }
     }
 }

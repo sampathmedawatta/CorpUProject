@@ -53,14 +53,53 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public Task<int> Insert(ApplicantContactDetailDto entity)
+        public async Task<int> Insert(ApplicantContactDetailDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ApplicantContactDetailEntity aplicantContactEntity;
+                aplicantContactEntity = _mapper.Map<ApplicantContactDetailDto, ApplicantContactDetailEntity>(entity);
+
+                this.context.Set<ApplicantContactDetailEntity>().Add(aplicantContactEntity);
+                int excecutedRows = await this.context.SaveChangesAsync();
+
+                entity.app_contact_id = aplicantContactEntity.app_contact_id;
+                return excecutedRows;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
-        public Task<int> Update(ApplicantContactDetailDto entity)
+        public async Task<int> Update(ApplicantContactDetailDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ApplicantContactDetailEntity? ApplicantContact = await table
+                    .Where(c => c.app_contact_id == entity.app_contact_id)
+                    .Where(c => c.applicant_id == entity.applicant_id)
+                    .FirstOrDefaultAsync();
+
+                if (ApplicantContact != null)
+                {
+                    //ApplicantContact.app_contact_id=entity.app_contact_id;
+                    //ApplicantContact.applicant_id=entity.applicant_id;
+                    ApplicantContact.phone= entity.phone;
+                    ApplicantContact.address_line1 = entity.address_line1;
+                    ApplicantContact.address_line2 = entity.address_line2;
+                    ApplicantContact.postcode = entity.postcode;
+                    ApplicantContact.state = entity.state;
+                    int excecutedRows = await this.context.SaveChangesAsync();
+
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
         }
     }
 }
