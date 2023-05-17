@@ -13,6 +13,7 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        IApplicantAvailabilityRepository<ApplicantAvailabilityDto> ApplicantAvailability { get; }
         IVacancyTypeRepository<VacancyTypeDto> VacancyType { get; }
         IVacancyRepository<VacancyDto> Vacancy { get; }
         IApplicantRepository<ApplicantDto> Applicants { get; }

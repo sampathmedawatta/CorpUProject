@@ -14,6 +14,7 @@ namespace CorpU.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int app_availability_id { get; set; }
         [Required]
+        public int applicant_id { get; set; }
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
         [Required]

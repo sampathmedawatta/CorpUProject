@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CorpU.Entitiy.Models.Dto.Applicant
 {
-    public class ApplicantAvailabilityDto
+    public class ApplicantAvailabilityUpdateDto
     {
         [JsonPropertyName("appAvailabilityId")]
         public int app_availability_id { get; set; }
@@ -17,11 +17,9 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
 
         [JsonPropertyName("startDate")]
         public DateTime start_date { get; set; }
-        
+
         [JsonPropertyName("endDate")]
         public DateTime end_date { get; set; }
-        [JsonPropertyName("applicant")]
-        public ApplicantDto applicant { get; set; }
 
     }
 }
