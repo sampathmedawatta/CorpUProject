@@ -32,7 +32,8 @@ namespace CorpU.API.Controllers
             this._or = new OperationResult();
         }
 
-        [HttpGet("Login")]
+
+        [HttpPost("Login")]
         public async Task<ActionResult> UserLogin(UserLoginDto userLogin)
         {
             try
@@ -144,7 +145,7 @@ namespace CorpU.API.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult> AddUser( UserRegisterDto userRegisterDto)
+        public async Task<ActionResult> AddUser(UserRegisterDto userRegisterDto)
         {
             try
             {
