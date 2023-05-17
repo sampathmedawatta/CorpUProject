@@ -9,6 +9,9 @@ namespace CorpU.Entitiy.Models.Dto.User
 {
     public class UserRegisterDto
     {
+        [JsonPropertyName("name")]
+        public string name { get; set; }
+
         [JsonPropertyName("email")]
         public string email { get; set; }
 

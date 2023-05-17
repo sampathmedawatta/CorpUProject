@@ -34,7 +34,7 @@ namespace CorpU.Business
             {
                 var _employee = await GetByEmailAsync(entity.email);
 
-                if (_employee != null)
+                if (_employee.Data != null)
                 {
                     _or = new OperationResult
                     {

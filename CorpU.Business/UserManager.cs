@@ -3,6 +3,7 @@ using CorpU.Common;
 using CorpU.Data.Models;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models;
+using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
 using System.Net;
@@ -12,11 +13,13 @@ namespace CorpU.Business
     public class UserManager : IUserManager
     {
         private IUnitOfWork _unitOfWork;
+        private readonly IApplicantManager applicantManager;
         readonly AuthenticationOptions _AuthenticationOptions;
         OperationResult _or;
-        public UserManager(IUnitOfWork unitOfWork, IOptions<PasswordSettings> passwordSettings)
+        public UserManager(IUnitOfWork unitOfWork, IApplicantManager applicantManager, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
+            this.applicantManager = applicantManager;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
             this._or = new OperationResult();
         }
@@ -61,10 +64,20 @@ namespace CorpU.Business
 
                 var _user = await _unitOfWork.Users.GetByIdAsync(userDto.user_id);
 
+                ApplicantRegisterDto ApplicantRegDto = new()
+                {
+                    email = entity.email,
+                    name = entity.name,
+                    user_id = _user.user_id,
+                    resume_url = ""
+                };
+               
+                var applicantResult = await applicantManager.CreateApplicantAsync(ApplicantRegDto);
+
                 _or = new OperationResult
                 {
                     Message = "User account created successfully.",
-                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    StatusCode = (int)HttpStatusCode.OK,
                     Data = _user
                 };
             }
