@@ -101,51 +101,51 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        //[HttpPost("Add")]
-        //public async Task<ActionResult> CreateApplicantAvailability(ApplicantAvailabilityRegisterDto value)
-        //{
-        //    var applicantAvailability = await _applicantAvailabilityManager.CreateApplicantAvailabilityAsync(value);
-        //    if (applicantAvailability == null)
-        //    {
-        //        _or = new OperationResult
-        //        {
-        //            Message = "Error: applicant creation failed.",
-        //            StatusCode = (int)HttpStatusCode.InternalServerError,
-        //            Data = null
-        //        };
-        //        _logger.LogError("Error: ", _or);
-        //    }
-        //    else
-        //    {
-        //        _or = new OperationResult
-        //        {
-        //            Message = "applicant created successfully",
-        //            StatusCode = (int)HttpStatusCode.OK,
-        //            Data = applicantAvailability
-        //        };
-        //    }
+        [HttpPost("Add")]
+        public async Task<ActionResult> CreateApplicantAvailability(ApplicantAvailabilityRegisterDto value)
+        {
+            var applicantAvailability = await _applicantAvailabilityManager.CreateApplicantAvailabilityAsync(value);
+            if (applicantAvailability == null)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            else
+            {
+                _or = new OperationResult
+                {
+                    Message = "applicant created successfully",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = applicantAvailability
+                };
+            }
 
-        //    return Ok(_or);
-        //}
-        //[HttpPost("Update")]
-        //public async Task<ActionResult> UpdateApplicantAvailability([FromQuery] ApplicantAvailabilityUpdateDto value)
-        //{
-        //    try
-        //    {
-        //        _or = await _applicantAvailabilityManager.UpdateApplicantAvailabilityAsync(value);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _or = new OperationResult
-        //        {
-        //            Message = "Error: applicant availability update failed.",
-        //            StatusCode = (int)HttpStatusCode.InternalServerError,
-        //            Data = null
-        //        };
-        //        _logger.LogError("Error: applicant availability update failed", _or);
-        //    }
-        //    return Ok(_or);
-        //}
+            return Ok(_or);
+        }
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateApplicantAvailability([FromQuery] ApplicantAvailabilityUpdateDto value)
+        {
+            try
+            {
+                _or = await _applicantAvailabilityManager.UpdateApplicantAvailabilityAsync(value);
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: applicant availability update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: applicant availability update failed", _or);
+            }
+            return Ok(_or);
+        }
 
         // DELETE api/<ApplicantAvailabilityController>/5
         [HttpDelete("{id}")]
