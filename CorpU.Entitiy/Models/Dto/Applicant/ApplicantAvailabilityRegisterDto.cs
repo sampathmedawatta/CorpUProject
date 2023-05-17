@@ -7,21 +7,16 @@ using System.Threading.Tasks;
 
 namespace CorpU.Entitiy.Models.Dto.Applicant
 {
-    public class ApplicantAvailabilityDto
+    public class ApplicantAvailabilityRegisterDto
     {
-        [JsonPropertyName("appAvailabilityId")]
-        public int app_availability_id { get; set; }
-
         [JsonPropertyName("applicant_id")]
         public int applicant_id { get; set; }
 
         [JsonPropertyName("startDate")]
         public DateTime start_date { get; set; }
-        
+
         [JsonPropertyName("endDate")]
         public DateTime end_date { get; set; }
-        [JsonPropertyName("applicant")]
-        public ApplicantDto applicant { get; set; }
 
     }
 }
