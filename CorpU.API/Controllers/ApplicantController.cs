@@ -99,6 +99,42 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
+        [HttpGet("GetByUserId")]
+        public async Task<ActionResult> GetApplicantByUserId(int id)
+        {
+            try
+            {
+                var applicant = await _applicantManager.GetByUserIdAsync(id);
+                if (applicant == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "employee details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "employee details",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = applicant
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
+
+            return Ok(_or);
+        }
+
         // POST api/<ApplicantController>
         [HttpPost("Add")]
         public async Task<ActionResult> CreateApplicant(ApplicantRegisterDto value)
