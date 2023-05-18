@@ -2,6 +2,7 @@
 using CorpU.Common;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models.Dto.Applicant;
+using CorpU.Entitiy.Models.Dto.Application;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.Referance;
 using CorpU.Entitiy.Models.Dto.Unit;
@@ -25,6 +26,7 @@ namespace CorpU.Data.Repository
                 return new DataContext(ConnectionString);
             }
         }
+        public IApplicationRepository<ApplicationDto> Application {  get;private set; }
         public IClassTypeRepository<ClassTypeDto> ClassType { get;private set; }
         public IUnitRepository<UnitDto> Unit { get; private set; }
         public IApplicantAvailabilityRepository<ApplicantAvailabilityDto> ApplicantAvailability { get; private set; }
@@ -48,6 +50,7 @@ namespace CorpU.Data.Repository
             ApplicantContact= new ApplicantContactRepository(Context, mapper);
             ApplicantQualification = new ApplicantQualificationRepository(Context, mapper);
             ApplicantAvailability = new ApplicantAvailabilityRepository(Context, mapper);
+            Application=new ApplicationRepository(Context, mapper);
             Employees = new EmployeeRepository(Context, mapper);
             Users = new UserRepository(Context, mapper);
         }

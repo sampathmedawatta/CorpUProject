@@ -14,14 +14,17 @@ namespace CorpU.Entitiy.Models.Dto.Application
         [JsonPropertyName("ApplicationId")]
         public int Application_id { get; set; }
 
-        [JsonPropertyName("applicant")]
-        public ApplicantDto applicant { get; set; }
+        [JsonPropertyName("applicant_id")]
+        public int applicant_id { get; set; }
 
         [JsonPropertyName("resumeUrl")]
         public string resume_url { get; set; }
 
         [JsonPropertyName("status")]
         public string status { get; set; }
+
+        [JsonPropertyName("Applicant")]
+        public ApplicantDto applicant { get; set; }
 
     }
 }
