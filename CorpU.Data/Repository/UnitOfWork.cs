@@ -25,6 +25,8 @@ namespace CorpU.Data.Repository
                 return new DataContext(ConnectionString);
             }
         }
+        public IClassTypeRepository<ClassTypeDto> ClassType { get;private set; }
+        public IUnitRepository<UnitDto> Unit { get; private set; }
         public IApplicantAvailabilityRepository<ApplicantAvailabilityDto> ApplicantAvailability { get; private set; }
         public IVacancyTypeRepository<VacancyTypeDto> VacancyType { get; private set; }
         public IVacancyRepository<VacancyDto> Vacancy { get; private set; }
@@ -38,6 +40,8 @@ namespace CorpU.Data.Repository
         {
             ConnectionString = appSetting.Value.DBConnection;
             Qualifications = new QualificationRepository(Context, mapper);
+            Unit=new UnitRepository(Context, mapper);
+            ClassType=new ClassTypeRepository(Context, mapper);
             Applicants = new ApplicantRepository(Context, mapper);
             Vacancy=new VacancyRepository(Context, mapper);
             VacancyType=new VacancyTypeRepository(Context, mapper);

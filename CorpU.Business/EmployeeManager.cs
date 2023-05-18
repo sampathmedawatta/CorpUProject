@@ -123,12 +123,23 @@ namespace CorpU.Business
         {
             try
             {
+                var _employee = await GetByIdAsync(entity.emp_id);
+
+                if (_employee.Data == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Error: Employee details are not available!",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = null
+                    };
+
+                    return _or;
+                }
 
 
-
-
-                EmployeeDto employeeDtoDto = new EmployeeDto();
-
+                EmployeeDto employeeDtoDto = new EmployeeDto(); 
+                
                 employeeDtoDto.emp_id = entity.emp_id;
                 employeeDtoDto.emp_name = entity.emp_name;
                 employeeDtoDto.phone = entity.phone;
