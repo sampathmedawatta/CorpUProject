@@ -25,7 +25,7 @@ namespace CorpU.Data.Models
         [ForeignKey("qualification_type_id")]
         public QualificationTypeEntity QualificationType { get; set; }
         [Required]
-        public DateTime awarded_date { get; set; }
+        public int awarded_year { get; set; }
         [Required]
         [MaxLength(150)]
         public string institute { get; set; }
