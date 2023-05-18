@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace CorpU.Entitiy.Models.Dto.Application
 {
-    public class ApplicationDto
+    public class ApplicationUpdateDto
     {
-
         [JsonPropertyName("ApplicationId")]
         public int Application_id { get; set; }
 
@@ -23,9 +22,5 @@ namespace CorpU.Entitiy.Models.Dto.Application
 
         [JsonPropertyName("status")]
         public string status { get; set; }
-
-        [JsonPropertyName("Applicant")]
-        public ApplicantDto applicant { get; set; }
-
     }
 }

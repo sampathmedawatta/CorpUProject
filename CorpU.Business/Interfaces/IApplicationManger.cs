@@ -15,7 +15,7 @@ namespace CorpU.Business.Interfaces
         Task<IEnumerable<ApplicationDto>> GetAllAsync();
         Task<ApplicationDto> GetByApplicantIdAsync(int id);
         Task<ApplicationDto> GetByApplicationIdAsync(int id);
-        //Task<ApplicantDto> CreateApplicantAsync(ApplicantRegisterDto entity);
-        //Task<OperationResult> UpdateEmployeeAsync(ApplicantUpdateDto entity);
+        Task<ApplicationDto> CreateApplicationAsync(ApplicationRegisterDto entity);
+        Task<OperationResult> UpdateApplicationAsync(ApplicationUpdateDto entity);
     }
 }
