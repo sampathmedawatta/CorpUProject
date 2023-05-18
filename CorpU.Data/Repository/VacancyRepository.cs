@@ -85,9 +85,34 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public Task<int> Update(VacancyDto entity)
+        public async Task<int> Update(VacancyDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                VacancyEntity? Vacancy = await table
+                    .Where(c => c.vacancy_id == entity.vacancy_id)
+                    .Where(e => e.emp_id == entity.emp_id)
+                    .FirstOrDefaultAsync();
+
+                if (Vacancy != null)
+                {
+                    Vacancy.vacancy_type_id = entity.vacancy_type_id;
+                    Vacancy.class_type_id=entity.class_type_id;
+                    Vacancy.unit_id= entity.unit_id;
+                    Vacancy.title=entity.title;
+                    Vacancy.description=entity.description;
+                    Vacancy.publish_date = entity.publish_date;
+                    Vacancy.closing_date= entity.closing_date;
+                    int excecutedRows = await this.context.SaveChangesAsync();
+
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
         }
 
         public Task<int> Delete(int id)
