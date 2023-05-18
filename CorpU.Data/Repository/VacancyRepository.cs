@@ -66,9 +66,23 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public Task<int> Insert(VacancyDto entity)
+        public async Task<int> Insert(VacancyDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                VacancyEntity vacancyEntity;
+                vacancyEntity = _mapper.Map<VacancyDto, VacancyEntity>(entity);
+
+                this.context.Set<VacancyEntity>().Add(vacancyEntity);
+                int excecutedRows = await this.context.SaveChangesAsync();
+
+                entity.vacancy_id = vacancyEntity.vacancy_id;
+                return excecutedRows;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public Task<int> Update(VacancyDto entity)

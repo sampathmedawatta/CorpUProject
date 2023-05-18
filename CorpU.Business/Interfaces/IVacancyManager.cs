@@ -14,5 +14,6 @@ namespace CorpU.Business.Interfaces
     {
         Task<VacancyDto> GetByIdAsync(int id);
         Task<IEnumerable<VacancyDto>> GetAllAsync();
+        Task<VacancyDto> CreateVacancyAsync(VacancyRegisterDto entity);
     }
 }
