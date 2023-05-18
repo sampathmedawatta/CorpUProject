@@ -66,5 +66,43 @@ namespace CorpU.Business
             var vacancy = await GetByIdAsync(vacancyDto.vacancy_id);
             return vacancy;
         }
+        public async Task<OperationResult> UpdateVacancyAsync(VacancyUpadteDto entity)
+        {
+            try
+            {
+                VacancyDto vacancyDto = new VacancyDto();
+                vacancyDto.vacancy_id = entity.vacancy_id;
+                vacancyDto.vacancy_type_id= entity.vacancy_type_id;
+                vacancyDto.class_type_id=entity.class_type_id;
+                vacancyDto.emp_id=entity.emp_id;
+                vacancyDto.unit_id = entity.unit_id;
+                vacancyDto.title=entity.title;
+                vacancyDto.description=entity.description;
+                vacancyDto.status=entity.status;
+                vacancyDto.publish_date = entity.publish_date;
+                vacancyDto.closing_date = entity.closing_date;
+
+                var vacancyReuslt = await _unitOfWork.Vacancy.Update(vacancyDto);
+
+                var applicant = await GetByIdAsync(vacancyDto.vacancy_id);
+
+                _or = new OperationResult
+                {
+                    Message = "Vacancy successfully updated.",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = applicant
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: Vacancy update faild!",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+            }
+            return _or;
+        }
     }
 }

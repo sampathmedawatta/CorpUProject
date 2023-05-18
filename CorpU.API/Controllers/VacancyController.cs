@@ -127,24 +127,24 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
-        //[HttpPost("Update")]
-        //public async Task<ActionResult> UpdateApplicant([FromQuery] ApplicantUpdateDto value)
-        //{
-        //    try
-        //    {
-        //        _or = await _applicantManager.UpdateEmployeeAsync(value);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _or = new OperationResult
-        //        {
-        //            Message = "Error: applicant update failed.",
-        //            StatusCode = (int)HttpStatusCode.InternalServerError,
-        //            Data = null
-        //        };
-        //        _logger.LogError("Error: applicant update failed", _or);
-        //    }
-        //    return Ok(_or);
-        //}
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateVacancy([FromQuery] VacancyUpadteDto value)
+        {
+            try
+            {
+                _or = await _vacancyManager.UpdateVacancyAsync(value);
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: vacancy update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: vacancy update failed", _or);
+            }
+            return Ok(_or);
+        }
     }
 }
