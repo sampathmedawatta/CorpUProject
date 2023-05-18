@@ -48,5 +48,23 @@ namespace CorpU.Business
             }
             return null;
         }
+        public async Task<VacancyDto> CreateVacancyAsync(VacancyRegisterDto entity)
+        {
+            VacancyDto vacancyDto = new VacancyDto();
+            vacancyDto.vacancy_type_id=entity.vacancy_type_id;
+            vacancyDto.class_type_id= entity.class_type_id;
+            vacancyDto.emp_id=entity.emp_id;
+            vacancyDto.unit_id=entity.unit_id;
+            vacancyDto.title=entity.title;
+            vacancyDto.description=entity.description;
+            vacancyDto.publish_date=entity.publish_date;
+            vacancyDto.closing_date=entity.closing_date;
+            vacancyDto.status=entity.status;
+
+            var vacancyReuslt = await _unitOfWork.Vacancy.Insert(vacancyDto);
+
+            var vacancy = await GetByIdAsync(vacancyDto.vacancy_id);
+            return vacancy;
+        }
     }
 }

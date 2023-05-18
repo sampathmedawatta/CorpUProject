@@ -101,48 +101,48 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        //[HttpPost("Add")]
-        //public async Task<ActionResult> CreateApplicantQualification(ApplicantQualificationRegisterDto value)
-        //{
-        //    var applicantContact = await _applicantQualificationManager.CreateApplicantQualificationAsync(value);
-        //    if (applicantContact == null)
-        //    {
-        //        _or = new OperationResult
-        //        {
-        //            Message = "Error: applicant qualification creation failed.",
-        //            StatusCode = (int)HttpStatusCode.InternalServerError,
-        //            Data = null
-        //        };
-        //        _logger.LogError("Error: ", _or);
-        //    }
-        //    else
-        //    {
-        //        _or = new OperationResult
-        //        {
-        //            Message = "applicant qualification created successfully",
-        //            StatusCode = (int)HttpStatusCode.OK,
-        //            Data = applicantContact
-        //        };
-        //    }
+        [HttpPost("Add")]
+        public async Task<ActionResult> CreateVacancy(VacancyRegisterDto value)
+        {
+            var vacancy = await _vacancyManager.CreateVacancyAsync(value);
+            if (vacancy == null)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: vacancy creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            else
+            {
+                _or = new OperationResult
+                {
+                    Message = "vacancy created successfully",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = vacancy
+                };
+            }
 
-        //    return Ok(_or);
-        //}
+            return Ok(_or);
+        }
         //[HttpPost("Update")]
-        //public async Task<ActionResult> UpdateApplicantQualification([FromQuery] ApplicantQualificationUpdateDto value)
+        //public async Task<ActionResult> UpdateApplicant([FromQuery] ApplicantUpdateDto value)
         //{
         //    try
         //    {
-        //        _or = await _applicantQualificationManager.UpdateApplicantQualificationAsync(value);
+        //        _or = await _applicantManager.UpdateEmployeeAsync(value);
         //    }
         //    catch (Exception ex)
         //    {
         //        _or = new OperationResult
         //        {
-        //            Message = "Error: applicant qualification update failed.",
+        //            Message = "Error: applicant update failed.",
         //            StatusCode = (int)HttpStatusCode.InternalServerError,
         //            Data = null
         //        };
-        //        _logger.LogError("Error: applicant qualification update failed", _or);
+        //        _logger.LogError("Error: applicant update failed", _or);
         //    }
         //    return Ok(_or);
         //}
