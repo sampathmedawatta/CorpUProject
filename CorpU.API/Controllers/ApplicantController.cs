@@ -73,14 +73,14 @@ namespace CorpU.API.Controllers
                 {
                     _or = new OperationResult
                     {
-                        Message = "employee details not found!",
+                        Message = "applicant details not found!",
                         StatusCode = (int)HttpStatusCode.NotFound,
                         Data = null
                     };
                 }
                 _or = new OperationResult
                 {
-                    Message = "employee details",
+                    Message = "applicant details",
                     StatusCode = (int)HttpStatusCode.OK,
                     Data = applicant
                 };

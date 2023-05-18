@@ -61,5 +61,49 @@ namespace CorpU.Business
             }
             return null;
         }
+        public async Task<ApplicationDto> CreateApplicationAsync(ApplicationRegisterDto entity)
+        {
+            ApplicationDto applicationDto = new ApplicationDto();
+            applicationDto.applicant_id = entity.applicant_id;
+            applicationDto.resume_url = entity.resume_url;
+            applicationDto.status = entity.status;
+
+            var applicationReuslt = await _unitOfWork.Application.Insert(applicationDto);
+
+            var application = await GetByApplicantIdAsync(applicationDto.applicant_id);
+            return application;
+        }
+        public async Task<OperationResult> UpdateApplicationAsync(ApplicationUpdateDto entity)
+        {
+            try
+            {
+                ApplicationDto applicationDto = new ApplicationDto();
+                applicationDto.Application_id=entity.Application_id;
+                applicationDto.applicant_id=entity.applicant_id;
+                applicationDto.resume_url = entity.resume_url;
+                applicationDto.status=entity.status;
+
+                var applicationReuslt = await _unitOfWork.Application.Update(applicationDto);
+
+                var application = await GetByApplicantIdAsync(applicationDto.applicant_id);
+
+                _or = new OperationResult
+                {
+                    Message = "Applicant successfully updated.",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = application
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: Employee update faild!",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+            }
+            return _or;
+        }
     }
 }

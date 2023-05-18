@@ -131,15 +131,50 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("Add")]
+        public async Task<ActionResult> CreateApplication(ApplicationRegisterDto value)
         {
-        }
+            var application = await _applicationManager.CreateApplicationAsync(value);
+            if (application == null)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: application creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            else
+            {
+                _or = new OperationResult
+                {
+                    Message = "applicant created successfully",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = application
+                };
+            }
 
-        // PUT api/<ApplicationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+            return Ok(_or);
+        }
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateApplication([FromQuery] ApplicationUpdateDto value)
         {
+            try
+            {
+                _or = await _applicationManager.UpdateApplicationAsync(value);
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: application update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: application update failed", _or);
+            }
+            return Ok(_or);
         }
 
         // DELETE api/<ApplicationController>/5

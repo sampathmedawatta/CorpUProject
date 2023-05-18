@@ -22,10 +22,7 @@ namespace CorpU.Data.Profiles
 
             //Set
             CreateMap<ApplicationDto, ApplicationEntity>();
-            CreateMap<ApplicationDto, ApplicationEntity>()
-            .ForPath(dest =>
-           dest.Applicant.applicant_id,
-           opt => opt.MapFrom(src => src.applicant.applicant_id));
+            
         }
     }
 }
