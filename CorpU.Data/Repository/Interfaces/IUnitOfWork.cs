@@ -1,4 +1,5 @@
 ﻿using CorpU.Entitiy.Models.Dto.Applicant;
+using CorpU.Entitiy.Models.Dto.Application;
 using CorpU.Entitiy.Models.Dto.Referance;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.User;
@@ -13,6 +14,7 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        IApplicationRepository<ApplicationDto> Application {  get; }
         IClassTypeRepository<ClassTypeDto> ClassType { get; }
         IUnitRepository<UnitDto> Unit {  get; }
         IApplicantAvailabilityRepository<ApplicantAvailabilityDto> ApplicantAvailability { get; }
