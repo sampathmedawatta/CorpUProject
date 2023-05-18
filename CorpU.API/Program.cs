@@ -48,6 +48,7 @@ builder.Services.AddScoped<IQualificationManager, QualificationManager>();
 builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
 builder.Services.AddScoped<IVacancyManager, VacancyManager>();
 builder.Services.AddScoped<IVacancyTypeManager, VacancyTypeManager>();
+builder.Services.AddScoped<IUnitManager, UnitManager>();
 builder.Services.AddScoped<IApplicantAvailabilityManager, ApplicantAvailabilityManager>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
