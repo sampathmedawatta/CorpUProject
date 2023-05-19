@@ -23,9 +23,9 @@ namespace CorpU.Data.Models
         [Required]
         [MaxLength(256)]
         public string salt { get; set; }
+        [Required]
         public int user_role_id { get; set; }
 
-        [Required]
         [ForeignKey("user_role_id")]
         public UserRoleEntity UserRole { get; set; }
     }

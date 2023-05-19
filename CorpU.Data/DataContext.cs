@@ -47,7 +47,7 @@ namespace CorpU.Data
             // Create uppdate database : EntityFrameworkCore\Update-Database
             // https://www.c-sharpcorner.com/UploadFile/26b237/code-first-migrations-in-entity-framework/
 
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-AU3CUDFL;Initial Catalog=CorpU_DB_v2;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-198T1MOJ;Initial Catalog=CorpU_DB_v3;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -87,27 +87,52 @@ namespace CorpU.Data
                }
            );
 
-            modelBuilder.Entity<EmployeeRoleEntity>()
+            modelBuilder.Entity<UnitEntity>()
             .HasData(
-               new EmployeeRoleEntity
+               new UnitEntity
                {
-                   emp_role_id = 1,
-                   role_name = "Admin",
+                   unit_id = 1,
+                   unit_name = "Technology Inquiry Project",
+                   unit_code = "TIP",
                    status = true
                },
-               new EmployeeRoleEntity
+               new UnitEntity
                {
-                   emp_role_id = 2,
-                   role_name = "Manager",
+                   unit_id = 2,
+                   unit_name = "Software Quality and Testing",
+                   unit_code = "SQT",
                    status = true
                },
-               new EmployeeRoleEntity
+               new UnitEntity
                {
-                   emp_role_id = 3,
-                   role_name = "Staff",
+                   unit_id = 3,
+                   unit_name = "User Centric Design",
+                   unit_code = "UCD",
                    status = true
                }
            );
+
+            modelBuilder.Entity<EmployeeRoleEntity>()
+           .HasData(
+              new EmployeeRoleEntity
+              {
+                  emp_role_id = 1,
+                  role_name = "Admin",
+                  status = true
+              },
+              new EmployeeRoleEntity
+              {
+                  emp_role_id = 2,
+                  role_name = "Manager",
+                  status = true
+              },
+              new EmployeeRoleEntity
+              {
+                  emp_role_id = 3,
+                  role_name = "Staff",
+                  status = true
+              }
+          );
 
             modelBuilder.Entity<FacultyEntity>()
             .HasData(

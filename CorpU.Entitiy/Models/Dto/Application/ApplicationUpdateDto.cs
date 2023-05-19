@@ -17,6 +17,9 @@ namespace CorpU.Entitiy.Models.Dto.Application
         [JsonPropertyName("applicant_id")]
         public int applicant_id { get; set; }
 
+        [JsonPropertyName("vacancyId")]
+        public int vacancy_id { get; set; }
+
         [JsonPropertyName("resumeUrl")]
         public string resume_url { get; set; }
 

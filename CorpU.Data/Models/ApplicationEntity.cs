@@ -15,15 +15,23 @@ namespace CorpU.Data.Models
         public int Application_id { get; set; }
         [Required]
         public int applicant_id { get; set; }
+
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
+
         [Required]
         [MaxLength(250)]
         public string resume_url { get; set; }
+
+        [Required]
+        [ForeignKey("vacancy_id")]
+        public int vacancy_id { get; set; }
+
+
         [Required]
         [MaxLength(250)]
         public string status { get; set; }
-        
+
 
     }
 }
