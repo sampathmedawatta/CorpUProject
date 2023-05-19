@@ -47,6 +47,23 @@ namespace CorpU.Data.Repository
                 return null;
             }
         }
+        public async Task<IEnumerable<ApplicantQualificationDto>> GetAllByIdAsync(int id)
+        {
+            try
+            {
+                var applicantQualificationList = await table
+                     .Where(e => e.applicant_id == id)
+                    .Include(u => u.Applicant)
+                    .Include(c => c.QualificationType)
+                    .ToListAsync();
+
+                return _mapper.Map<IEnumerable<ApplicantQualificationDto>>(applicantQualificationList);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         public async Task<ApplicantQualificationDto> GetByIdAsync(int id)
         {
