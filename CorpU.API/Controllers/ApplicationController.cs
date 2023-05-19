@@ -158,7 +158,7 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
         [HttpPost("Update")]
-        public async Task<ActionResult> UpdateApplication([FromQuery] ApplicationUpdateDto value)
+        public async Task<ActionResult> UpdateApplication(ApplicationUpdateDto value)
         {
             try
             {
