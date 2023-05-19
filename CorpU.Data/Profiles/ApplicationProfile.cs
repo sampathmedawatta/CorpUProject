@@ -20,6 +20,11 @@ namespace CorpU.Data.Profiles
            dest.applicant.applicant_id,
            opt => opt.MapFrom(src => src.Applicant.applicant_id));
 
+            CreateMap<ApplicationEntity, ApplicationDto>()
+           .ForPath(dest =>
+            dest.vacancy_id,
+            opt => opt.MapFrom(src => src.vacancy_id));
+
             //Set
             CreateMap<ApplicationDto, ApplicationEntity>();
             

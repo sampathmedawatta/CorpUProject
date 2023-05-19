@@ -11,7 +11,7 @@ namespace CorpU.Entitiy.Models.Dto.Application
 {
     public class ApplicationRegisterDto
     {
-        [JsonPropertyName("applicant_id")]
+        [JsonPropertyName("applicantId")]
         public int applicant_id { get; set; }
 
         [JsonPropertyName("resumeUrl")]

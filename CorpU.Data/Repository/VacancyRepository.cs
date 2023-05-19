@@ -33,10 +33,10 @@ namespace CorpU.Data.Repository
             {
                 var vacancy = await table
                     .Where(e => e.vacancy_id == id)
-                    .Include(u => u.VacancyType)
-                    .Include(c => c.ClassType)
-                    .Include(d => d.Employee)
-                    .Include(e => e.Unit)
+                    .Include(u => u.vacancyType)
+                    .Include(c => c.classType)
+                    .Include(d => d.employee)
+                    .Include(e => e.unit)
                     .FirstOrDefaultAsync();
 
                 return _mapper.Map<VacancyEntity, VacancyDto>(vacancy);
@@ -52,10 +52,10 @@ namespace CorpU.Data.Repository
             try
             {
                 var vacancyList = await table
-                   .Include(u => u.VacancyType)
-                   .Include(c => c.ClassType)
-                   .Include(d => d.Employee)
-                   .Include(e => e.Unit)
+                   .Include(u => u.vacancyType)
+                   .Include(c => c.classType)
+                   .Include(d => d.employee)
+                   .Include(e => e.unit)
                    .ToListAsync();
 
                 return _mapper.Map<IEnumerable<VacancyDto>>(vacancyList);
