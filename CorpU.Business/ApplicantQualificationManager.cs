@@ -35,11 +35,11 @@ namespace CorpU.Business
             return null;
         }
 
-        public async Task<OperationResult> GetAllAsync()
+        public async Task<OperationResult> GetAllByIdAsync(int id)
         {
             try
             {
-                var qualification = await _unitOfWork.ApplicantQualification.GetAllAsync();
+                var qualification = await _unitOfWork.ApplicantQualification.GetAllByIdAsync(id);
                 if (qualification != null)
                 {
                     _or = new OperationResult
@@ -80,7 +80,7 @@ namespace CorpU.Business
             applicantQualificationDto.qualification_type_id=entity.qualification_type_id;
             applicantQualificationDto.description = entity.description;
             applicantQualificationDto.institute=entity.institute;
-            applicantQualificationDto.awarded_year= entity.awarded_year;
+            applicantQualificationDto.awarded_year = entity.awarded_year;
 
             var applicantQualificationReuslt = await _unitOfWork.ApplicantQualification.Insert(applicantQualificationDto);
 

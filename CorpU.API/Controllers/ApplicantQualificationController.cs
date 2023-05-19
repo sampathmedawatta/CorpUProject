@@ -65,12 +65,12 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        [HttpGet("All")]
-        public async Task<ActionResult> GetApplicantQualificatioAll()
+        [HttpGet("GetAllById")]
+        public async Task<ActionResult> GetApplicantQualificatioAll(int id)
         {
             try
             {
-                 _or = await _applicantQualificationManager.GetAllAsync();
+                 _or = await _applicantQualificationManager.GetAllByIdAsync(id);
                 if (_or.Data == null)
                 {
                     _or = new OperationResult
