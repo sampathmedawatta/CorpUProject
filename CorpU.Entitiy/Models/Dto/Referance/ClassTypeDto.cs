@@ -9,7 +9,6 @@ namespace CorpU.Entitiy.Models.Dto.Referance
 {
     public class ClassTypeDto
     {
-
         [JsonPropertyName("classTypeId")]
         public int class_type_id { get; set; }
 
