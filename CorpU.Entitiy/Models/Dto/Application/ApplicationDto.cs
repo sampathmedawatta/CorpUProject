@@ -13,10 +13,10 @@ namespace CorpU.Entitiy.Models.Dto.Application
     public class ApplicationDto
     {
 
-        [JsonPropertyName("ApplicationId")]
+        [JsonPropertyName("applicationId")]
         public int Application_id { get; set; }
 
-        [JsonPropertyName("applicant_id")]
+        [JsonPropertyName("applicantId")]
         public int applicant_id { get; set; }
 
         [JsonPropertyName("resumeUrl")]
@@ -28,9 +28,11 @@ namespace CorpU.Entitiy.Models.Dto.Application
         [JsonPropertyName("status")]
         public string status { get; set; }
 
-        [JsonPropertyName("Applicant")]
+        [JsonPropertyName("applicant")]
         public ApplicantDto applicant { get; set; }
 
+        [JsonPropertyName("vacancy")]
+        public VacancyDto vacancy { get; set; }
 
     }
 }

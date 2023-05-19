@@ -32,6 +32,7 @@ namespace CorpU.Data.Repository
             try
             {
                 var applicationList = await table
+                   .Include(c => c.vacancy)
                    .Include(u => u.Applicant)
                    .ToListAsync();
 
@@ -67,9 +68,14 @@ namespace CorpU.Data.Repository
             throw new NotImplementedException();
         }
 
-        public Task<ApplicationDto> GetByIdAsync(int id)
+        public async Task<ApplicationDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var application = await table
+                   .Include(c => c.vacancy)
+                   .Include(u => u.Applicant)
+                   .FirstOrDefaultAsync();
+
+            return _mapper.Map<ApplicationDto>(application);
         }
 
         public async Task<int> Update(ApplicationDto entity)
@@ -103,6 +109,7 @@ namespace CorpU.Data.Repository
             {
                 var application = await table
                     .Where(e => e.applicant_id == id)
+                     .Include(c => c.vacancy)
                     .Include(u => u.Applicant)
                     .FirstOrDefaultAsync();
 
@@ -120,6 +127,7 @@ namespace CorpU.Data.Repository
             {
                 var application = await table
                     .Where(e => e.Application_id == id)
+                     .Include(c => c.vacancy)
                     .Include(u => u.Applicant)
                     .FirstOrDefaultAsync();
 

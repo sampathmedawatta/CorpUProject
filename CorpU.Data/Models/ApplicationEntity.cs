@@ -24,9 +24,10 @@ namespace CorpU.Data.Models
         public string resume_url { get; set; }
 
         [Required]
-        [ForeignKey("vacancy_id")]
         public int vacancy_id { get; set; }
 
+        [ForeignKey("vacancy_id")]
+        public VacancyEntity vacancy { get; set; }
 
         [Required]
         [MaxLength(250)]

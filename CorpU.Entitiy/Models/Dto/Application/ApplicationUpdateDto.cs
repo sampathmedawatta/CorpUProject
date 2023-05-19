@@ -11,10 +11,10 @@ namespace CorpU.Entitiy.Models.Dto.Application
 {
     public class ApplicationUpdateDto
     {
-        [JsonPropertyName("ApplicationId")]
+        [JsonPropertyName("applicationId")]
         public int Application_id { get; set; }
 
-        [JsonPropertyName("applicant_id")]
+        [JsonPropertyName("applicantId")]
         public int applicant_id { get; set; }
 
         [JsonPropertyName("vacancyId")]
