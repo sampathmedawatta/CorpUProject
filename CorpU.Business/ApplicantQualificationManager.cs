@@ -34,6 +34,45 @@ namespace CorpU.Business
             }
             return null;
         }
+
+        public async Task<OperationResult> GetAllByIdAsync(int id)
+        {
+            try
+            {
+                var qualification = await _unitOfWork.ApplicantQualification.GetAllByIdAsync(id);
+                if (qualification != null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Applicant qualification list is available",
+                        StatusCode = (int)HttpStatusCode.OK,
+                        Data = qualification
+                    };
+                }
+                else
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "There are no Applicant qualification data in the system.",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Error = "Error: Unable to get Applicant qualification list.",
+                    Message = "Error: Unable to Applicant qualification list.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = await _unitOfWork.Users.GetAllAsync()
+                };
+            }
+            return _or;
+        }
+
+
         public async Task<ApplicantQualificationDto> CreateApplicantQualificationAsync(ApplicantQualificationRegisterDto entity)
         {
             ApplicantQualificationDto applicantQualificationDto = new ApplicantQualificationDto();
@@ -41,7 +80,7 @@ namespace CorpU.Business
             applicantQualificationDto.qualification_type_id=entity.qualification_type_id;
             applicantQualificationDto.description = entity.description;
             applicantQualificationDto.institute=entity.institute;
-            applicantQualificationDto.awarded_date= entity.awarded_date;
+            applicantQualificationDto.awarded_year = entity.awarded_year;
 
             var applicantQualificationReuslt = await _unitOfWork.ApplicantQualification.Insert(applicantQualificationDto);
 
@@ -58,7 +97,7 @@ namespace CorpU.Business
                 applicantQualificationDto.qualification_type_id = entity.qualification_type_id;
                 applicantQualificationDto.description=entity.description;
                 applicantQualificationDto.institute = entity.institute;
-                applicantQualificationDto.awarded_date= entity.awarded_date;
+                applicantQualificationDto.awarded_year = entity.awarded_year;
                 var applicantReuslt = await _unitOfWork.ApplicantQualification.Update(applicantQualificationDto);
 
                 var applicantQualification = await GetByIdAsync(applicantQualificationDto.applicant_id);

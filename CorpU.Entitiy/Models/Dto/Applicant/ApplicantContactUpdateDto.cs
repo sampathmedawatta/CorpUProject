@@ -9,7 +9,7 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
 {
     public class ApplicantContactUpdateDto
     {
-        [JsonPropertyName("app_contact_id")]
+        [JsonPropertyName("appContactId")]
         public int app_contact_id { get; set; }
         [JsonPropertyName("applicant_id")]
         public int applicant_id { get; set; }

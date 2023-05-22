@@ -12,6 +12,7 @@ namespace CorpU.Business.Interfaces
     public interface IApplicantQualificationManager : IBaseManager
     {
         Task<ApplicantQualificationDto> GetByIdAsync(int id);
+        Task<OperationResult> GetAllByIdAsync(int id);
         Task<ApplicantQualificationDto> CreateApplicantQualificationAsync(ApplicantQualificationRegisterDto entity);
         Task<OperationResult> UpdateApplicantQualificationAsync(ApplicantQualificationUpdateDto entity);
     }

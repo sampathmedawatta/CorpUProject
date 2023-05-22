@@ -102,7 +102,7 @@ namespace CorpU.API.Controllers
         }
 
         // POST api/<Qualification>
-        [HttpPost]
+        [HttpPost("Add")]
         public void Post([FromBody] string value)
         {
         }

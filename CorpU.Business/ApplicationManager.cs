@@ -66,6 +66,7 @@ namespace CorpU.Business
             ApplicationDto applicationDto = new ApplicationDto();
             applicationDto.applicant_id = entity.applicant_id;
             applicationDto.resume_url = entity.resume_url;
+            applicationDto.vacancy_id = entity.vacancy_id;
             applicationDto.status = entity.status;
 
             var applicationReuslt = await _unitOfWork.Application.Insert(applicationDto);

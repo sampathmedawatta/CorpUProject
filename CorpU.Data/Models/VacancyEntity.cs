@@ -15,20 +15,26 @@ namespace CorpU.Data.Models
         public int vacancy_id { get; set; }
         [Required]
         public int vacancy_type_id { get; set; }
+
         [ForeignKey("vacancy_type_id")]
-        public VacancyTypeEntity VacancyType { get; set; }
+        public VacancyTypeEntity vacancyType { get; set; }
         [Required]
         public int class_type_id { get; set; }
+
         [ForeignKey("class_type_id")]
-        public ClassTypeEntity ClassType { get; set; }
+        public ClassTypeEntity classType { get; set; }
         [Required]
         public int emp_id { get; set; }
+
         [ForeignKey("emp_id")]
-        public EmployeeEntity Employee { get; set; }
+        public EmployeeEntity employee { get; set; }
+
         [Required]
         public int unit_id { get; set; }
+
         [ForeignKey("unit_id")]
-        public UnitEntity Unit { get; set; }
+        public UnitEntity unit { get; set; }
+
         [Required]
         [MaxLength(250)]
         public string title { get; set; }

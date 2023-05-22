@@ -43,6 +43,23 @@ namespace CorpU.Data.Repository
             }
         }
 
+        public async Task<ApplicantDto> GetByUserIdAsync(int id)
+        {
+            try
+            {
+                var applicant = await table
+                    .Where(e => e.user_id == id)
+                    .Include(u => u.User)
+                    .FirstOrDefaultAsync();
+
+                return _mapper.Map<ApplicantEntity, ApplicantDto>(applicant);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<IEnumerable<ApplicantDto>> GetAllAsync()
         {
             try

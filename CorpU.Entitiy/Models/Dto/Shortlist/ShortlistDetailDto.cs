@@ -14,16 +14,16 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
 {
     public class ShortlistDetailDto
     {
-        [JsonPropertyName("shortlist_id")]
+        [JsonPropertyName("shortlistId")]
         public int shortlist_id { get; set; }
 
-        [JsonPropertyName("Application_id")]
+        [JsonPropertyName("applicantId")]
         public int Application_id { get; set; }
 
-        [JsonPropertyName("employee_id")]
+        [JsonPropertyName("empId")]
         public int emp_id { get; set; }
 
-        [JsonPropertyName("interview_date")]
+        [JsonPropertyName("interviewDate")]
         public DateTime interview_date { get; set; }
 
         [JsonPropertyName("status")]
@@ -32,7 +32,7 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
         [JsonPropertyName("comments")]
         public string comments { get; set; }
 
-        [JsonPropertyName("Application")]
+        [JsonPropertyName("application")]
         public ApplicationDto application { get; set; }
 
         [JsonPropertyName("Employee")]

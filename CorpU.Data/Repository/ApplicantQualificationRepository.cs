@@ -31,9 +31,38 @@ namespace CorpU.Data.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<ApplicantQualificationDto>> GetAllAsync()
+        public async Task<IEnumerable<ApplicantQualificationDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var applicantQualificationList = await table
+                    .Include(u => u.Applicant)
+                    .Include(c => c.QualificationType)
+                    .ToListAsync();
+
+                return _mapper.Map<IEnumerable<ApplicantQualificationDto>>(applicantQualificationList);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<IEnumerable<ApplicantQualificationDto>> GetAllByIdAsync(int id)
+        {
+            try
+            {
+                var applicantQualificationList = await table
+                     .Where(e => e.applicant_id == id)
+                    .Include(u => u.Applicant)
+                    .Include(c => c.QualificationType)
+                    .ToListAsync();
+
+                return _mapper.Map<IEnumerable<ApplicantQualificationDto>>(applicantQualificationList);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task<ApplicantQualificationDto> GetByIdAsync(int id)
@@ -41,7 +70,7 @@ namespace CorpU.Data.Repository
             try
             {
                 var applicantQualification = await table
-                    .Where(e => e.Applicant.applicant_id == id)
+                    .Where(e => e.applicant_id == id)
                     .Include(u => u.Applicant)
                     .Include (c => c.QualificationType)
                     .FirstOrDefaultAsync();
@@ -84,11 +113,9 @@ namespace CorpU.Data.Repository
 
                 if (ApplicantQualification != null)
                 {
-                    //ApplicantContact.app_contact_id=entity.app_contact_id;
-                    //ApplicantContact.applicant_id=entity.applicant_id;
                     ApplicantQualification.qualification_type_id = entity.qualification_type_id;
                     ApplicantQualification.description = entity.description;
-                    ApplicantQualification.awarded_date = entity.awarded_date;
+                    ApplicantQualification.awarded_year = entity.awarded_year;
                     ApplicantQualification.institute=entity.institute;
                     int excecutedRows = await this.context.SaveChangesAsync();
 

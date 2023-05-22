@@ -14,7 +14,7 @@ namespace CorpU.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int unit_id { get; set; }
         [Required]
-        [MaxLength(25)]
+        [MaxLength(50)]
         public string unit_name { get; set; }
         [Required]
         [MaxLength(10)]

@@ -22,6 +22,21 @@ namespace CorpU.Business
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
             this._or = new OperationResult();
         }
+
+        public async Task<ApplicantDto> GetByUserIdAsync(int Id)
+        {
+            try
+            {
+                return await _unitOfWork.Applicants.GetByUserIdAsync(Id);
+
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
+        }
+
         public async Task<ApplicantDto> GetByIdAsync(int Id)
         {
             try

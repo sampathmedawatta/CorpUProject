@@ -13,7 +13,7 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         [JsonPropertyName("appQualificationId")]
         public int app_qualification_id { get; set; }
 
-        [JsonPropertyName("applicant_id")]
+        [JsonPropertyName("applicantId")]
         public int applicant_id { get; set; }
 
         [JsonPropertyName("qualificationTypeId")]
@@ -25,8 +25,8 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         [JsonPropertyName("institute")]
         public string institute { get; set; }
 
-        [JsonPropertyName("awarded_date")]
-        public DateTime awarded_date { get; set; }
+        [JsonPropertyName("awardedYear")]
+        public int awarded_year { get; set; }
 
         [JsonPropertyName("applicant")]
         public ApplicantDto applicant { get; set; }

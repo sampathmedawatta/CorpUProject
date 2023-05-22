@@ -27,6 +27,8 @@ namespace CorpU.API.Controllers
             this._logger = logger;
             this._or = new OperationResult();
         }
+       
+        
         [HttpGet("GetById")]
         public async Task<ActionResult> GetApplicantQualificationById(int id)
         {
@@ -63,6 +65,37 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
+        [HttpGet("GetAllById")]
+        public async Task<ActionResult> GetApplicantQualificatioAll(int id)
+        {
+            try
+            {
+                 _or = await _applicantQualificationManager.GetAllByIdAsync(id);
+                if (_or.Data == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "applicant qualification details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: token generation failed.", _or);
+            }
+
+            return Ok(_or);
+        }
+
+
         [HttpPost("Add")]
         public async Task<ActionResult> CreateApplicantQualification(ApplicantQualificationRegisterDto value)
         {
@@ -89,8 +122,10 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
+        
+        
         [HttpPost("Update")]
-        public async Task<ActionResult> UpdateApplicantQualification([FromQuery] ApplicantQualificationUpdateDto value)
+        public async Task<ActionResult> UpdateApplicantQualification(ApplicantQualificationUpdateDto value)
         {
             try
             {

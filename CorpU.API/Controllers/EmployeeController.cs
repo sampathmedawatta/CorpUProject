@@ -45,8 +45,8 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
 
-        [HttpPost("Update")]
-        public async Task<ActionResult> UpdateEmployee([FromQuery] EmployeeUpdateDto employeeDto)
+        [HttpPut("Update")]
+        public async Task<ActionResult> UpdateEmployee(EmployeeUpdateDto employeeDto)
         {
             try
             {

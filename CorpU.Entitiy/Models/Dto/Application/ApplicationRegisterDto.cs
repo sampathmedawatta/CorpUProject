@@ -11,11 +11,14 @@ namespace CorpU.Entitiy.Models.Dto.Application
 {
     public class ApplicationRegisterDto
     {
-        [JsonPropertyName("applicant_id")]
+        [JsonPropertyName("applicantId")]
         public int applicant_id { get; set; }
 
         [JsonPropertyName("resumeUrl")]
         public string resume_url { get; set; }
+
+        [JsonPropertyName("vacancyId")]
+        public int vacancy_id { get; set; }
 
         [JsonPropertyName("status")]
         public string status { get; set; }

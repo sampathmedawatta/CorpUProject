@@ -12,6 +12,9 @@ namespace CorpU.Business.Interfaces
     public interface IApplicantManager: IBaseManager
     {
         Task<ApplicantDto> GetByIdAsync(int id);
+
+        Task<ApplicantDto> GetByUserIdAsync(int id);
+        
         Task<IEnumerable<ApplicantDto>> GetAllAsync();
         Task<IEnumerable<ApplicantDto>> SearchApplicantAsync(string name);
         Task<ApplicantDto> CreateApplicantAsync(ApplicantRegisterDto entity);
