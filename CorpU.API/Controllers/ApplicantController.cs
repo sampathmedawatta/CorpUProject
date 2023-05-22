@@ -98,6 +98,40 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
+        [HttpGet("Search")]
+        public async Task<ActionResult> SearchApplicant(string name)
+        {
+            try
+            {
+                IEnumerable<ApplicantDto> applicantList = await _applicantManager.SearchApplicantAsync(name);
+                if (applicantList == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "No Seach Results",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "Applicant details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = applicantList
+                };
+            }
+            catch
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: failed.", _or);
+            }
+            return Ok(_or);
+        }
 
         // POST api/<ApplicantController>
         [HttpPost("Add")]

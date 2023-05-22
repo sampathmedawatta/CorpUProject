@@ -13,6 +13,7 @@ namespace CorpU.Business.Interfaces
     {
         Task<ApplicantDto> GetByIdAsync(int id);
         Task<IEnumerable<ApplicantDto>> GetAllAsync();
+        Task<IEnumerable<ApplicantDto>> SearchApplicantAsync(string name);
         Task<ApplicantDto> CreateApplicantAsync(ApplicantRegisterDto entity);
         Task<OperationResult> UpdateEmployeeAsync(ApplicantUpdateDto entity);
     }

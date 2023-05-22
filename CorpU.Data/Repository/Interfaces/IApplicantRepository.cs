@@ -12,6 +12,6 @@ namespace CorpU.Data.Repository.Interfaces
         //Task<IEnumerable<ApplicantDto>> GetAllByNameAsync(string Name);
         //Task<IEnumerable<ApplicantDto>> GetAllByStatusAsync(bool Status);
         //Task<IEnumerable<ApplicantDto>> GetAllByEmailAsync(string Email);
-
+        Task<IEnumerable<ApplicantDto>> SearchApplicantAsync(string name);
     }
 }

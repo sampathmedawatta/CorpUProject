@@ -47,6 +47,18 @@ namespace CorpU.Business
             }
             return null;
         }
+        public async Task<IEnumerable<ApplicantDto>> SearchApplicantAsync(string name)
+        {
+            try
+            {
+                return await _unitOfWork.Applicants.SearchApplicantAsync(name);
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
+        }
         public async Task<ApplicantDto> CreateApplicantAsync(ApplicantRegisterDto entity)
         {
             ApplicantDto applicantDto = new ApplicantDto();
