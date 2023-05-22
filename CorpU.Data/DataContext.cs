@@ -7,7 +7,7 @@ namespace CorpU.Data
 {
     public class DataContext :DbContext
     {
-        public virtual DbSet<ApplicantEntity> Aplicants { get; set; }
+        public virtual DbSet<ApplicantEntity> Applicants { get; set; }
         public virtual DbSet<ApplicantQualificationEntiry> ApplicantQualification { get; set; }
         public virtual DbSet<ApplicantContactDetailEntity> ApplicantContactDetail { get; set; }
         public virtual DbSet<ApplicantClassPreferanceEntity> ApplicantClassPreferance { get; set; }
@@ -23,6 +23,7 @@ namespace CorpU.Data
         public virtual DbSet<UserRoleEntity> UserRole { get; set; }
         public virtual DbSet<VacancyEntity> Vacancy { get; set; }
         public virtual DbSet<VacancyTypeEntity> VacancyType { get; set; }
+        public virtual DbSet<ShortlistedApplicantEntity> Shortlist { get;set; }
 
         public readonly string _ConnectionString;
 

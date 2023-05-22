@@ -52,6 +52,7 @@ builder.Services.AddScoped<IUnitManager, UnitManager>();
 builder.Services.AddScoped<IApplicantAvailabilityManager, ApplicantAvailabilityManager>();
 builder.Services.AddScoped<IClassTypeManager, ClassTypeManager>();
 builder.Services.AddScoped<IApplicationManager, ApplicationManager>();
+builder.Services.AddScoped<IShortlistManager, ShortlistManager>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<ITokenGenerator, TokenGenerator>();

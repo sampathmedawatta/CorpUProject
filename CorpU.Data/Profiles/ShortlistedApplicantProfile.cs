@@ -18,8 +18,11 @@ namespace CorpU.Data.Profiles
             CreateMap<ShortlistedApplicantEntity, ShortlistDetailDto>()
             .ForPath(dest =>
            dest.application.Application_id,
-           opt => opt.MapFrom(src => src.application.Application_id));
-
+           opt => opt.MapFrom(src => src.Application_id));
+            CreateMap<ShortlistedApplicantEntity, ShortlistDetailDto>()
+            .ForPath(dest =>
+           dest.employee.emp_id,
+           opt => opt.MapFrom(src => src.emp_id));
             //Set
             CreateMap<ShortlistDetailDto, ShortlistedApplicantEntity>();
 

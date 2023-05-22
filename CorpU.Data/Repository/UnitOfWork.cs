@@ -5,6 +5,7 @@ using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.Application;
 using CorpU.Entitiy.Models.Dto.Employee;
 using CorpU.Entitiy.Models.Dto.Referance;
+using CorpU.Entitiy.Models.Dto.Shortlist;
 using CorpU.Entitiy.Models.Dto.Unit;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
@@ -26,6 +27,7 @@ namespace CorpU.Data.Repository
                 return new DataContext(ConnectionString);
             }
         }
+        public IShortlistRepository<ShortlistDetailDto> Shortlist { get;private set; }
         public IApplicationRepository<ApplicationDto> Application {  get;private set; }
         public IClassTypeRepository<ClassTypeDto> ClassType { get;private set; }
         public IUnitRepository<UnitDto> Unit { get; private set; }
@@ -41,6 +43,7 @@ namespace CorpU.Data.Repository
         public UnitOfWork(IOptions<AppSettings> appSetting, IMapper mapper)
         {
             ConnectionString = appSetting.Value.DBConnection;
+            Shortlist = new ShortlistRepository(Context, mapper);
             Qualifications = new QualificationRepository(Context, mapper);
             Unit=new UnitRepository(Context, mapper);
             ClassType=new ClassTypeRepository(Context, mapper);

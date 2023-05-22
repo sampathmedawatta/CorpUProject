@@ -36,6 +36,6 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
         public ApplicationDto application { get; set; }
 
         [JsonPropertyName("Employee")]
-        public EmployeeRegisterDto employee { get; set; }
+        public EmployeeDto employee { get; set; }
     }
 }
