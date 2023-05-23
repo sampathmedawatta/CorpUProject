@@ -48,6 +48,18 @@ namespace CorpU.Business
             }
             return null;
         }
+        public async Task<IEnumerable<VacancyDto>> SearchVacancyAsync(string text)
+        {
+            try
+            {
+                return await _unitOfWork.Vacancy.SearchVacancyAsync(text);
+            }
+            catch (Exception ex)
+            {
+                //TODO log error and haddle the error
+            }
+            return null;
+        }
         public async Task<VacancyDto> CreateVacancyAsync(VacancyRegisterDto entity)
         {
             VacancyDto vacancyDto = new VacancyDto();

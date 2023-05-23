@@ -10,6 +10,7 @@ using CorpU.Entitiy.Models.Dto.Referance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using CorpU.Entitiy.Models.Dto.Shortlist;
 
 namespace CorpU.API.Controllers
 {
@@ -98,6 +99,40 @@ namespace CorpU.API.Controllers
                 _logger.LogError("Error: token generation failed.", _or);
             }
 
+            return Ok(_or);
+        }
+        [HttpGet("Search")]
+        public async Task<ActionResult> SearchVacancy(string text)
+        {
+            try
+            {
+                IEnumerable<VacancyDto> vacancyList = await _vacancyManager.SearchVacancyAsync(text);
+                if (vacancyList == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "No Seach Results",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "Vacancy details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = vacancyList
+                };
+            }
+            catch
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: failed.", _or);
+            }
             return Ok(_or);
         }
 

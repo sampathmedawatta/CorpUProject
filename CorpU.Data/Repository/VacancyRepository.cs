@@ -65,7 +65,21 @@ namespace CorpU.Data.Repository
                 return null;
             }
         }
+        public async Task<IEnumerable<VacancyDto>> SearchVacancyAsync(string text)
+        {
+            try
+            {
+                var results = await table
+                    .Where(e => e.title.Contains(text))
+                    .ToListAsync();
 
+                return _mapper.Map<IEnumerable<VacancyDto>>(results);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public async Task<int> Insert(VacancyDto entity)
         {
             try
