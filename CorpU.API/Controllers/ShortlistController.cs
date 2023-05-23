@@ -3,6 +3,7 @@ using CorpU.API.Auth.Interfaces;
 using CorpU.Business;
 using CorpU.Business.Interfaces;
 using CorpU.Entitiy.Models;
+using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.Shortlist;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -95,6 +96,51 @@ namespace CorpU.API.Controllers
                 _logger.LogError("Error: token generation failed.", _or);
             }
 
+            return Ok(_or);
+        }
+        [HttpPost("Add")]
+        public async Task<ActionResult> CreateShortlist(ShortlistRegisterDto value)
+        {
+            var shortlist = await _shortlistManager.CreateShortlistAsync(value);
+            if (shortlist == null)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: shortlist creation failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: ", _or);
+            }
+            else
+            {
+                _or = new OperationResult
+                {
+                    Message = "shortlist created successfully",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Data = shortlist
+                };
+            }
+
+            return Ok(_or);
+        }
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdateShortlist([FromQuery] ShortlistUpdateDto value)
+        {
+            try
+            {
+                _or = await _shortlistManager.UpdateShortlistAsync(value);
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: shortlist update failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: shortlist update failed", _or);
+            }
             return Ok(_or);
         }
     }    

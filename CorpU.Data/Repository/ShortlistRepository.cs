@@ -62,14 +62,52 @@ namespace CorpU.Data.Repository
             }
         }
 
-        public Task<int> Insert(ShortlistDetailDto entity)
+        public async Task<int> Insert(ShortlistDetailDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ShortlistedApplicantEntity shortlistEntity;
+                shortlistEntity = _mapper.Map<ShortlistDetailDto, ShortlistedApplicantEntity>(entity);
+
+                this.context.Set<ShortlistedApplicantEntity>().Add(shortlistEntity);
+                int excecutedRows = await this.context.SaveChangesAsync();
+
+                entity.shortlist_id = shortlistEntity.shortlist_id;
+                return excecutedRows;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
-        public Task<int> Update(ShortlistDetailDto entity)
+        public async Task<int> Update(ShortlistDetailDto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ShortlistedApplicantEntity? Shortlist = await table
+                    .Where(c => c.shortlist_id == entity.shortlist_id)
+                    .Where(d => d.Application_id == entity.Application_id)
+                    .FirstOrDefaultAsync();
+
+                if (Shortlist != null)
+                {
+                    //Shortlist.Application_id = entity.Application_id;
+                    Shortlist.emp_id = entity.emp_id;
+                    Shortlist.interview_date = entity.interview_date;
+                    Shortlist.status= entity.status;
+                    Shortlist.comments = entity.comments;
+
+                    int excecutedRows = await this.context.SaveChangesAsync();
+
+                    return excecutedRows;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
         }
 
         public Task<int> Delete(int id)

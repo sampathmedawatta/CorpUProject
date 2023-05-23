@@ -13,6 +13,8 @@ namespace CorpU.Business.Interfaces
     public interface IShortlistManager: IBaseManager
     {
         Task<ShortlistDetailDto> GetShortlistByApplicationId(int id);
-        Task<IEnumerable<ShortlistDetailDto>> GetAllShortlistAsync(); 
+        Task<IEnumerable<ShortlistDetailDto>> GetAllShortlistAsync();
+        Task<ShortlistDetailDto> CreateShortlistAsync(ShortlistRegisterDto entity);
+        Task<OperationResult> UpdateShortlistAsync(ShortlistUpdateDto entity);
     }
 }
