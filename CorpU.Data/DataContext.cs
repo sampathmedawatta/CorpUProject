@@ -48,13 +48,50 @@ namespace CorpU.Data
             // Create uppdate database : EntityFrameworkCore\Update-Database
             // https://www.c-sharpcorner.com/UploadFile/26b237/code-first-migrations-in-entity-framework/
 
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-URFIFVH3;Initial Catalog=CorpU_DB_v3;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-198T1MOJ;Initial Catalog=CorpU_DB_v3;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-           modelBuilder.Entity<ClassTypeEntity>()
+            base.OnModelCreating(modelBuilder);
+
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes()
+            .SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+
+            // Create sample referance data
+            // Application admin account
+            modelBuilder.Entity<UserEntity>()
+           .HasData(
+              new UserEntity
+              {
+                  user_id = 1,
+                  email = "lool2cool@gmail.com", //Username
+                  password = "749452DBA7478C9D1E559D83320AE8E10B3BE7CF7D63240E881914BAC07A1447802ECA3094A5B072501E6DEC4F2F5A00C02444CE529203FFFE7E49C5B707AD67", // Password 123456@ 
+                  salt = "33F42E4F54E25F02CDF0FFF578724D8C66121ABCDDD8AE8E7BCC6E296D4C725740DAEE0F936F2A6111588B7C732931A20CAC9BF757263AC03A5BBE569E4D32C3",
+                  user_role_id = 2 // Employee
+              }
+          );
+
+            modelBuilder.Entity<EmployeeEntity>()
+           .HasData(
+              new EmployeeEntity
+              {
+                  emp_id = 1,
+                  emp_name = "Denis Medawaththa",
+                  email = "lool2cool@gmail.com",
+                  phone = "0413456785",
+                  emp_role_id = 1,
+                  user_id = 1,
+                  faculty_id = 1,
+                  status = true
+              }
+          ); 
+
+            modelBuilder.Entity<ClassTypeEntity>()
             .HasData(
                new ClassTypeEntity
                {

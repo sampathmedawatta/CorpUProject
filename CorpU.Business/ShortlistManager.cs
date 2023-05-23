@@ -3,6 +3,7 @@ using CorpU.Common;
 using CorpU.Data.Repository.Interfaces;
 using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Dto.Applicant;
+using CorpU.Entitiy.Models.Dto.Application;
 using CorpU.Entitiy.Models.Dto.Shortlist;
 using Microsoft.Extensions.Options;
 using System;
@@ -17,11 +18,13 @@ namespace CorpU.Business
     public class ShortlistManager: IShortlistManager
     {
         private IUnitOfWork _unitOfWork;
+        private readonly IApplicationManager _applicationManager;
         readonly AuthenticationOptions _AuthenticationOptions;
         OperationResult _or;
-        public ShortlistManager(IUnitOfWork unitOfWork, IOptions<PasswordSettings> passwordSettings)
+        public ShortlistManager(IUnitOfWork unitOfWork, IOptions<PasswordSettings> passwordSettings, IApplicationManager ApplicationManager)
         {
             _unitOfWork = unitOfWork;
+            _applicationManager = ApplicationManager;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
             this._or = new OperationResult();
         }
@@ -52,14 +55,27 @@ namespace CorpU.Business
         }
         public async Task<ShortlistDetailDto> CreateShortlistAsync(ShortlistRegisterDto entity)
         {
-            ShortlistDetailDto shortlistDto = new ShortlistDetailDto();
-            shortlistDto.Application_id = entity.Application_id;
-            shortlistDto.emp_id = entity.emp_id;
-            shortlistDto.interview_date = entity.interview_date;
-            shortlistDto.status = entity.status;
-            shortlistDto.comments = entity.comments;
+            ShortlistDetailDto shortlistDto = new()
+            {
+                Application_id = entity.Application_id,
+                emp_id = entity.emp_id,
+                interview_date = DateTime.Now,
+                status = entity.status,
+                comments = entity.comments
+            };
 
             var shortlistReuslt = await _unitOfWork.Shortlist.Insert(shortlistDto);
+
+            if (shortlistReuslt > 0)
+            {
+                ApplicationUpdateDto applicationDto = new()
+                {
+                    Application_id = entity.Application_id,
+                    status = entity.status
+                };
+
+                await _applicationManager.UpdateApplicationAsync(applicationDto);
+            }
 
             var shortlist = await GetShortlistByApplicationId(shortlistDto.Application_id);
             return shortlist;

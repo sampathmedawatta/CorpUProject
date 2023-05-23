@@ -12,7 +12,7 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
         [JsonPropertyName("shortlistId")]
         public int shortlist_id { get; set; }
 
-        [JsonPropertyName("applicantId")]
+        [JsonPropertyName("applicationId")]
         public int Application_id { get; set; }
 
         [JsonPropertyName("empId")]
@@ -20,6 +20,9 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
 
         [JsonPropertyName("interviewDate")]
         public DateTime interview_date { get; set; }
+
+        [JsonPropertyName("interviewTime")]
+        public TimeSpan interview_time { get; set; }
 
         [JsonPropertyName("status")]
         public string status { get; set; }
