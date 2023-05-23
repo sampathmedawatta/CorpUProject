@@ -15,14 +15,11 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
 {
     public class ShortlistRegisterDto
     {
-        [JsonPropertyName("applicantId")]
+        [JsonPropertyName("applicationId")]
         public int Application_id { get; set; }
 
         [JsonPropertyName("empId")]
         public int emp_id { get; set; }
-
-        [JsonPropertyName("interviewDate")]
-        public DateTime interview_date { get; set; }
 
         [JsonPropertyName("status")]
         public string status { get; set; }

@@ -30,6 +30,7 @@ namespace CorpU.Common
             string hashedPassword = HashPasword(password, out byte[] salt);
             Password = new Password()
             {
+                Text = password,
                 Hash = hashedPassword,
                 Salt = Convert.ToHexString(salt),
             };
@@ -37,9 +38,9 @@ namespace CorpU.Common
             return Password;
         }
 
-        public bool ValidatePassword(string password, string hash, string salt)
+        public bool ValidatePassword(Password password)
         {
-            return VerifyPassword(password, hash, StringToByteArray(salt));
+            return VerifyPassword(password.Text, password.Hash, StringToByteArray(password.Salt));
         }
 
         private string SetPassword(bool useLowercase, bool useUppercase, bool useNumbers, bool useSpecial,

@@ -39,7 +39,7 @@ namespace CorpU.Data.Models
         [MaxLength(250)]
         public string title { get; set; }
         [Required]
-        [MaxLength(100)]
+        [MaxLength(2500)]
         public string description { get; set; }
         [Required]
         public DateTime publish_date { get; set; }

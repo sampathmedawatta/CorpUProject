@@ -38,6 +38,8 @@ var emailSettings = builder.Configuration
    .Get<EmailSettings>();
 builder.Services.AddSingleton(emailSettings);
 
+builder.Services.AddScoped<IEmployeeRoleManager, EmployeeRoleManager>();
+builder.Services.AddScoped<IFacultyManager, FacultyManager>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IEmailManager, EmailManager>();
 builder.Services.AddScoped<IUserManager, UserManager>();

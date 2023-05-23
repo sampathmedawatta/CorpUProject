@@ -74,14 +74,13 @@ namespace CorpU.Business
             var application = await GetByApplicantIdAsync(applicationDto.applicant_id);
             return application;
         }
+
         public async Task<OperationResult> UpdateApplicationAsync(ApplicationUpdateDto entity)
         {
             try
             {
                 ApplicationDto applicationDto = new ApplicationDto();
                 applicationDto.Application_id=entity.Application_id;
-                applicationDto.applicant_id=entity.applicant_id;
-                applicationDto.resume_url = entity.resume_url;
                 applicationDto.status=entity.status;
 
                 var applicationReuslt = await _unitOfWork.Application.Update(applicationDto);
