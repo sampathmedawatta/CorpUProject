@@ -15,6 +15,7 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        IOfferRepository<OfferDetailDto> Offer { get; }
         IShortlistRepository<ShortlistDetailDto> Shortlist { get; }
         IApplicationRepository<ApplicationDto> Application {  get; }
         IClassTypeRepository<ClassTypeDto> ClassType { get; }
