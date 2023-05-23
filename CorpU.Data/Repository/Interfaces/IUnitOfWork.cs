@@ -16,6 +16,7 @@ namespace CorpU.Data.Repository.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IFacultyRepository<FacultyDto> Faculty { get; }
+        IEmployeeRoleRepository<EmployeeRoleDto> EmployeeRole { get; }
         IShortlistRepository<ShortlistDetailDto> Shortlist { get; }
         IApplicationRepository<ApplicationDto> Application {  get; }
         IClassTypeRepository<ClassTypeDto> ClassType { get; }
@@ -30,6 +31,7 @@ namespace CorpU.Data.Repository.Interfaces
         IApplicantQualificationRepository<ApplicantQualificationDto> ApplicantQualification { get; }
         IQualificationRepository<QualificationTypeDto> Qualifications { get; }
         IUserRepository<UserDto> Users { get; }
+
         int Complete();
 
     }
