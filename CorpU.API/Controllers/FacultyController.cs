@@ -63,42 +63,42 @@ namespace CorpU.API.Controllers
 
 
 
-        //[HttpGet("All")]
-        //public async Task<ActionResult> GetAllFaculty()
-        //{
-        //    try
-        //    {
-        //        IEnumerable<FacultyDto> facultyList = await _facultyManager.GetAllAsync();
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllFaculty()
+        {
+            try
+            {
+                IEnumerable<FacultyDto> facultyList = await _facultyManager.GetAllAsync();
 
 
 
-        //        if (facultyList == null)
-        //        {
-        //            _or = new OperationResult
-        //            {
-        //                Message = "Faculty details not found!",
-        //                StatusCode = (int)HttpStatusCode.NotFound,
-        //                Data = null
-        //            };
-        //        }
-        //        _or = new OperationResult
-        //        {
-        //            Message = "Faculty details",
-        //            StatusCode = (int)HttpStatusCode.InternalServerError,
-        //            Data = facultyList
-        //        };
-        //    }
-           // catch (Exception ex)
-        //    {
-        //        _or = new OperationResult
-        //        {
-        //            Message = "Error: failed.",
-        //            StatusCode = (int)HttpStatusCode.InternalServerError,
-        //            Data = null
-        //        };
-        //        _logger.LogError("Error: failed.", _or);
-        //    }
-        //    return Ok(_or);
-        //}
+                if (facultyList == null)
+                {
+                    _or = new OperationResult
+                    {
+                        Message = "Faculty details not found!",
+                        StatusCode = (int)HttpStatusCode.NotFound,
+                        Data = null
+                    };
+                }
+                _or = new OperationResult
+                {
+                    Message = "Faculty details",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = facultyList
+                };
+            }
+            catch (Exception ex)
+            {
+                _or = new OperationResult
+                {
+                    Message = "Error: failed.",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                    Data = null
+                };
+                _logger.LogError("Error: failed.", _or);
+            }
+            return Ok(_or);
+        }
     }
 }
