@@ -31,7 +31,7 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         [JsonPropertyName("applicant")]
         public ApplicantDto applicant { get; set; }
 
-        [JsonPropertyName("Qualification")]
+        [JsonPropertyName("qualificationType")]
 
         public QualificationTypeDto qualificationType { get; set; }
     }
