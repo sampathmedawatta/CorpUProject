@@ -66,29 +66,29 @@ namespace CorpU.Business
 
         }
 
-        //public async Task<IEnumerable<EmployeeRoleDto>> GetAllAsync()
+        public async Task<IEnumerable<EmployeeRoleDto>> GetAllAsync()
 
-        //{
+        {
 
-        //    try
+            try
 
-        //    {
+            {
 
-        //        return await _unitOfWork.EmployeeRole.GetAllAsync();
+                return await _unitOfWork.EmployeeRole.GetAllAsync();
 
-        //    }
+            }
 
-        //    catch (Exception ex)
+            catch (Exception ex)
 
-        //    {
+            {
 
-        //        //TODO log error and haddle the error
+                //TODO log error and haddle the error
 
-        //    }
+            }
 
-        //    return null;
+            return null;
 
-        //}
+        }
 
     }
 

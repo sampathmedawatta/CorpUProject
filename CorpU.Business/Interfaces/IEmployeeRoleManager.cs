@@ -22,7 +22,7 @@ namespace CorpU.Business.Interfaces
 
         Task<EmployeeRoleDto> GetByIdAsync(int id);
 
-        //Task<IEnumerable<EmployeeRoleDto>> GetAllAsync();
+        Task<IEnumerable<EmployeeRoleDto>> GetAllAsync();
 
     }
 
