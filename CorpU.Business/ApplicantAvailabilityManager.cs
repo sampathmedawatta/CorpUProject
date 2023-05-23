@@ -16,12 +16,14 @@ namespace CorpU.Business
         private IUnitOfWork _unitOfWork;
         readonly AuthenticationOptions _AuthenticationOptions;
         OperationResult _or;
+
         public ApplicantAvailabilityManager(IUnitOfWork unitOfWork, IEmailManager emailManager, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
             this._or = new OperationResult();
         }
+
         public async Task<ApplicantAvailabilityDto> GetByIdAsync(int Id)
         {
             try

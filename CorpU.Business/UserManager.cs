@@ -16,12 +16,14 @@ namespace CorpU.Business
         private readonly IApplicantManager applicantManager;
         readonly AuthenticationOptions _AuthenticationOptions;
         OperationResult _or;
+        Password _Password;
         public UserManager(IUnitOfWork unitOfWork, IApplicantManager applicantManager, IOptions<PasswordSettings> passwordSettings)
         {
             _unitOfWork = unitOfWork;
             this.applicantManager = applicantManager;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
             this._or = new OperationResult();
+            this._Password  = new Password();
         }
 
         public async Task<OperationResult> CreateUserAsync(UserRegisterDto entity)
@@ -140,7 +142,11 @@ namespace CorpU.Business
                 var user = await _unitOfWork.Users.GetByEmailAsync(email);
                 if (user != null)
                 {
-                    bool isPasswordCorrect = _AuthenticationOptions.ValidatePassword(password, user.password, user.salt);
+                    this._Password.Text = password;
+                    this._Password.Hash = user.password;
+                    this._Password.Salt = user.salt;
+
+                    bool isPasswordCorrect = _AuthenticationOptions.ValidatePassword(this._Password);
                     if (isPasswordCorrect)
                     {
                         _or = new OperationResult

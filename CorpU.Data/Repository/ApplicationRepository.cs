@@ -84,12 +84,10 @@ namespace CorpU.Data.Repository
             {
                 ApplicationEntity? Application = await table
                     .Where(c => c.Application_id == entity.Application_id)
-                    .Where(e => e.applicant_id == entity.applicant_id)
                     .FirstOrDefaultAsync();
 
                 if (Application != null)
                 {
-                    Application.resume_url = entity.resume_url;
                     Application.status = entity.status;
                     int excecutedRows = await this.context.SaveChangesAsync();
 
