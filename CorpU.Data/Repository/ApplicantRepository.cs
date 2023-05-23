@@ -63,12 +63,27 @@ namespace CorpU.Data.Repository
         public async Task<IEnumerable<ApplicantDto>> GetAllAsync()
         {
             try
-            {
+            { 
                 var applicantList = await table
                    .Include(u => u.User)
                    .ToListAsync();
 
                 return _mapper.Map<IEnumerable<ApplicantDto>>(applicantList);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<IEnumerable<ApplicantDto>> SearchApplicantAsync(string name)
+        {
+            try
+            {
+                var results = await table
+                    .Where(e => e.name.Contains(name))
+                    .ToListAsync();
+
+                return _mapper.Map<IEnumerable<ApplicantDto>>(results);
             }
             catch (Exception ex)
             {

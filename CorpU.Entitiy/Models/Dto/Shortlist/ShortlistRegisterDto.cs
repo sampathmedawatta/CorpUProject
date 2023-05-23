@@ -10,13 +10,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
+
 namespace CorpU.Entitiy.Models.Dto.Shortlist
 {
-    public class ShortlistDetailDto
+    public class ShortlistRegisterDto
     {
-        [JsonPropertyName("shortlistId")]
-        public int shortlist_id { get; set; }
-
         [JsonPropertyName("applicantId")]
         public int Application_id { get; set; }
 
@@ -31,11 +29,5 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
 
         [JsonPropertyName("comments")]
         public string comments { get; set; }
-
-        [JsonPropertyName("application")]
-        public ApplicationDto application { get; set; }
-
-        [JsonPropertyName("Employee")]
-        public EmployeeDto employee { get; set; }
     }
 }

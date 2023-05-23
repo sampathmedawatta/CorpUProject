@@ -9,11 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CorpU.Entitiy.Models.Dto.Unit;
+using CorpU.Entitiy.Models.Dto.Shortlist;
 
 namespace CorpU.Data.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        IShortlistRepository<ShortlistDetailDto> Shortlist { get; }
         IApplicationRepository<ApplicationDto> Application {  get; }
         IClassTypeRepository<ClassTypeDto> ClassType { get; }
         IUnitRepository<UnitDto> Unit {  get; }

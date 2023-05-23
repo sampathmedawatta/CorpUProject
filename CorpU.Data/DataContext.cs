@@ -7,7 +7,7 @@ namespace CorpU.Data
 {
     public class DataContext :DbContext
     {
-        public virtual DbSet<ApplicantEntity> Aplicants { get; set; }
+        public virtual DbSet<ApplicantEntity> Applicants { get; set; }
         public virtual DbSet<ApplicantQualificationEntiry> ApplicantQualification { get; set; }
         public virtual DbSet<ApplicantContactDetailEntity> ApplicantContactDetail { get; set; }
         public virtual DbSet<ApplicantClassPreferanceEntity> ApplicantClassPreferance { get; set; }
@@ -23,6 +23,7 @@ namespace CorpU.Data
         public virtual DbSet<UserRoleEntity> UserRole { get; set; }
         public virtual DbSet<VacancyEntity> Vacancy { get; set; }
         public virtual DbSet<VacancyTypeEntity> VacancyType { get; set; }
+        public virtual DbSet<ShortlistedApplicantEntity> Shortlist { get;set; }
 
         public readonly string _ConnectionString;
 
@@ -47,7 +48,7 @@ namespace CorpU.Data
             // Create uppdate database : EntityFrameworkCore\Update-Database
             // https://www.c-sharpcorner.com/UploadFile/26b237/code-first-migrations-in-entity-framework/
 
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-198T1MOJ;Initial Catalog=CorpU_DB_v3;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-AU3CUDFL;Initial Catalog=CorpU_DB_v3;Integrated Security=True;TrustServerCertificate=True; User Id=sa;Password=123456;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
