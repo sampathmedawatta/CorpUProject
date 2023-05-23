@@ -28,6 +28,8 @@ namespace CorpU.Data.Repository
             }
         }
 
+        public IEmployeeRoleRepository<EmployeeRoleDto> EmployeeRole { get; private set; }
+
         public IFacultyRepository<FacultyDto> Faculty { get; private set; }
 
         public IShortlistRepository<ShortlistDetailDto> Shortlist { get;private set; }
@@ -60,6 +62,7 @@ namespace CorpU.Data.Repository
             Employees = new EmployeeRepository(Context, mapper);
             Users = new UserRepository(Context, mapper);
             Faculty = new FacultyRepository(Context, mapper);
+            EmployeeRole = new EmployeeRoleRepository(Context, mapper);
         }
 
         public int Complete()
