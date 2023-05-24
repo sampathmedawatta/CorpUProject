@@ -18,11 +18,17 @@ namespace CorpU.Entitiy.Models.Dto.Shortlist
         [JsonPropertyName("empId")]
         public int emp_id { get; set; }
 
+        [JsonPropertyName("location")]
+        public string location { get; set; }
+
+        [JsonPropertyName("timeslot")]
+        public string timeslot { get; set; }
+
         [JsonPropertyName("interviewDate")]
-        public DateTime interview_date { get; set; }
+        public string interview_date { get; set; }
 
         [JsonPropertyName("interviewTime")]
-        public TimeSpan interview_time { get; set; }
+        public string interview_time { get; set; }
 
         [JsonPropertyName("status")]
         public string status { get; set; }

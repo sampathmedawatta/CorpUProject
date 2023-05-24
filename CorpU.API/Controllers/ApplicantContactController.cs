@@ -91,7 +91,7 @@ namespace CorpU.API.Controllers
             return Ok(_or);
         }
         [HttpPut("Update")]
-        public async Task<ActionResult> UpdateApplicantContact( ApplicantContactUpdateDto value)
+        public async Task<ActionResult> UpdateApplicantContact(ApplicantContactUpdateDto value)
         {
             try
             {

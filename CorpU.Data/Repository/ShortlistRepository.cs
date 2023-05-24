@@ -87,14 +87,15 @@ namespace CorpU.Data.Repository
             {
                 ShortlistedApplicantEntity? Shortlist = await table
                     .Where(c => c.shortlist_id == entity.shortlist_id)
-                    .Where(d => d.Application_id == entity.Application_id)
                     .FirstOrDefaultAsync();
 
                 if (Shortlist != null)
                 {
-                    //Shortlist.Application_id = entity.Application_id;
                     Shortlist.emp_id = entity.emp_id;
                     Shortlist.interview_date = entity.interview_date;
+                    Shortlist.interview_time = entity.interview_time;
+                    Shortlist.location = entity.location;
+                    Shortlist.timeslot = entity.timeslot;
                     Shortlist.status= entity.status;
                     Shortlist.comments = entity.comments;
 

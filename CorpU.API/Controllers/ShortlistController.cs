@@ -124,8 +124,8 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
-        [HttpPost("Update")]
-        public async Task<ActionResult> UpdateShortlist([FromQuery] ShortlistUpdateDto value)
+        [HttpPut("Update")]
+        public async Task<ActionResult> UpdateShortlist(ShortlistUpdateDto value)
         {
             try
             {

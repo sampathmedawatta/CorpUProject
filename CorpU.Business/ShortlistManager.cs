@@ -59,8 +59,11 @@ namespace CorpU.Business
             {
                 Application_id = entity.Application_id,
                 emp_id = entity.emp_id,
-                interview_date = DateTime.Now,
                 status = entity.status,
+                interview_date = "",
+                interview_time = "",
+                location = "",
+                timeslot = "",
                 comments = entity.comments
             };
 
@@ -89,12 +92,27 @@ namespace CorpU.Business
                 shortlistDto.Application_id = entity.Application_id;
                 shortlistDto.emp_id = entity.emp_id;
                 shortlistDto.interview_date= entity.interview_date;
+                shortlistDto.interview_time = entity.interview_time;
+                shortlistDto.location = entity.location;
+                shortlistDto.timeslot = entity.timeslot;
                 shortlistDto.status = entity.status;    
                 shortlistDto.comments = entity.comments;
 
                 var shortlistReuslt = await _unitOfWork.Shortlist.Update(shortlistDto);
 
                 var applicant = await GetShortlistByApplicationId(shortlistDto.Application_id);
+
+
+                if (shortlistReuslt > 0)
+                {
+                    ApplicationUpdateDto applicationDto = new()
+                    {
+                        Application_id = entity.Application_id,
+                        status = entity.status
+                    };
+
+                    await _applicationManager.UpdateApplicationAsync(applicationDto);
+                }
 
                 _or = new OperationResult
                 {
