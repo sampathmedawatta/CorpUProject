@@ -15,7 +15,7 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         public int applicant_id { get; set;}
 
         [JsonPropertyName("phone")]
-        public int phone { get; set; }
+        public string phone { get; set; }
         [JsonPropertyName("addressLine1")]
         public string address_line1 { get; set; }
         [JsonPropertyName("addressLine2")]
@@ -24,6 +24,7 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         public string state { get; set; }
         [JsonPropertyName("postcode")]
         public int postcode { get; set; }
+        
         [JsonPropertyName("applicant")]
         public ApplicantDto applicant { get; set; }
     }

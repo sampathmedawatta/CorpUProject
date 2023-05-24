@@ -22,9 +22,13 @@ namespace CorpU.Data.Models
         [ForeignKey("emp_id")]
         public EmployeeEntity employee { get; set; }
         
-        public DateTime interview_date { get;set; }
+        public string location { get; set; }
 
-        public TimeSpan interview_time { get;set; }
+        public string timeslot { get; set; }
+
+        public string interview_date { get;set; }
+
+        public string interview_time { get;set; }
 
         [Required]
         public string status { get; set; }

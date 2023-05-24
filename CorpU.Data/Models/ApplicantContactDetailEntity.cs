@@ -19,7 +19,8 @@ namespace CorpU.Data.Models
         [ForeignKey("applicant_id")]
         public ApplicantEntity Applicant { get; set; }
         [Required]
-        public int phone { get; set; }
+        [MaxLength(14)]
+        public string phone { get; set; }
         [Required]
         [MaxLength(250)]
         public string address_line1 { get; set; }

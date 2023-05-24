@@ -35,6 +35,21 @@ namespace CorpU.Common.Communication
             }
         }
 
+        public async Task SendInterviewEmailAsync(Message message)
+        {
+            try
+            {
+                var emailMessage = CreateEmailMessage(message);
+                await SendAsync(emailMessage);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        
+
         private MimeMessage CreateEmailMessage(Message message)
         {
             var adminEmails = _emailSettings.AdminEmails;
@@ -56,6 +71,11 @@ namespace CorpU.Common.Communication
             if (message.Data.GetType() == typeof(EmailDto))
             {
                 var dataObject = (EmailDto)message.Data;
+                returnVal.Add(new MailboxAddress(dataObject.Name, dataObject.ToEmail));
+            }
+            else if (message.Data.GetType() == typeof(EmailInterviewDto))
+            {
+                var dataObject = (EmailInterviewDto)message.Data;
                 returnVal.Add(new MailboxAddress(dataObject.Name, dataObject.ToEmail));
             }
             else
@@ -91,6 +111,21 @@ namespace CorpU.Common.Communication
                     dataObject.UserDto.email,
                     dataObject.UserDto.password,
                     dataObject.EmployeeDto.employeeRole.role_name
+                    );
+            }
+            else if (message.Data.GetType() == typeof(EmailInterviewDto))
+            {
+                var dataObject = (EmailInterviewDto)message.Data;
+                using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
+                {
+                    builder.HtmlBody = SourceReader.ReadToEnd();
+                }
+
+                messageBody = string.Format(builder.HtmlBody,
+                    dataObject.ApplicantDto.name,
+                    dataObject.ShortlistDetailDto.location,
+                    dataObject.ShortlistDetailDto.interview_date,
+                    dataObject.ShortlistDetailDto.interview_time
                     );
             }
 

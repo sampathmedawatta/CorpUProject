@@ -6,6 +6,7 @@ using CorpU.Entitiy.Models;
 using CorpU.Entitiy.Models.Communication;
 using CorpU.Entitiy.Models.Dto.Applicant;
 using CorpU.Entitiy.Models.Dto.Employee;
+using CorpU.Entitiy.Models.Dto.Shortlist;
 using CorpU.Entitiy.Models.Dto.User;
 using Microsoft.Extensions.Options;
 using System;
@@ -28,6 +29,29 @@ namespace CorpU.Business
             _emailSender = emailSender;
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<OperationResult> SendInterviewScheduleEmail(ShortlistDetailDto shortlistDetailDto, ApplicantDto userDto)
+        {
+            var emailDto = new EmailInterviewDto
+            {
+                ToEmail = userDto.email,
+                Name = userDto.name,
+                ApplicantDto = userDto,
+                ShortlistDetailDto = shortlistDetailDto
+            };
+
+            await SendInterviewEmail(emailDto);
+
+            _or = new OperationResult
+            {
+                Message = "Email sent successfully",
+                StatusCode = (int)HttpStatusCode.OK,
+                Data = null
+            };
+
+            return _or;
+        }
+
         public async Task<OperationResult> SendAccountSuccessfulEmail_Employee(EmployeeDto employeeDto, UserDto userDto)
         {
             var emailDto = new EmailDto
@@ -75,6 +99,12 @@ namespace CorpU.Business
         {
             var message = new Message(subject: "Account Activation", templateName: "ActivateAccount.html", data: emailDto);
             await _emailSender.SendEmailAsync(message);
+        }
+
+        private async Task SendInterviewEmail(EmailInterviewDto emailDto)
+        {
+            var message = new Message(subject: "Account Activation", templateName: "ActivateAccount.html", data: emailDto);
+            await _emailSender.SendInterviewEmailAsync(message);
         }
     }
 }
