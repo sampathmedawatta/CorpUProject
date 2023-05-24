@@ -9,5 +9,6 @@ namespace CorpU.Common.Communication
     public interface IEmailSender
     {
         Task SendEmailAsync(Message message);
+        Task SendInterviewEmailAsync(Message message);
     }
 }

@@ -18,13 +18,21 @@ namespace CorpU.Business
     public class ShortlistManager: IShortlistManager
     {
         private IUnitOfWork _unitOfWork;
+        private readonly IEmailManager _emailManager;
+        private readonly IApplicantManager applicantManager;
         private readonly IApplicationManager _applicationManager;
         readonly AuthenticationOptions _AuthenticationOptions;
         OperationResult _or;
-        public ShortlistManager(IUnitOfWork unitOfWork, IOptions<PasswordSettings> passwordSettings, IApplicationManager ApplicationManager)
+        public ShortlistManager(IUnitOfWork unitOfWork, 
+            IOptions<PasswordSettings> passwordSettings, 
+            IApplicationManager ApplicationManager, 
+            IEmailManager emailManager,
+            IApplicantManager applicantManager)
         {
             _unitOfWork = unitOfWork;
             _applicationManager = ApplicationManager;
+            this._emailManager = emailManager;
+            this.applicantManager = applicantManager;
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
             this._or = new OperationResult();
         }
@@ -100,7 +108,7 @@ namespace CorpU.Business
 
                 var shortlistReuslt = await _unitOfWork.Shortlist.Update(shortlistDto);
 
-                var applicant = await GetShortlistByApplicationId(shortlistDto.Application_id);
+                var shortlist = await GetShortlistByApplicationId(shortlistDto.Application_id);
 
 
                 if (shortlistReuslt > 0)
@@ -112,13 +120,16 @@ namespace CorpU.Business
                     };
 
                     await _applicationManager.UpdateApplicationAsync(applicationDto);
+
+                    //TODO Get applicant data aand send it to email
+                   // await _emailManager.SendInterviewScheduleEmail(shortlist, null);
                 }
 
                 _or = new OperationResult
                 {
                     Message = "Shortlist successfully updated.",
                     StatusCode = (int)HttpStatusCode.OK,
-                    Data = applicant
+                    Data = shortlist
                 };
             }
             catch (Exception ex)
