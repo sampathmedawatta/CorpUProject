@@ -19,7 +19,7 @@ namespace CorpU.Data.Profiles
             CreateMap<ApplicantAvailabilityEntity, ApplicantAvailabilityDto>()
             .ForPath(dest =>
             dest.applicant.applicant_id,
-            opt => opt.MapFrom(src => src.Applicant.applicant_id));
+            opt => opt.MapFrom(src => src.applicant.applicant_id));
 
             //Set
             CreateMap<ApplicantAvailabilityDto, ApplicantAvailabilityEntity>();

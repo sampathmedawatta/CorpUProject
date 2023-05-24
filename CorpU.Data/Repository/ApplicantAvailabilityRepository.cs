@@ -37,7 +37,7 @@ namespace CorpU.Data.Repository
             try
             {
                 var applicantAvailabilityList = await table
-                   .Include(u => u.Applicant)
+                   .Include(u => u.applicant)
                    .ToListAsync();
 
                 return _mapper.Map<IEnumerable<ApplicantAvailabilityDto>>(applicantAvailabilityList);
@@ -53,8 +53,8 @@ namespace CorpU.Data.Repository
             try
             {
                 var applicantAvailability = await table
-                    .Where(e => e.Applicant.applicant_id == id)
-                    .Include(u => u.Applicant)
+                    .Where(e => e.applicant_id == id)
+                    .Include(u => u.applicant)
                     .FirstOrDefaultAsync();
 
                 return _mapper.Map<ApplicantAvailabilityEntity, ApplicantAvailabilityDto>(applicantAvailability);
@@ -95,8 +95,12 @@ namespace CorpU.Data.Repository
 
                 if (ApplicantAvailability != null)
                 {
-                    ApplicantAvailability.start_date = entity.start_date;
-                    ApplicantAvailability.end_date = entity.end_date;
+                    ApplicantAvailability.monday = entity.monday;
+                    ApplicantAvailability.tuesday = entity.tuesday;
+                    ApplicantAvailability.wednesday = entity.wednesday;
+                    ApplicantAvailability.thursday = entity.thursday;
+                    ApplicantAvailability.friday = entity.friday;
+
                     int excecutedRows = await this.context.SaveChangesAsync();
 
                     return excecutedRows;
