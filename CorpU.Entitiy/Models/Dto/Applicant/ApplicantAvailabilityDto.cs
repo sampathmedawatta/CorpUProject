@@ -12,14 +12,20 @@ namespace CorpU.Entitiy.Models.Dto.Applicant
         [JsonPropertyName("appAvailabilityId")]
         public int app_availability_id { get; set; }
 
-        [JsonPropertyName("applicant_id")]
+        [JsonPropertyName("applicantId")]
         public int applicant_id { get; set; }
 
-        [JsonPropertyName("startDate")]
-        public DateTime start_date { get; set; }
-        
-        [JsonPropertyName("endDate")]
-        public DateTime end_date { get; set; }
+        [JsonPropertyName("monday")]
+        public string monday { get; set; }
+        [JsonPropertyName("tuesday")]
+        public string tuesday { get; set; }
+        [JsonPropertyName("wednesday")]
+        public string wednesday { get; set; }
+        [JsonPropertyName("thursday")]
+        public string thursday { get; set; }
+        [JsonPropertyName("friday")]
+        public string friday { get; set; }
+
         [JsonPropertyName("applicant")]
         public ApplicantDto applicant { get; set; }
 

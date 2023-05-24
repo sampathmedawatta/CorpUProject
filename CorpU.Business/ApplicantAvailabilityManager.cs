@@ -53,8 +53,11 @@ namespace CorpU.Business
         {
             ApplicantAvailabilityDto applicantavailabilityDto = new ApplicantAvailabilityDto();
             applicantavailabilityDto.applicant_id=entity.applicant_id;
-            applicantavailabilityDto.start_date=entity.start_date;
-            applicantavailabilityDto.end_date=entity.end_date;
+            applicantavailabilityDto.monday = entity.monday;
+            applicantavailabilityDto.tuesday = entity.tuesday;
+            applicantavailabilityDto.wednesday = entity.wednesday;
+            applicantavailabilityDto.thursday = entity.thursday;
+            applicantavailabilityDto.friday = entity.friday;
 
             var applicantReuslt = await _unitOfWork.ApplicantAvailability.Insert(applicantavailabilityDto);
 
@@ -68,8 +71,12 @@ namespace CorpU.Business
                 ApplicantAvailabilityDto applicantAvailabilityDto = new ApplicantAvailabilityDto();
                 applicantAvailabilityDto.app_availability_id = entity.app_availability_id;
                 applicantAvailabilityDto.applicant_id = entity.applicant_id;
-                applicantAvailabilityDto.start_date = entity.start_date;
-                applicantAvailabilityDto.end_date = entity.end_date;
+                applicantAvailabilityDto.monday = entity.monday;
+                applicantAvailabilityDto.tuesday = entity.tuesday;
+                applicantAvailabilityDto.wednesday = entity.wednesday;
+                applicantAvailabilityDto.thursday = entity.thursday;
+                applicantAvailabilityDto.friday = entity.friday;
+
                 var applicantReuslt = await _unitOfWork.ApplicantAvailability.Update(applicantAvailabilityDto);
 
                 var applicant = await GetByIdAsync(applicantAvailabilityDto.applicant_id);

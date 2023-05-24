@@ -127,8 +127,9 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
-        [HttpPost("Update")]
-        public async Task<ActionResult> UpdateApplicantAvailability([FromQuery] ApplicantAvailabilityUpdateDto value)
+
+        [HttpPut("Update")]
+        public async Task<ActionResult> UpdateApplicantAvailability(ApplicantAvailabilityUpdateDto value)
         {
             try
             {

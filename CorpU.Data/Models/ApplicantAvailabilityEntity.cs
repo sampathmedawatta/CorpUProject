@@ -15,11 +15,19 @@ namespace CorpU.Data.Models
         public int app_availability_id { get; set; }
         [Required]
         public int applicant_id { get; set; }
+
         [ForeignKey("applicant_id")]
-        public ApplicantEntity Applicant { get; set; }
-        [Required]
-        public DateTime start_date { get; set; }
-        [Required]
-        public DateTime end_date { get; set; }
+        public ApplicantEntity applicant { get; set; }
+        [MaxLength(10)]
+        public string monday { get; set; }
+        [MaxLength(10)]
+        public string tuesday { get; set; }
+        [MaxLength(10)]
+        public string wednesday { get; set; }
+        [MaxLength(10)]
+        public string thursday { get; set; }
+        [MaxLength(10)]
+        public string friday { get; set; }
+        
     }
 }
