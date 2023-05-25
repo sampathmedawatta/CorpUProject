@@ -101,7 +101,7 @@ namespace CorpU.Data.Repository
             return 0;
         }
 
-        public async Task<ApplicationDto> GetByApplicantIdAsync(int id)
+        public async Task<IEnumerable<ApplicationDto>> GetByApplicantIdAsync(int id)
         {
             try
             {
@@ -109,9 +109,10 @@ namespace CorpU.Data.Repository
                     .Where(e => e.applicant_id == id)
                      .Include(c => c.vacancy)
                     .Include(u => u.Applicant)
-                    .FirstOrDefaultAsync();
+                    .ToListAsync();
 
-                return _mapper.Map<ApplicationEntity, ApplicationDto>(application);
+                return _mapper.Map<IEnumerable<ApplicationDto>>(application);
+              //  return _mapper.Map<ApplicationEntity, ApplicationDto>(application);
             }
             catch (Exception ex)
             {
