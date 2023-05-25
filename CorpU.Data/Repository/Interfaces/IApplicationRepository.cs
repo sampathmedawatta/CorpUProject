@@ -9,7 +9,7 @@ namespace CorpU.Data.Repository.Interfaces
 {
     public interface IApplicationRepository<T> : IRepository<T> where T : class
     {
-        Task<T> GetByApplicantIdAsync(int id);
+        Task<IEnumerable<T>> GetByApplicantIdAsync(int id);
         Task<T> GetByApplicationIdAsync(int id);
     }
 }

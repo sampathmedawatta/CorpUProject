@@ -96,6 +96,8 @@ namespace CorpU.API.Controllers
 
             return Ok(_or);
         }
+
+
         [HttpGet("GetByApplicantId")]
         public async Task<ActionResult> GetByApplicantId(int id)
         {

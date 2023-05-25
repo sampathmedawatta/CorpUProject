@@ -23,7 +23,7 @@ namespace CorpU.Business
             _AuthenticationOptions = new AuthenticationOptions(passwordSettings.Value);
             this._or = new OperationResult();
         }
-        public async Task<ApplicationDto> GetByApplicantIdAsync(int Id)
+        public async Task<IEnumerable<ApplicationDto>> GetByApplicantIdAsync(int Id)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace CorpU.Business
             }
             return null;
         }
-        public async Task<ApplicationDto> CreateApplicationAsync(ApplicationRegisterDto entity)
+        public async Task<IEnumerable<ApplicationDto>> CreateApplicationAsync(ApplicationRegisterDto entity)
         {
             ApplicationDto applicationDto = new ApplicationDto();
             applicationDto.applicant_id = entity.applicant_id;

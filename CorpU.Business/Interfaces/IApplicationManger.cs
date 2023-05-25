@@ -13,9 +13,10 @@ namespace CorpU.Business.Interfaces
     public interface IApplicationManager : IBaseManager
     {
         Task<IEnumerable<ApplicationDto>> GetAllAsync();
-        Task<ApplicationDto> GetByApplicantIdAsync(int id);
+        Task<IEnumerable<ApplicationDto>> GetByApplicantIdAsync(int id);
+
         Task<ApplicationDto> GetByApplicationIdAsync(int id);
-        Task<ApplicationDto> CreateApplicationAsync(ApplicationRegisterDto entity);
+        Task<IEnumerable<ApplicationDto>> CreateApplicationAsync(ApplicationRegisterDto entity);
         Task<OperationResult> UpdateApplicationAsync(ApplicationUpdateDto entity);
     }
 }
